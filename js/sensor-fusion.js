@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════════
-   IDRN — Deterministic GNSS + INS Sensor Fusion Engine
+   NavDR — Deterministic GNSS + INS Sensor Fusion Engine
    SIH 2026 Problem Statement 26168
    ═══════════════════════════════════════════════════════ */
 
-window.IDRN = window.IDRN || {};
+window.NavDR = window.NavDR || {};
 
-IDRN.SensorFusion = {
+NavDR.SensorFusion = {
     // ── Module State ──
     enabled: true,
     _running: true,
@@ -54,7 +54,7 @@ IDRN.SensorFusion = {
      * Initialize SensorFusion engine
      */
     initialize() {
-        this.enabled = IDRN.Config.SENSOR_FUSION ? IDRN.Config.SENSOR_FUSION.ENABLED : true;
+        this.enabled = NavDR.Config.SENSOR_FUSION ? NavDR.Config.SENSOR_FUSION.ENABLED : true;
         this.reset();
         console.log('[SensorFusion] Engine initialized with adaptive weighted fusion baseline.');
     },
@@ -114,8 +114,8 @@ IDRN.SensorFusion = {
      */
     setEnabled(enabled) {
         this.enabled = !!enabled;
-        if (IDRN.Notifications) {
-            IDRN.Notifications.show(`GNSS + INS Sensor Fusion: ${this.enabled ? 'ENABLED' : 'DISABLED'}`, 'info', 2000);
+        if (NavDR.Notifications) {
+            NavDR.Notifications.show(`GNSS + INS Sensor Fusion: ${this.enabled ? 'ENABLED' : 'DISABLED'}`, 'info', 2000);
         }
     },
 
@@ -126,8 +126,8 @@ IDRN.SensorFusion = {
         this.gnssOutlierDetected = true;
         this._outlierEndTime = performance.now() + 4000; // Active for 4 seconds
         this._manualOutlierOffset = magnitudeMeters;
-        if (IDRN.Notifications) {
-            IDRN.Notifications.show('GNSS Position Outlier Detected — INS Protection Active', 'warning', 4000);
+        if (NavDR.Notifications) {
+            NavDR.Notifications.show('GNSS Position Outlier Detected — INS Protection Active', 'warning', 4000);
         }
         console.log('[SensorFusion] Injected GNSS outlier of', magnitudeMeters, 'meters');
     },
@@ -138,7 +138,7 @@ IDRN.SensorFusion = {
     update(gnssData, drState, mapMatchState, sensorData, dt) {
         if (!this._running || !dt || dt <= 0) return this.getState();
 
-        const C = IDRN.Config;
+        const C = NavDR.Config;
         const SF = C.SENSOR_FUSION || {
             ENABLED: true,
             GNSS_BASE_WEIGHT: 0.70,
@@ -162,8 +162,8 @@ IDRN.SensorFusion = {
         if (this.gnssOutlierDetected && now > this._outlierEndTime) {
             this.gnssOutlierDetected = false;
             this._manualOutlierOffset = null;
-            if (IDRN.Notifications && isGnssAvail) {
-                IDRN.Notifications.show('GNSS Signal Consistent — Outlier Cleared', 'info', 2500);
+            if (NavDR.Notifications && isGnssAvail) {
+                NavDR.Notifications.show('GNSS Signal Consistent — Outlier Cleared', 'info', 2500);
             }
         }
 
@@ -181,8 +181,8 @@ IDRN.SensorFusion = {
         const mapMatched = mapMatchState && mapMatchState.enabled && mapMatchState.status === 'MATCHED';
 
         // Compute GNSS Innovation (discrepancy between GNSS and INS/fused position)
-        if (isGnssAvail && IDRN.Geo) {
-            this.innovationMeters = parseFloat(IDRN.Geo.haversine(
+        if (isGnssAvail && NavDR.Geo) {
+            this.innovationMeters = parseFloat(NavDR.Geo.haversine(
                 effectiveGnssPos.lat, effectiveGnssPos.lon,
                 drPos.lat, drPos.lon
             ).toFixed(1));
@@ -203,8 +203,8 @@ IDRN.SensorFusion = {
                 this.fusionMode = 'GNSS_OUTAGE';
                 this.navigationMode = 'DEAD_RECKONING';
                 this._outageDurationMs = 0;
-                if (IDRN.Notifications) {
-                    IDRN.Notifications.show('GNSS Signal Lost — INS Fusion Active', 'warning', 3500);
+                if (NavDR.Notifications) {
+                    NavDR.Notifications.show('GNSS Signal Lost — INS Fusion Active', 'warning', 3500);
                 }
             }
             this._outageDurationMs += dt * 1000;
@@ -240,8 +240,8 @@ IDRN.SensorFusion = {
             this.fusionMode = 'RECOVERY';
             this.navigationMode = 'GNSS_RECOVERY';
             this._recoveryStartTime = now;
-            if (IDRN.Notifications) {
-                IDRN.Notifications.show('GNSS Signal Restored — Fusion Recovery Active', 'info', 3500);
+            if (NavDR.Notifications) {
+                NavDR.Notifications.show('GNSS Signal Restored — Fusion Recovery Active', 'info', 3500);
             }
         }
 
@@ -268,8 +268,8 @@ IDRN.SensorFusion = {
             if (progress >= 1.0) {
                 this.fusionMode = 'GNSS_DOMINANT';
                 this.navigationMode = 'GNSS';
-                if (IDRN.Notifications) {
-                    IDRN.Notifications.show('GNSS Fusion Recovery Complete', 'success', 3000);
+                if (NavDR.Notifications) {
+                    NavDR.Notifications.show('GNSS Fusion Recovery Complete', 'success', 3000);
                 }
             }
         } else if (isGnssAvail && !this.gnssOutlierDetected && this.fusionMode !== 'RECOVERY') {
@@ -331,7 +331,7 @@ IDRN.SensorFusion = {
             const prevFused = { ...this.fusedPosition };
             this.fusedPosition = { lat: parseFloat(fusedLat.toFixed(6)), lon: parseFloat(fusedLon.toFixed(6)) };
 
-            this.correctionMeters = IDRN.Geo ? parseFloat(IDRN.Geo.haversine(
+            this.correctionMeters = NavDR.Geo ? parseFloat(NavDR.Geo.haversine(
                 prevFused.lat, prevFused.lon,
                 this.fusedPosition.lat, this.fusedPosition.lon
             ).toFixed(1)) : 0;
@@ -392,10 +392,10 @@ IDRN.SensorFusion = {
         const refLat = gnssData ? gnssData.lat : this.fusedPosition.lat;
         const refLon = gnssData ? gnssData.lon : this.fusedPosition.lon;
 
-        this.gnssDeviationMeters = IDRN.Geo ? parseFloat(IDRN.Geo.haversine(refLat, refLon, effectiveGnssPos.lat, effectiveGnssPos.lon).toFixed(1)) : 0;
-        this.rawDRDeviationMeters = IDRN.Geo ? parseFloat(IDRN.Geo.haversine(refLat, refLon, drPos.lat, drPos.lon).toFixed(1)) : 0;
-        this.mapMatchedDeviationMeters = IDRN.Geo ? parseFloat(IDRN.Geo.haversine(refLat, refLon, mapPos.lat, mapPos.lon).toFixed(1)) : 0;
-        this.fusedDeviationMeters = IDRN.Geo ? parseFloat(IDRN.Geo.haversine(refLat, refLon, this.fusedPosition.lat, this.fusedPosition.lon).toFixed(1)) : 0;
+        this.gnssDeviationMeters = NavDR.Geo ? parseFloat(NavDR.Geo.haversine(refLat, refLon, effectiveGnssPos.lat, effectiveGnssPos.lon).toFixed(1)) : 0;
+        this.rawDRDeviationMeters = NavDR.Geo ? parseFloat(NavDR.Geo.haversine(refLat, refLon, drPos.lat, drPos.lon).toFixed(1)) : 0;
+        this.mapMatchedDeviationMeters = NavDR.Geo ? parseFloat(NavDR.Geo.haversine(refLat, refLon, mapPos.lat, mapPos.lon).toFixed(1)) : 0;
+        this.fusedDeviationMeters = NavDR.Geo ? parseFloat(NavDR.Geo.haversine(refLat, refLon, this.fusedPosition.lat, this.fusedPosition.lon).toFixed(1)) : 0;
 
         // ── 6. Record Fused Trajectory ──
         const trajInterval = SF.TRAJECTORY_INTERVAL_MS || 100;

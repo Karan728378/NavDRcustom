@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   IDRN — Navigation Engine
+   NavDR — Navigation Engine
    Sensor Simulation, Dead Reckoning, Map Matching, Fusion
    ═══════════════════════════════════════════════════════ */
 
@@ -9,7 +9,7 @@
 // Designed to be replaceable with real smartphone sensors.
 // ════════════════════════════════════════════════════
 
-IDRN.Sensors = {
+NavDR.Sensors = {
     // Current sensor readings
     accelerometer: { x: 0, y: 0, z: 9.81 },
     gyroscope: { x: 0, y: 0, z: 0 },
@@ -28,8 +28,8 @@ IDRN.Sensors = {
         this.accelerometer.z = 9.81 + magnitude;
         this.accelerometer.x += (Math.random() - 0.5) * 3.0;
 
-        if (IDRN.SensorProcessor && typeof IDRN.SensorProcessor.triggerManualShock === 'function') {
-            IDRN.SensorProcessor.triggerManualShock(magnitude);
+        if (NavDR.SensorProcessor && typeof NavDR.SensorProcessor.triggerManualShock === 'function') {
+            NavDR.SensorProcessor.triggerManualShock(magnitude);
         }
     },
 
@@ -40,7 +40,7 @@ IDRN.Sensors = {
      * @param {number} dt - Time step in seconds
      */
     update(speedMs, heading, dt) {
-        const C = IDRN.Config;
+        const C = NavDR.Config;
         const preset = C.NOISE_PRESETS[C.currentNoiseLevel] || C.NOISE_PRESETS.MEDIUM;
 
         const accelNoise = preset.accel;
@@ -145,7 +145,7 @@ IDRN.Sensors = {
 // when GNSS is unavailable.
 // ════════════════════════════════════════════════════
 
-IDRN.DeadReckoning = {
+NavDR.DeadReckoning = {
     // Estimated state
     lat: 0,
     lng: 0,
@@ -169,8 +169,8 @@ IDRN.DeadReckoning = {
         this.speed = speed;
         this.cumulativeDrift = 0;
         this.distanceTravelled = 0;
-        this._headingBias = (Math.random() - 0.5) * IDRN.Config.DR_HEADING_BIAS * 2;
-        this._speedBias = (Math.random() - 0.5) * IDRN.Config.DR_SPEED_BIAS * 2;
+        this._headingBias = (Math.random() - 0.5) * NavDR.Config.DR_HEADING_BIAS * 2;
+        this._speedBias = (Math.random() - 0.5) * NavDR.Config.DR_SPEED_BIAS * 2;
         this._initialized = true;
     },
 
@@ -183,7 +183,7 @@ IDRN.DeadReckoning = {
     update(refHeading, refSpeed, dt) {
         if (!this._initialized) return;
 
-        const C = IDRN.Config;
+        const C = NavDR.Config;
 
         // AI Speed Estimation (simulated): reference speed + bias + noise
         this.speed = refSpeed * (1 + this._speedBias) +
@@ -203,7 +203,7 @@ IDRN.DeadReckoning = {
         this.distanceTravelled += dist;
 
         // Update position
-        const newPos = IDRN.Geo.movePoint(this.lat, this.lng, dist, this.heading);
+        const newPos = NavDR.Geo.movePoint(this.lat, this.lng, dist, this.heading);
         this.lat = newPos.lat;
         this.lng = newPos.lng;
     },
@@ -245,7 +245,7 @@ IDRN.DeadReckoning = {
 // Constrains estimated position to the road network.
 // ════════════════════════════════════════════════════
 
-IDRN.MapMatching = {
+NavDR.MapMatching = {
     /**
      * Constrain a position toward the nearest road point.
      * @param {number} lat - Estimated latitude
@@ -253,8 +253,8 @@ IDRN.MapMatching = {
      * @returns {{lat, lng, corrected: boolean, distFromRoad: number}}
      */
     constrain(lat, lng) {
-        const C = IDRN.Config;
-        const nearest = IDRN.Route.nearestPointOnRoute(lat, lng);
+        const C = NavDR.Config;
+        const nearest = NavDR.Route.nearestPointOnRoute(lat, lng);
 
         if (nearest.distance > C.MAP_MATCH_MAX_DIST) {
             // Too far from any road — return uncorrected
@@ -270,7 +270,7 @@ IDRN.MapMatching = {
             lat: corrLat,
             lng: corrLng,
             corrected: true,
-            distFromRoad: IDRN.Geo.haversine(corrLat, corrLng, nearest.lat, nearest.lng)
+            distFromRoad: NavDR.Geo.haversine(corrLat, corrLng, nearest.lat, nearest.lng)
         };
     }
 };
@@ -281,7 +281,7 @@ IDRN.MapMatching = {
 // Combines GNSS reference with dead reckoning estimate.
 // ════════════════════════════════════════════════════
 
-IDRN.Fusion = {
+NavDR.Fusion = {
     // Fused position output
     lat: 0,
     lng: 0,
@@ -306,7 +306,7 @@ IDRN.Fusion = {
         if (gnssAvailable) {
             if (this._isCorrepting) {
                 // Gradual correction phase after GNSS restore
-                this._correctionProgress += IDRN.Config.FUSION_CORRECTION_RATE;
+                this._correctionProgress += NavDR.Config.FUSION_CORRECTION_RATE;
                 if (this._correctionProgress >= 1) {
                     this._correctionProgress = 1;
                     this._isCorrepting = false;
@@ -335,7 +335,7 @@ IDRN.Fusion = {
     onGNSSRestore(drLat, drLng, gnssLat, gnssLng) {
         this._correctionProgress = 0;
         this._isCorrepting = true;
-        this._errorAtRestore = IDRN.Geo.haversine(drLat, drLng, gnssLat, gnssLng);
+        this._errorAtRestore = NavDR.Geo.haversine(drLat, drLng, gnssLat, gnssLng);
         this._restoreLat = drLat;
         this._restoreLng = drLng;
     },

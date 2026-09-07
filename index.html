@@ -1,1391 +1,533 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AI-ML based Intelligent Dead Reckoning System for Seamless Navigation — SIH 2026 Prototype">
-    <title>IDRN — Intelligent Dead Reckoning Navigation System</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="AI-ML based Intelligent Dead Reckoning System for Seamless Navigation — SIH 2026 Prototype"
+    />
+    <title>NavDR — Intelligent Dead Reckoning Navigation System</title>
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link
+      rel="stylesheet"
+      href="vendor/leaflet/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
 
     <!-- App CSS -->
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/instrument.css" />
+  </head>
+  <body>
     <!-- ═══════════════ HEADER ═══════════════ -->
     <header id="app-header">
-        <div class="header-left">
-            <div class="logo-icon">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                    <circle cx="16" cy="16" r="14" stroke="#06b6d4" stroke-width="2" fill="none"/>
-                    <circle cx="16" cy="16" r="5" fill="#06b6d4"/>
-                    <line x1="16" y1="2" x2="16" y2="8" stroke="#06b6d4" stroke-width="2"/>
-                    <line x1="16" y1="24" x2="16" y2="30" stroke="#06b6d4" stroke-width="2"/>
-                    <line x1="2" y1="16" x2="8" y2="16" stroke="#06b6d4" stroke-width="2"/>
-                    <line x1="24" y1="16" x2="30" y2="16" stroke="#06b6d4" stroke-width="2"/>
-                </svg>
-            </div>
-            <div class="header-title">
-                <h1>IDRN</h1>
-                <span class="header-subtitle">Intelligent Dead Reckoning Navigation System</span>
-            </div>
+      <div class="header-left">
+        <div class="logo-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle
+              cx="16"
+              cy="16"
+              r="14"
+              stroke="#06b6d4"
+              stroke-width="2"
+              fill="none"
+            />
+            <circle cx="16" cy="16" r="5" fill="#06b6d4" />
+            <line
+              x1="16"
+              y1="2"
+              x2="16"
+              y2="8"
+              stroke="#06b6d4"
+              stroke-width="2"
+            />
+            <line
+              x1="16"
+              y1="24"
+              x2="16"
+              y2="30"
+              stroke="#06b6d4"
+              stroke-width="2"
+            />
+            <line
+              x1="2"
+              y1="16"
+              x2="8"
+              y2="16"
+              stroke="#06b6d4"
+              stroke-width="2"
+            />
+            <line
+              x1="24"
+              y1="16"
+              x2="30"
+              y2="16"
+              stroke="#06b6d4"
+              stroke-width="2"
+            />
+          </svg>
         </div>
-        <div class="header-right">
-            <div class="header-badge gnss-on" id="header-gnss-badge">
-                <span class="badge-dot"></span>
-                <span id="header-gnss-text">GNSS AVAILABLE</span>
-            </div>
-            <div class="header-badge mode-badge" id="header-mode-badge">GNSS + INS</div>
+        <div class="header-title">
+          <h1>NavDR</h1>
+          <span class="header-subtitle"
+            >Intelligent Dead Reckoning Navigation System</span
+          >
         </div>
+      </div>
+      <div class="header-right">
+        <div class="header-badge gnss-on" id="header-gnss-badge">
+          <span class="badge-dot"></span>
+          <span id="header-gnss-text">Ready to start</span>
+        </div>
+        <div class="header-badge mode-badge" id="header-mode-badge">
+          Planar navigation lab
+        </div>
+      </div>
     </header>
 
     <!-- ═══════════════ NOTIFICATION TOAST ═══════════════ -->
     <div id="notification-container">
-        <div id="notification" class="notification hidden">
-            <span id="notification-icon"></span>
-            <span id="notification-text"></span>
-        </div>
+      <div id="notification" class="notification hidden">
+        <span id="notification-icon"></span>
+        <span id="notification-text"></span>
+      </div>
     </div>
 
+    <div class="run-strip">
+      <span id="run-status" role="status">Ready to start</span>
+      <div>
+        <label><input id="use-ekf" type="checkbox" checked /> Planar EKF</label
+        ><label><input id="use-hmm" type="checkbox" checked /> Road HMM</label
+        ><label
+          ><input id="follow-vehicle" type="checkbox" checked /> Follow
+          vehicle</label
+        >
+      </div>
+      <button id="btn-demo">Run guided demo</button
+      ><span id="demo-phase">25 seconds of simulated input</span>
+    </div>
     <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
     <main id="app-main">
-
-        <!-- Map Area -->
-        <div id="map-container">
-            <div id="map"></div>
-            <!-- GNSS Outage Visual Status Banner -->
-            <div id="gnss-status-banner" class="gnss-banner available">
-                <span class="banner-dot"></span>
-                <span id="gnss-banner-text">GNSS AVAILABLE</span>
-            </div>
-            <div id="map-legend">
-                <div class="legend-title">LEGEND</div>
-                <div class="legend-item"><span class="legend-line ref"></span> Reference Route</div>
-                <div class="legend-item"><span class="legend-line dr"></span> Dead Reckoning (Raw DR)</div>
-                <div class="legend-item"><span class="legend-line fused"></span> Fused / AI-Corrected</div>
-                <div class="legend-item"><span class="legend-zone"></span> GNSS Denied Zone</div>
-                <div class="legend-item"><span class="legend-marker">▲</span> Current Position</div>
-            </div>
+      <!-- Map Area -->
+      <div id="map-container">
+        <div id="map"></div>
+        <!-- GNSS Outage Visual Status Banner -->
+        <div id="gnss-status-banner" class="gnss-banner available">
+          <span class="banner-dot"></span>
+          <span id="gnss-banner-text">Ready to start</span>
         </div>
+        <div id="map-legend">
+          <div class="legend-title">LEGEND</div>
+          <div class="legend-item">
+            <span class="legend-line ref"></span> Scenario route
+          </div>
+          <div class="legend-item">
+            <span class="legend-line dr"></span> Dead Reckoning (Raw DR)
+          </div>
+          <div class="legend-item">
+            <span class="legend-line fused"></span> Selected navigation output
+          </div>
+          <div class="legend-item">
+            <span class="legend-zone"></span> GNSS Denied Zone
+          </div>
+          <div class="legend-item">
+            <span class="legend-marker">▲</span> Current Position
+          </div>
+        </div>
+      </div>
 
-        <!-- Sidebar -->
-        <aside id="sidebar">
-
-            <!-- GNSS Status -->
-            <div class="card card-gnss" id="card-gnss">
-                <div class="card-header">
-                    <span class="card-icon">📡</span>
-                    <h3>GNSS Status</h3>
-                </div>
-                <div class="status-indicator active" id="gnss-status-indicator">
-                    <span class="status-dot-large"></span>
-                    <span class="status-label" id="gnss-status-text">GNSS AVAILABLE</span>
-                </div>
+      <!-- Sidebar -->
+      <aside id="sidebar">
+        <section class="benchmark-hero" aria-label="Live accuracy benchmark">
+          <h2>Outage accuracy</h2>
+          <p id="source-provenance">
+            Simulated IMU + GNSS / synthetic reference
+          </p>
+          <div class="drift-readout">
+            <strong id="hero-drift">—</strong><span>% drift</span>
+          </div>
+          <p id="hero-target" role="status">INSUFFICIENT DATA</p>
+          <p class="metric-definition">
+            Peak output error ÷ reference distance during outages. Target
+            &lt;10%; at least 3 seconds and 5 metres.
+          </p>
+          <dl class="hero-metrics">
+            <div>
+              <dt>Output error</dt>
+              <dd id="hero-error">— m</dd>
             </div>
-
-            <!-- Navigation Mode -->
-            <div class="card card-nav" id="card-nav">
-                <div class="card-header">
-                    <span class="card-icon">🧭</span>
-                    <h3>Navigation Mode</h3>
-                </div>
-                <div class="nav-mode-display" id="nav-mode-display">GNSS + INS</div>
+            <div>
+              <dt>Raw DR error</dt>
+              <dd id="hero-raw">— m</dd>
             </div>
-
-            <!-- Vehicle Telemetry -->
-            <div class="card card-telemetry">
-                <div class="card-header">
-                    <span class="card-icon">📊</span>
-                    <h3>Vehicle Telemetry</h3>
-                </div>
-                <div class="telemetry-grid">
-                    <div class="telem-row">
-                        <span class="telem-label">Speed</span>
-                        <span class="telem-value mono" id="telem-speed">0.0 km/h</span>
-                    </div>
-                    <div class="telem-row">
-                        <span class="telem-label">Latitude</span>
-                        <span class="telem-value mono" id="telem-lat">—</span>
-                    </div>
-                    <div class="telem-row">
-                        <span class="telem-label">Longitude</span>
-                        <span class="telem-value mono" id="telem-lng">—</span>
-                    </div>
-                    <div class="telem-row">
-                        <span class="telem-label">Heading</span>
-                        <span class="telem-value mono" id="telem-heading">—</span>
-                    </div>
-                    <div class="telem-row highlight-row">
-                        <span class="telem-label">Position Error</span>
-                        <span class="telem-value mono" id="telem-error">0.0 m</span>
-                    </div>
-                    <div class="telem-row">
-                        <span class="telem-label">Distance Travelled</span>
-                        <span class="telem-value mono" id="telem-distance">0 m</span>
-                    </div>
-                    <div class="telem-row">
-                        <span class="telem-label">Cumulative Drift</span>
-                        <span class="telem-value mono" id="telem-drift">0.0 m</span>
-                    </div>
-                </div>
+            <div>
+              <dt>Outage time</dt>
+              <dd id="hero-time">— s</dd>
             </div>
-
-            <!-- Sensor Status -->
-            <div class="card card-sensors">
-                <div class="card-header">
-                    <span class="card-icon">⚙️</span>
-                    <h3>Sensor Status</h3>
-                </div>
-                <div class="sensor-list">
-                    <div class="sensor-item">
-                        <span class="sensor-dot active" id="sensor-accel-dot"></span>
-                        <span class="sensor-name">Accelerometer</span>
-                        <span class="sensor-status" id="sensor-accel-status">Active</span>
-                    </div>
-                    <div class="sensor-item">
-                        <span class="sensor-dot active" id="sensor-gyro-dot"></span>
-                        <span class="sensor-name">Gyroscope</span>
-                        <span class="sensor-status" id="sensor-gyro-status">Active</span>
-                    </div>
-                    <div class="sensor-item">
-                        <span class="sensor-dot active" id="sensor-mag-dot"></span>
-                        <span class="sensor-name">Magnetometer</span>
-                        <span class="sensor-status" id="sensor-mag-status">Active</span>
-                    </div>
-                </div>
+            <div>
+              <dt>Reference distance</dt>
+              <dd id="hero-distance">— m</dd>
             </div>
-
-            <!-- System Health -->
-            <div class="card card-health">
-                <div class="card-header">
-                    <span class="card-icon">🩺</span>
-                    <h3>System Health</h3>
-                </div>
-                <div class="health-display" id="health-display">
-                    <span class="health-dot normal"></span>
-                    <span class="health-text" id="health-text">NORMAL</span>
-                </div>
+            <div>
+              <dt>Current improvement</dt>
+              <dd id="hero-improvement">— %</dd>
             </div>
-
-            <!-- Motion Reference / Handheld Compensation -->
-            <div class="card card-handheld">
-                <div class="card-header">
-                    <span class="card-icon">📱</span>
-                    <h3>Motion Reference</h3>
-                </div>
-                <div class="handheld-grid">
-                    <div class="telem-row">
-                        <span class="telem-label">Vehicle Frame</span>
-                        <span class="telem-value mono" id="handheld-veh-frame">LOCKED</span>
-                    </div>
-                    <div class="telem-row">
-                        <span class="telem-label">Device Orientation</span>
-                        <span class="telem-value mono" id="handheld-dev-orient">MOUNTED</span>
-                    </div>
-                    <div class="telem-row">
-                        <span class="telem-label">Handheld Detection</span>
-                        <span class="telem-value mono" id="handheld-status-text">NORMAL</span>
-                    </div>
-                    <div class="telem-row highlight-row">
-                        <span class="telem-label">Heading Protection</span>
-                        <span class="telem-value mono" id="handheld-protection-text">STANDBY</span>
-                    </div>
-                    <div class="telem-row">
-                        <span class="telem-label">Handheld Confidence</span>
-                        <span class="telem-value mono" id="handheld-confidence-pct">0%</span>
-                    </div>
-                </div>
-                <button class="ctrl-btn secondary full-width mt-2" id="btn-inject-rotation">
-                    <span class="btn-icon">🔄</span> Inject Phone Rotation (90°)
-                </button>
+            <div>
+              <dt>Elapsed input time</dt>
+              <dd id="hero-elapsed">— s</dd>
             </div>
-
-            <!-- AI/ML Engine -->
-            <div class="card card-ai">
-                <div class="card-header">
-                    <span class="card-icon">🤖</span>
-                    <h3>AI/ML Engine</h3>
-                </div>
-                <div class="ai-pipeline" id="ai-pipeline">
-                    <div class="pipe-step active-step" data-step="imu">Smartphone IMU <span class="active-phase-tag" id="pipe-tag-imu">ACTIVE</span></div>
-                    <div class="pipe-arrow">▼</div>
-                    <div class="pipe-step active-step" data-step="calib">Sensor Processing <span class="active-phase-tag" id="pipe-tag-calib">ACTIVE</span></div>
-                    <div class="pipe-arrow">▼</div>
-                    <div class="pipe-step active-step" data-step="handheld">Handheld Compensation <span class="active-phase-tag" id="pipe-tag-handheld">ACTIVE</span></div>
-                    <div class="pipe-arrow">▼</div>
-                    <div class="pipe-step active-step" data-step="dr">Dead Reckoning <span class="active-phase-tag" id="pipe-tag-dr">ACTIVE</span></div>
-                    <div class="pipe-arrow">▼</div>
-                    <div class="pipe-step active-step" data-step="ai">AI Motion Estimation <span class="active-phase-tag" id="pipe-tag-ai">ACTIVE</span></div>
-                    <div class="pipe-arrow">▼</div>
-                    <div class="pipe-step active-step" data-step="mm">Map Matching <span class="active-phase-tag" id="pipe-tag-mm">ACTIVE</span></div>
-                    <div class="pipe-arrow">▼</div>
-                    <div class="pipe-step active-step" data-step="fusion">GNSS + INS Fusion <span class="active-phase-tag" id="pipe-tag-fusion">ACTIVE</span></div>
-                    <div class="pipe-arrow">▼</div>
-                    <div class="pipe-step active-step" data-step="aidrift">AI Drift Correction <span class="active-phase-tag" id="pipe-tag-aidrift">ACTIVE</span></div>
-                    <div class="pipe-arrow">▼</div>
-                    <div class="pipe-step active-step" data-step="benchmark">Continuous Navigation <span class="active-phase-tag" id="pipe-tag-bench">ACTIVE</span></div>
-                </div>
-                <div class="ai-mode-tag">Real-Time Sensor Fusion &amp; Error Regression Pipeline</div>
-            </div>
-        </aside>
+          </dl>
+          <div class="uncertainty-readout">
+            <span>EKF 95% radius</span><strong id="hero-radius">— m</strong>
+          </div>
+          <p class="metric-definition">
+            Model covariance before road matching; not a calibrated safety
+            guarantee.
+          </p>
+          <p><label><input id="use-tcn" type="checkbox" /> Use simulated TCN velocity</label></p>
+          <p id="tcn-status">Simulated TCN — untrained · 49,665 parameters · waiting for IMU</p>
+          <p>Demo constraint: last accepted GNSS speed ±2 m/s. This is not learned drift suppression.</p>
+          <p id="filter-status">Waiting for first GNSS fix</p>
+        </section>
+        <details class="legacy-telemetry">
+          <summary>Position telemetry</summary>
+          <div class="telem-row">
+            <span class="telem-label">Latitude</span
+            ><span class="telem-value mono" id="telem-lat">—</span>
+          </div>
+          <div class="telem-row">
+            <span class="telem-label">Longitude</span
+            ><span class="telem-value mono" id="telem-lng">—</span>
+          </div>
+          <div class="telem-row">
+            <span class="telem-label">Speed</span
+            ><span class="telem-value mono" id="telem-speed">—</span>
+          </div>
+          <div class="telem-row">
+            <span class="telem-label">Heading</span
+            ><span class="telem-value mono" id="telem-heading">—</span>
+          </div>
+          <div class="telem-row">
+            <span class="telem-label">Reference error</span
+            ><span class="telem-value mono" id="telem-error">—</span>
+          </div>
+          <div class="telem-row">
+            <span class="telem-label">Outage reference distance</span
+            ><span class="telem-value mono" id="telem-distance">—</span>
+          </div>
+        </details>
+      </aside>
     </main>
 
     <!-- ═══════════════ CONTROL PANEL ═══════════════ -->
     <div id="control-panel">
-        <div class="controls-group">
-            <button class="ctrl-btn primary" id="btn-start">
-                <span class="btn-icon">▶</span> Start Simulation
-            </button>
-            <button class="ctrl-btn secondary" id="btn-pause" disabled>
-                <span class="btn-icon">⏸</span> Pause
-            </button>
-            <button class="ctrl-btn secondary" id="btn-reset">
-                <span class="btn-icon">↺</span> Reset
-            </button>
-        </div>
-        <div class="controls-divider"></div>
-        <div class="controls-group">
-            <button class="ctrl-btn danger" id="btn-gnss-loss" disabled>
-                <span class="btn-icon">📡</span> Simulate GNSS Loss
-            </button>
-            <button class="ctrl-btn success" id="btn-gnss-restore" disabled>
-                <span class="btn-icon">📡</span> Restore GNSS
-            </button>
-        </div>
-        <div class="controls-divider"></div>
-        <div class="controls-group">
-            <button class="ctrl-btn secondary" id="btn-speed-down" disabled>
-                <span class="btn-icon">−</span> Speed
-            </button>
-            <span class="speed-display" id="speed-display">40 km/h</span>
-            <button class="ctrl-btn secondary" id="btn-speed-up" disabled>
-                <span class="btn-icon">+</span> Speed
-            </button>
-        </div>
-        <div class="controls-divider"></div>
-        <div class="controls-group">
-            <label class="auto-toggle">
-                <input type="checkbox" id="chk-auto-gnss" checked>
-                <span class="toggle-label">Auto GNSS Zone</span>
-            </label>
-        </div>
+      <div class="controls-group">
+        <button class="ctrl-btn primary" id="btn-start">
+          <span class="btn-icon">▶</span> Start Simulation
+        </button>
+        <button class="ctrl-btn secondary" id="btn-pause" disabled>
+          <span class="btn-icon">⏸</span> Pause
+        </button>
+        <button class="ctrl-btn secondary" id="btn-reset">
+          <span class="btn-icon">↺</span> Reset
+        </button>
+      </div>
+      <div class="controls-divider"></div>
+      <div class="controls-group">
+        <button class="ctrl-btn danger" id="btn-gnss-loss" disabled>
+          <span class="btn-icon">📡</span> Simulate GNSS Loss
+        </button>
+        <button class="ctrl-btn success" id="btn-gnss-restore" disabled>
+          <span class="btn-icon">📡</span> Restore GNSS
+        </button>
+      </div>
+      <div class="controls-divider"></div>
+      <div class="controls-group">
+        <button class="ctrl-btn secondary" id="btn-speed-down" disabled>
+          <span class="btn-icon">−</span> Speed
+        </button>
+        <span class="speed-display" id="speed-display">40 km/h</span>
+        <button class="ctrl-btn secondary" id="btn-speed-up" disabled>
+          <span class="btn-icon">+</span> Speed
+        </button>
+        <label>Playback <select id="playback-rate" aria-label="Simulation playback speed"><option value="1">1×</option><option value="2">2×</option><option value="4" selected>4×</option><option value="8">8×</option></select></label>
+      </div>
+      <div class="controls-divider"></div>
+      <div class="controls-group">
+        <label class="auto-toggle">
+          <input type="checkbox" id="chk-auto-gnss" checked />
+          <span class="toggle-label">Auto GNSS Zone</span>
+        </label>
+      </div>
     </div>
 
     <!-- ═══════════════ SENSOR SOURCE SELECTOR ═══════════════ -->
     <section id="sensor-source-section">
-        <div class="section-header">
-            <h2>Sensor Source</h2>
-            <span class="source-label">Hardware Abstraction Layer</span>
-        </div>
-        <div class="sensor-source-row">
-            <div class="source-toggle">
-                <button class="source-btn active" id="btn-source-sim">
-                    <span class="source-btn-icon">💻</span> SIMULATION
-                </button>
-                <button class="source-btn" id="btn-source-device">
-                    <span class="source-btn-icon">📱</span> REAL DEVICE
-                </button>
-            </div>
-            
-            <!-- Sensor Noise Selector -->
-            <div class="noise-selector-group">
-                <span class="noise-label">Sensor Noise:</span>
-                <div class="noise-btn-group">
-                    <button class="noise-btn" id="btn-noise-low">LOW</button>
-                    <button class="noise-btn active" id="btn-noise-medium">MEDIUM</button>
-                    <button class="noise-btn" id="btn-noise-high">HIGH</button>
-                </div>
-            </div>
-
-            <!-- Demo Shock Generator -->
-            <button class="ctrl-btn secondary shock-trigger-btn" id="btn-trigger-shock">
-                ⚡ Trigger Road Shock
-            </button>
+      <div class="section-header">
+        <h2>Sensor Source</h2>
+        <span class="source-label">Hardware Abstraction Layer</span>
+      </div>
+      <div class="sensor-source-row">
+        <div class="source-toggle">
+          <button class="source-btn active" id="btn-source-sim">
+            <span class="source-btn-icon">💻</span> SIMULATION
+          </button>
+          <button class="source-btn" id="btn-source-device">
+            <span class="source-btn-icon">📱</span> REAL DEVICE
+          </button>
         </div>
 
-        <!-- Device Sensor Status Panel (hidden by default) -->
-        <div id="device-sensor-status" class="device-status-panel hidden">
-            <h4>Real Device Sensor Status</h4>
-            <div class="ds-grid">
-                <div class="ds-row">
-                    <span class="ds-label">Permission</span>
-                    <span class="ds-status ds-unavailable" id="ds-permission">UNKNOWN</span>
-                </div>
-                <div class="ds-row">
-                    <span class="ds-label">Accelerometer</span>
-                    <span class="ds-status ds-unavailable" id="ds-accel">CHECKING…</span>
-                </div>
-                <div class="ds-row">
-                    <span class="ds-label">Gyroscope</span>
-                    <span class="ds-status ds-unavailable" id="ds-gyro">CHECKING…</span>
-                </div>
-                <div class="ds-row">
-                    <span class="ds-label">Orientation</span>
-                    <span class="ds-status ds-unavailable" id="ds-orient">CHECKING…</span>
-                </div>
-                <div class="ds-row">
-                    <span class="ds-label">Magnetometer</span>
-                    <span class="ds-status ds-unavailable" id="ds-magnetometer">CHECKING…</span>
-                </div>
-            </div>
-            <button class="ctrl-btn primary ds-perm-btn" id="btn-request-permission">
-                🔓 Request Sensor Permission
+        <!-- Sensor Noise Selector -->
+        <div class="noise-selector-group">
+          <span class="noise-label">Sensor Noise:</span>
+          <div class="noise-btn-group">
+            <button class="noise-btn" id="btn-noise-low">LOW</button>
+            <button class="noise-btn active" id="btn-noise-medium">
+              MEDIUM
             </button>
-            <p class="ds-note">On desktop browsers, device sensors are typically unavailable. Use a smartphone for real IMU data.</p>
+            <button class="noise-btn" id="btn-noise-high">HIGH</button>
+          </div>
         </div>
+
+        <!-- Demo Shock Generator -->
+        <button
+          class="ctrl-btn secondary shock-trigger-btn"
+          id="btn-trigger-shock"
+        >
+          ⚡ Trigger Road Shock
+        </button>
+      </div>
+
+      <!-- Device Sensor Status Panel (hidden by default) -->
+      <div id="device-sensor-status" class="device-status-panel hidden">
+        <h4>Real Device Sensor Status</h4>
+        <div class="ds-grid">
+          <div class="ds-row">
+            <span class="ds-label">Permission</span>
+            <span class="ds-status ds-unavailable" id="ds-permission"
+              >UNKNOWN</span
+            >
+          </div>
+          <div class="ds-row">
+            <span class="ds-label">Accelerometer</span>
+            <span class="ds-status ds-unavailable" id="ds-accel"
+              >CHECKING…</span
+            >
+          </div>
+          <div class="ds-row">
+            <span class="ds-label">Gyroscope</span>
+            <span class="ds-status ds-unavailable" id="ds-gyro">CHECKING…</span>
+          </div>
+          <div class="ds-row">
+            <span class="ds-label">Orientation</span>
+            <span class="ds-status ds-unavailable" id="ds-orient"
+              >CHECKING…</span
+            >
+          </div>
+          <div class="ds-row">
+            <span class="ds-label">Magnetometer</span>
+            <span class="ds-status ds-unavailable" id="ds-magnetometer"
+              >CHECKING…</span
+            >
+          </div>
+        </div>
+        <button
+          class="ctrl-btn primary ds-perm-btn"
+          id="btn-request-permission"
+        >
+          🔓 Request Sensor Permission
+        </button>
+        <p class="ds-note">
+          On desktop browsers, device sensors are typically unavailable. Use a
+          smartphone for real IMU data.
+        </p>
+      </div>
     </section>
 
     <!-- ═══════════════ SENSOR PROCESSING (STEP 3) ═══════════════ -->
-    <section id="sensor-processing-section">
-        <div class="section-header">
-            <h2>Sensor Processing &amp; Filtering</h2>
-            <span class="step3-badge">STEP 3 — Preprocessing Layer</span>
-        </div>
-
-        <!-- Pipeline Flow Header -->
-        <div class="sp-flow-bar">
-            <div class="sp-flow-step">RAW IMU</div>
-            <div class="sp-flow-arrow">→</div>
-            <div class="sp-flow-step">CALIBRATION</div>
-            <div class="sp-flow-arrow">→</div>
-            <div class="sp-flow-step">NOISE FILTER</div>
-            <div class="sp-flow-arrow">→</div>
-            <div class="sp-flow-step highlight">CLEAN IMU</div>
-        </div>
-
-        <div class="sp-grid">
-            <!-- Card 1: Calibration & Quality -->
-            <div class="sp-card">
-                <div class="sp-card-header">
-                    <span class="sp-card-icon">🎯</span>
-                    <h3>Sensor Calibration &amp; Quality</h3>
-                </div>
-                
-                <div class="calib-controls">
-                    <button class="ctrl-btn primary calib-btn" id="btn-calibrate">
-                        🎯 Calibrate Sensors
-                    </button>
-                    
-                    <div class="calib-progress-wrapper">
-                        <div class="calib-progress-info">
-                            <span id="calib-status-text">Calibration: Uninitialized</span>
-                            <span id="calib-progress-pct" class="mono">0%</span>
-                        </div>
-                        <div class="calib-progress-track">
-                            <div class="calib-progress-bar" id="calib-progress-bar" style="width: 0%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="calib-results-grid">
-                    <div class="calib-res-item">
-                        <span class="res-label">Accel Bias</span>
-                        <span class="res-val mono" id="res-accel-bias">X: 0.00 | Y: 0.00 | Z: 0.00</span>
-                    </div>
-                    <div class="calib-res-item">
-                        <span class="res-label">Gyro Bias</span>
-                        <span class="res-val mono" id="res-gyro-bias">X: 0.00 | Y: 0.00 | Z: 0.00</span>
-                    </div>
-                    <div class="calib-res-item">
-                        <span class="res-label">Mag Offset</span>
-                        <span class="res-val mono" id="res-mag-offset">X: 0.00 | Y: 0.00 | Z: 0.00</span>
-                    </div>
-                    <div class="calib-res-item">
-                        <span class="res-label">Baseline Noise</span>
-                        <span class="res-val mono" id="res-noise-baseline">0.15 m/s²</span>
-                    </div>
-                </div>
-
-                <!-- Quality Score Widget -->
-                <div class="quality-score-box">
-                    <div class="qs-label">Sensor Quality Score</div>
-                    <div class="qs-value-row">
-                        <span class="qs-score mono" id="qs-score-val">92</span>
-                        <span class="qs-max">/ 100</span>
-                        <span class="qs-badge good" id="qs-score-badge">GOOD</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 2: Environment & Detection -->
-            <div class="sp-card">
-                <div class="sp-card-header">
-                    <span class="sp-card-icon">⚡</span>
-                    <h3>Vibration &amp; Shock Detection</h3>
-                </div>
-
-                <div class="vib-status-row">
-                    <span class="vib-label">Vibration Level:</span>
-                    <span class="vib-badge low" id="vib-level-badge">LOW</span>
-                    <span class="vib-val mono" id="vib-intensity-val">(0.10 m/s²)</span>
-                </div>
-
-                <!-- Shock Alert Banner -->
-                <div class="shock-alert-banner hidden" id="shock-alert-banner">
-                    <span class="shock-icon">⚠️</span>
-                    <div class="shock-info">
-                        <strong>ROAD SHOCK DETECTED</strong>
-                        <span id="shock-detail-text">Magnitude: 8.5 m/s² | Isolated from speed estimation</span>
-                    </div>
-                </div>
-
-                <!-- Device Alignment -->
-                <div class="alignment-box">
-                    <div class="align-header">
-                        <span>Device Alignment</span>
-                        <span class="proto-align-tag">Prototype Alignment</span>
-                    </div>
-                    <div class="align-grid">
-                        <div class="align-item">
-                            <span class="align-lbl">Pitch</span>
-                            <span class="align-val mono" id="align-pitch">0.0°</span>
-                        </div>
-                        <div class="align-item">
-                            <span class="align-lbl">Roll</span>
-                            <span class="align-val mono" id="align-roll">0.0°</span>
-                        </div>
-                        <div class="align-item">
-                            <span class="align-lbl">Yaw</span>
-                            <span class="align-val mono" id="align-yaw">0.0°</span>
-                        </div>
-                    </div>
-                    <div class="vehicle-frame-res">
-                        <span>Vehicle Acceleration (Fwd / Lat / Vert):</span>
-                        <span class="mono" id="veh-accel-val">0.00 / 0.00 / 9.81 m/s²</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3: Processing Status Panel -->
-            <div class="sp-card">
-                <div class="sp-card-header">
-                    <span class="sp-card-icon">📋</span>
-                    <h3>Sensor Processing Status</h3>
-                </div>
-
-                <div class="proc-status-list">
-                    <div class="proc-status-item">
-                        <span class="proc-name">Calibration Status</span>
-                        <span class="proc-state check" id="ps-calib">✓ Complete</span>
-                    </div>
-                    <div class="proc-status-item">
-                        <span class="proc-name">Accelerometer Processing</span>
-                        <span class="proc-state check" id="ps-accel">✓ Calibrated &amp; Filtered</span>
-                    </div>
-                    <div class="proc-status-item">
-                        <span class="proc-name">Gyroscope Processing</span>
-                        <span class="proc-state check" id="ps-gyro">✓ Calibrated &amp; Filtered</span>
-                    </div>
-                    <div class="proc-status-item">
-                        <span class="proc-name">Magnetometer / Heading</span>
-                        <span class="proc-state check" id="ps-mag">✓ Available</span>
-                    </div>
-                    <div class="proc-status-item">
-                        <span class="proc-name">Noise Filtering (EMA α=0.22)</span>
-                        <span class="proc-state check">✓ Active</span>
-                    </div>
-                    <div class="proc-status-item">
-                        <span class="proc-name">Pothole / Shock Detection</span>
-                        <span class="proc-state check">✓ Active</span>
-                    </div>
-                    <div class="proc-status-item">
-                        <span class="proc-name">Vehicle Frame Transformation</span>
-                        <span class="proc-state check">✓ Active</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Raw vs Filtered Live Charts Grid -->
-        <div class="sp-charts-grid">
-            <div class="chart-card">
-                <h4>Raw vs Filtered Accelerometer <span class="chart-unit">(m/s²)</span></h4>
-                <canvas id="chart-raw-accel"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Raw vs Filtered Gyroscope <span class="chart-unit">(rad/s)</span></h4>
-                <canvas id="chart-raw-gyro"></canvas>
-            </div>
-        </div>
+    <section class="evaluation-panel">
+      <div class="evaluation-title">
+        <h2>Trajectory error</h2>
+        <span
+          >Raw DR <b class="raw-key"></b> Selected output
+          <b class="output-key"></b
+        ></span>
+      </div>
+      <svg
+        id="error-plot"
+        viewBox="0 0 800 160"
+        role="img"
+        aria-label="Error in metres against input time; raw dead reckoning and selected output"
+      >
+        <path d="M40 15V135H760" fill="none" stroke="#82919d" />
+        <text id="plot-max" x="40" y="12">Waiting for reference</text>
+        <text id="plot-span" x="560" y="155"></text>
+        <polyline
+          id="raw-error-line"
+          fill="none"
+          stroke="#B3343B"
+          stroke-width="2"
+        />
+        <polyline
+          id="output-error-line"
+          fill="none"
+          stroke="#087E83"
+          stroke-width="2"
+        />
+      </svg>
     </section>
-
-    <!-- ═══════════════ DEAD RECKONING ENGINE (STEP 4) ═══════════════ -->
-    <section id="dead-reckoning-section">
-        <div class="section-header">
-            <h2>Dead Reckoning Engine</h2>
-            <span class="step4-badge">STEP 4 — Deterministic Baseline</span>
+    <section class="replay-panel">
+      <h2>Run evidence</h2>
+      <p>
+        Replay the same samples through independent configurations. Synthetic
+        results describe this scenario only.
+      </p>
+      <div class="workbench-controls">
+        <button id="export-recording">Export input recording</button
+        ><label class="file-control"
+          >Import recording<input
+            type="file"
+            id="import-recording"
+            accept=".json" /></label
+        ><button id="run-ablations">Run four ablations</button
+        ><button id="export-results">Export ablation evidence</button>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Configuration</th>
+              <th scope="col">Peak outage error</th>
+              <th scope="col">Drift</th>
+              <th scope="col">Result</th>
+            </tr>
+          </thead>
+          <tbody id="ablation-results">
+            <tr>
+              <td colspan="4">
+                Record or import a run to compare configurations.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <details>
+        <summary>Road network and mounting</summary>
+        <div class="workbench-controls">
+          <label class="file-control"
+            >Import OSM JSON / graph<input
+              type="file"
+              id="import-roads"
+              accept=".json" /></label
+          ><button id="load-demo-roads">Use scenario graph</button
+          ><button id="calibrate-mount">Calibrate flat phone mount</button>
         </div>
-
-        <div class="dr-dashboard-grid">
-            <!-- Metric 1: Navigation Mode & Confidence -->
-            <div class="dr-card">
-                <div class="dr-card-title">Navigation Status &amp; Confidence</div>
-                <div class="dr-metric-main">
-                    <span class="dr-nav-mode-badge gnss" id="dr-nav-mode">GNSS</span>
-                    <div class="dr-conf-box">
-                        <span class="dr-label">DR Confidence:</span>
-                        <span class="dr-val mono" id="dr-conf-val">95 / 100</span>
-                        <span class="qs-badge good" id="dr-conf-badge">GOOD</span>
-                    </div>
-                </div>
-                <div class="dr-sub-row">
-                    <span>Motion Quality: <strong id="dr-motion-quality" class="mono">GOOD</strong></span>
-                    <span>Constraint: <strong id="dr-stat-constraint" class="mono">INACTIVE</strong></span>
-                </div>
-            </div>
-
-            <!-- Metric 2: Speed & Distance -->
-            <div class="dr-card">
-                <div class="dr-card-title">Velocity &amp; Travel Distance</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">DR Speed</span>
-                        <span class="dr-val-large mono" id="dr-speed-val">0.0 <small>km/h</small></span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Travelled Distance</span>
-                        <span class="dr-val-large mono" id="dr-dist-val">0.0 <small>m</small></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Metric 3: Heading & Position Drift -->
-            <div class="dr-card">
-                <div class="dr-card-title">Heading &amp; Position Drift</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">DR Heading (<span id="dr-heading-source">INITIALIZED</span>)</span>
-                        <span class="dr-val-large mono" id="dr-heading-val">90.0°</span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Position Drift (% Dist)</span>
-                        <span class="dr-val-large mono" id="dr-drift-val">0.0 m <small>(0.0%)</small></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Metric 4: Position Readout -->
-            <div class="dr-card dr-card-wide">
-                <div class="dr-card-title">Dead Reckoning Position Coordinates</div>
-                <div class="dr-coords-row mono">
-                    <span>Latitude: <strong id="dr-pos-lat">28.613900</strong></span>
-                    <span>Longitude: <strong id="dr-pos-lon">77.209000</strong></span>
-                    <span>GNSS Error: <strong id="dr-pos-error">0.0 m</strong></span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Step 4 Charts Grid: DR Speed, Position Drift, DR Heading -->
-        <div class="dr-charts-grid">
-            <div class="chart-card">
-                <h4>DR Estimated Speed vs GNSS Speed <span class="chart-unit">(km/h)</span></h4>
-                <canvas id="chart-dr-speed"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Position Drift Error <span class="chart-unit">(meters)</span></h4>
-                <canvas id="chart-dr-drift"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>DR Heading Angle <span class="chart-unit">(degrees)</span></h4>
-                <canvas id="chart-dr-heading"></canvas>
-            </div>
-        </div>
+        <p id="road-provenance">No road graph loaded. HMM unavailable.</p>
+        <p id="match-status">Waiting for a road observation</p>
+        <p>
+          Browser mount: phone flat, screen up, top edge toward vehicle front.
+          Hold still for calibration, then keep the phone fixed. Android
+          recordings include IRNSS satellite observations where supported. No
+          trained TCN, EqNIO, transfer learning or 15-state ESKF is claimed.
+        </p>
+        <p id="native-status">
+          NavIC C/N₀: unavailable in browsers. Import an Android recording for
+          native observations.
+        </p>
+      </details>
     </section>
-
-    <!-- ═══════════════ OFFLINE MAP MATCHING (STEP 5) ═══════════════ -->
-    <section id="map-matching-section">
-        <div class="section-header">
-            <div class="header-title-group">
-                <h2>Offline Map Matching &amp; Road Constraints</h2>
-                <span class="step5-badge">STEP 5 — Road Constraint</span>
-            </div>
-            <div class="mm-toggle-box">
-                <button class="source-btn active" id="btn-toggle-mm">
-                    <span class="source-btn-icon">🛣️</span> Map Matching: <strong id="mm-toggle-label">ENABLED</strong>
-                </button>
-            </div>
+    <details id="legacy-diagnostics">
+      <summary>Sensor inspection and scenario suite</summary>
+      <dl class="hero-metrics">
+        <div>
+          <dt>Forward acceleration</dt>
+          <dd id="inspect-forward">— m/s²</dd>
         </div>
-
-        <div class="dr-dashboard-grid">
-            <!-- Card 1: Map Match Status & Segment -->
-            <div class="dr-card">
-                <div class="dr-card-title">Map Match Status &amp; Road Segment</div>
-                <div class="dr-metric-main">
-                    <span class="dr-nav-mode-badge matched" id="mm-status-badge">MATCHED</span>
-                    <div class="dr-conf-box">
-                        <span class="dr-label">Constraint:</span>
-                        <span class="qs-badge good" id="mm-constraint-badge">ACTIVE</span>
-                    </div>
-                </div>
-                <div class="dr-sub-row">
-                    <span>Segment: <strong id="mm-road-name" class="mono">Kartavya Path Seg 001</strong></span>
-                    <span>Segment ID: <strong id="mm-segment-id" class="mono">seg-001</strong></span>
-                </div>
-            </div>
-
-            <!-- Card 2: Road Geometry & Heading Alignment -->
-            <div class="dr-card">
-                <div class="dr-card-title">Road Bearing &amp; Heading Alignment</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Road Bearing</span>
-                        <span class="dr-val-large mono" id="mm-road-bearing">90.0°</span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Heading Difference</span>
-                        <span class="dr-val-large mono" id="mm-heading-diff">0.0°</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3: Deviation & Correction -->
-            <div class="dr-card">
-                <div class="dr-card-title">Lateral Deviation &amp; Soft Correction</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Distance to Road</span>
-                        <span class="dr-val-large mono" id="mm-dist-road">0.0 <small>m</small></span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Match Correction</span>
-                        <span class="dr-val-large mono" id="mm-match-corr">0.0 <small>m</small></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4: Diagnostic Benchmarking (Before / After DR Error) -->
-            <div class="dr-card dr-card-wide">
-                <div class="dr-card-title">Map Constraint Improvement (Diagnostic Benchmarking)</div>
-                <div class="dr-coords-row mono">
-                    <span>Raw DR Deviation: <strong id="mm-raw-dev">0.0 m</strong></span>
-                    <span>Map-Matched Deviation: <strong id="mm-matched-dev">0.0 m</strong></span>
-                    <span>Correction Applied: <strong id="mm-corr-applied">0.35 x (35%)</strong></span>
-                    <span>Route Progress: <strong id="mm-route-progress">0.0%</strong></span>
-                </div>
-            </div>
+        <div>
+          <dt>Yaw rate</dt>
+          <dd id="inspect-yaw">— rad/s</dd>
         </div>
-
-        <!-- Step 5 Charts Grid: DR Lateral Deviation, Map Matching Correction, Raw DR vs Map-Matched -->
-        <div class="dr-charts-grid">
-            <div class="chart-card">
-                <h4>DR Lateral Deviation <span class="chart-unit">(meters)</span></h4>
-                <canvas id="chart-dr-lateral"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Map Matching Correction <span class="chart-unit">(meters)</span></h4>
-                <canvas id="chart-map-correction"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Raw DR vs Map-Matched Position Error <span class="chart-unit">(meters)</span></h4>
-                <canvas id="chart-raw-vs-matched"></canvas>
-            </div>
+        <div>
+          <dt>Mount alignment</dt>
+          <dd id="inspect-mount">Waiting</dd>
         </div>
-    </section>
-
-    <!-- ═══════════════ GNSS + INS SENSOR FUSION (STEP 6) ═══════════════ -->
-    <section id="fusion-section">
-        <div class="section-header">
-            <div class="header-title-group">
-                <h2>GNSS + INS Sensor Fusion</h2>
-                <span class="step6-badge">STEP 6 — Adaptive Weighted Fusion</span>
-            </div>
-            <div class="fusion-controls-row">
-                <button class="ctrl-btn danger" id="btn-inject-outlier">
-                    <span class="btn-icon">⚠️</span> Inject GNSS Outlier <small>(SIMULATION TEST)</small>
-                </button>
-                <button class="source-btn active" id="btn-toggle-sf">
-                    <span class="source-btn-icon">⚡</span> Sensor Fusion: <strong id="sf-toggle-label">ENABLED</strong>
-                </button>
-            </div>
+        <div>
+          <dt>Road match</dt>
+          <dd id="inspect-road">Waiting</dd>
         </div>
-
-        <div class="dr-dashboard-grid">
-            <!-- Card 1: Fusion Mode & Confidence -->
-            <div class="dr-card">
-                <div class="dr-card-title">Fusion Mode &amp; Confidence</div>
-                <div class="dr-metric-main">
-                    <span class="dr-nav-mode-badge gnss" id="sf-mode-badge">GNSS DOMINANT</span>
-                    <div class="dr-conf-box">
-                        <span class="dr-label">Confidence:</span>
-                        <span class="dr-val mono" id="sf-conf-val">95 / 100</span>
-                        <span class="qs-badge good" id="sf-conf-badge">HIGH</span>
-                    </div>
-                </div>
-                <div class="dr-sub-row">
-                    <span>GNSS Outlier: <strong id="sf-outlier-status" class="mono">NONE</strong></span>
-                    <span>Nav Mode: <strong id="sf-nav-mode" class="mono">GNSS</strong></span>
-                </div>
-            </div>
-
-            <!-- Card 2: Fused Velocity & Heading -->
-            <div class="dr-card">
-                <div class="dr-card-title">Fused Velocity &amp; Heading</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Fused Speed</span>
-                        <span class="dr-val-large mono" id="sf-speed-val">0.0 <small>km/h</small></span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Fused Heading (<span id="sf-heading-src">FUSED</span>)</span>
-                        <span class="dr-val-large mono" id="sf-heading-val">90.0°</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3: Discrepancy & Uncertainty -->
-            <div class="dr-card">
-                <div class="dr-card-title">Innovation &amp; Position Uncertainty</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">GNSS Innovation</span>
-                        <span class="dr-val-large mono" id="sf-innov-val">0.0 <small>m</small></span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Est. Uncertainty</span>
-                        <span class="dr-val-large mono" id="sf-uncert-val">2.5 <small>m</small></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4: Dynamic Weight Allocation Visualization Bar -->
-            <div class="dr-card dr-card-wide">
-                <div class="dr-card-title">Dynamic Sensor Weight Allocation (100% Total)</div>
-                <div class="weight-bar-box">
-                    <div class="weight-bar-container">
-                        <div class="weight-seg gnss-seg" id="sf-bar-gnss" style="width: 70%;"></div>
-                        <div class="weight-seg ins-seg" id="sf-bar-ins" style="width: 20%;"></div>
-                        <div class="weight-seg map-seg" id="sf-bar-map" style="width: 10%;"></div>
-                    </div>
-                    <div class="weight-readouts mono">
-                        <span class="w-item gnss-text">GNSS Weight: <strong id="sf-w-gnss">70%</strong></span>
-                        <span class="w-item ins-text">INS/DR Weight: <strong id="sf-w-ins">20%</strong></span>
-                        <span class="w-item map-text">Map Weight: <strong id="sf-w-map">10%</strong></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 5: Coordinates Comparison & Deviations -->
-            <div class="dr-card dr-card-wide">
-                <div class="dr-card-title">Fused Navigation Position &amp; Comparative Deviations</div>
-                <div class="dr-coords-row mono">
-                    <span>Fused Lat: <strong id="sf-pos-lat">28.613900</strong></span>
-                    <span>Fused Lon: <strong id="sf-pos-lon">77.209000</strong></span>
-                    <span>DR Error: <strong id="sf-dev-dr">0.0 m</strong></span>
-                    <span>Map Error: <strong id="sf-dev-map">0.0 m</strong></span>
-                    <span>Fused Error: <strong id="sf-dev-fused">0.0 m</strong></span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Step 6 Charts Grid: Fusion Error, Confidence, Sensor Weights, Innovation -->
-        <div class="sf-charts-grid">
-            <div class="chart-card">
-                <h4>Fusion Position Error <span class="chart-unit">(GNSS vs DR vs Fused - meters)</span></h4>
-                <canvas id="chart-fusion-error"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Fusion Confidence Score <span class="chart-unit">(0-100)</span></h4>
-                <canvas id="chart-fusion-conf"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Dynamic Sensor Weights <span class="chart-unit">(%)</span></h4>
-                <canvas id="chart-sensor-weights"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>GNSS Innovation Discrepancy <span class="chart-unit">(meters)</span></h4>
-                <canvas id="chart-gnss-innovation"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════ AI/ML SPEED & MOTION ESTIMATION (STEP 7) ═══════════════ -->
-    <section id="ai-motion-section">
-        <div class="section-header">
-            <div class="header-title-group">
-                <h2>AI/ML Speed &amp; Motion Estimation</h2>
-                <span class="step7-badge">STEP 7 — On-Device Inference Pipeline</span>
-            </div>
-            <div class="fusion-controls-row">
-                <button class="ctrl-btn secondary" id="btn-export-dataset">
-                    <span class="btn-icon">📥</span> Export AI Feature Dataset <small>(CSV)</small>
-                </button>
-                <button class="source-btn active" id="btn-toggle-ai">
-                    <span class="source-btn-icon">⚡</span> AI Speed Estimation: <strong id="ai-toggle-label">ENABLED</strong>
-                </button>
-            </div>
-        </div>
-
-        <div class="dr-dashboard-grid">
-            <!-- Card 1: Model Info & Status -->
-            <div class="dr-card">
-                <div class="dr-card-title">Model Info &amp; Motion State</div>
-                <div class="dr-metric-main">
-                    <span class="dr-nav-mode-badge gnss" id="ai-status-badge">RUNNING</span>
-                    <span class="dr-nav-mode-badge matched" id="ai-motion-badge">STATIONARY</span>
-                </div>
-                <div class="dr-sub-row" style="margin-top: 8px;">
-                    <small id="ai-model-name" style="color: var(--accent-cyan); font-weight: 600;">Prototype On-Device Speed Estimation Model</small>
-                </div>
-            </div>
-
-            <!-- Card 2: AI Estimated Speed vs Reference -->
-            <div class="dr-card">
-                <div class="dr-card-title">Estimated Speed &amp; Reference Comparison</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">AI Estimated Speed</span>
-                        <span class="dr-val-large mono" id="ai-speed-val">0.0 <small>km/h</small></span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Ref Speed (Ground-Truth)</span>
-                        <span class="dr-val-large mono" id="ai-ref-speed-val">0.0 <small>km/h</small></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3: Confidence & Shock/Vibration Status -->
-            <div class="dr-card">
-                <div class="dr-card-title">Confidence &amp; Distortion Penalty</div>
-                <div class="dr-metric-main">
-                    <div class="dr-conf-box">
-                        <span class="dr-label">Model Confidence:</span>
-                        <span class="dr-val mono" id="ai-conf-val">92 / 100</span>
-                        <span class="qs-badge good" id="ai-conf-badge">HIGH</span>
-                    </div>
-                </div>
-                <div class="dr-sub-row" style="margin-top: 8px;">
-                    <span>Vib Penalty: <strong id="ai-vib-penalty" class="mono">0%</strong></span>
-                    <span>Shock Impact: <strong id="ai-shock-status" class="mono">NO</strong></span>
-                </div>
-            </div>
-
-            <!-- Card 4: Inference Performance & MAE/RMSE Evaluation -->
-            <div class="dr-card dr-card-wide">
-                <div class="dr-card-title">Inference Performance &amp; MAE/RMSE Evaluation (Simulation Evaluation)</div>
-                <div class="dr-coords-row mono">
-                    <span>Inference: <strong id="ai-infer-time">0.4 ms</strong></span>
-                    <span>Features: <strong id="ai-feat-count">14</strong></span>
-                    <span>Speed Error: <strong id="ai-speed-err">0.0 km/h (0.0%)</strong></span>
-                    <span>Speed MAE: <strong id="ai-mae-val">0.00 m/s</strong></span>
-                    <span>Speed RMSE: <strong id="ai-rmse-val">0.00 m/s</strong></span>
-                </div>
-            </div>
-
-            <!-- Card 5: Compact Live Features Panel -->
-            <div class="dr-card dr-card-wide">
-                <div class="dr-card-title">Model Live Feature Stream (Selected 7 of 14)</div>
-                <div class="ai-features-panel mono">
-                    <div class="feat-chip">Fwd Accel: <strong id="feat-fwd">0.00 m/s²</strong></div>
-                    <div class="feat-chip">Lat Accel RMS: <strong id="feat-lat-rms">0.00 m/s²</strong></div>
-                    <div class="feat-chip">Vert Accel RMS: <strong id="feat-vert-rms">9.81 m/s²</strong></div>
-                    <div class="feat-chip">Gyro Mag: <strong id="feat-gyro-mag">0.00 rad/s</strong></div>
-                    <div class="feat-chip">Yaw Rate: <strong id="feat-yaw">0.00 deg/s</strong></div>
-                    <div class="feat-chip">Vib Penalty: <strong id="feat-vib">0%</strong></div>
-                    <div class="feat-chip">Quality: <strong id="feat-qual">95%</strong></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Step 7 Charts Grid: Speed vs Ref, Speed Error, Model Confidence, Motion State -->
-        <div class="sf-charts-grid">
-            <div class="chart-card">
-                <h4>AI Estimated Speed vs Reference Speed <span class="chart-unit">(km/h)</span></h4>
-                <canvas id="chart-ai-speed"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Speed Estimation Error <span class="chart-unit">(m/s)</span></h4>
-                <canvas id="chart-ai-error"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>AI Model Confidence Score <span class="chart-unit">(0-100)</span></h4>
-                <canvas id="chart-ai-conf"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Motion State Classification Timeline</h4>
-                <canvas id="chart-ai-motion-state"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════ AI DRIFT / POSITION ERROR CORRECTION (STEP 8) ═══════════════ -->
-    <section id="ai-drift-section">
-        <div class="section-header">
-            <div class="header-title-group">
-                <h2>AI Drift / Position Error Correction</h2>
-                <span class="step8-badge">STEP 8 — On-Device Error Estimation</span>
-            </div>
-            <div class="fusion-controls-row">
-                <button class="source-btn active" id="btn-toggle-drift">
-                    <span class="source-btn-icon">⚡</span> AI Drift Correction: <strong id="drift-toggle-label">ENABLED</strong>
-                </button>
-            </div>
-        </div>
-
-        <div class="dr-dashboard-grid">
-            <!-- Card 1: Model Info & Status -->
-            <div class="dr-card">
-                <div class="dr-card-title">Model Info &amp; Correction Status</div>
-                <div class="dr-metric-main">
-                    <span class="dr-nav-mode-badge gnss" id="drift-status-badge">MONITORING</span>
-                    <span class="dr-nav-mode-badge matched" id="drift-corr-status-badge">MONITORING</span>
-                </div>
-                <div class="dr-sub-row" style="margin-top: 8px;">
-                    <small id="drift-model-name" style="color: var(--accent-cyan); font-weight: 600;">Prototype On-Device Drift Error Estimation Model</small>
-                </div>
-            </div>
-
-            <!-- Card 2: Error Estimation -->
-            <div class="dr-card">
-                <div class="dr-card-title">Estimated Error Drift (Outage)</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Estimated Error</span>
-                        <span class="dr-val-large mono" id="drift-est-mag">0.0 <small>m</small></span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">North / East Vector</span>
-                        <span class="dr-val mono" id="drift-est-vector" style="font-size: 0.95rem;">N: 0.0m | E: 0.0m</span>
-                    </div>
-                </div>
-                <div class="dr-sub-row" style="margin-top: 6px;">
-                    <span>Outage Time: <strong id="drift-outage-time" class="mono">0.0 s</strong></span>
-                    <span>Confidence: <strong id="drift-conf-val" class="mono">88 / 100</strong> <small id="drift-conf-badge" class="qs-badge good">HIGH</small></span>
-                </div>
-            </div>
-
-            <!-- Card 3: Correction Applied -->
-            <div class="dr-card">
-                <div class="dr-card-title">Applied Controlled Correction</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Correction Applied</span>
-                        <span class="dr-val-large mono" id="drift-corr-mag">0.0 <small>m</small></span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Correction Strength</span>
-                        <span class="dr-val-large mono" id="drift-corr-strength">20 <small>%</small></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4: Accuracy Comparison -->
-            <div class="dr-card dr-card-wide">
-                <div class="dr-card-title">Position Error Comparison (Raw DR vs AI Corrected)</div>
-                <div class="dr-coords-row mono">
-                    <span>Raw DR Error: <strong id="drift-raw-err">0.0 m</strong></span>
-                    <span>AI Corrected Error: <strong id="drift-corr-err">0.0 m</strong></span>
-                    <span>Error Reduction: <strong id="drift-improvement" style="color: var(--status-green);">+0.0%</strong></span>
-                    <span>GNSS Ref Error: <strong id="drift-gnss-err">0.0 m</strong></span>
-                </div>
-            </div>
-
-            <!-- Card 5: Navigation Accuracy (SIH Target Benchmark) -->
-            <div class="dr-card dr-card-wide">
-                <div class="dr-card-title">Navigation Accuracy (SIH Target Benchmark: &lt; 10% Drift of Outage Distance)</div>
-                <div class="dr-coords-row mono" style="justify-content: space-between;">
-                    <span>Outage Distance: <strong id="sih-outage-dist">0.0 m</strong></span>
-                    <span>Raw DR Drift %: <strong id="sih-raw-drift-pct">0.0%</strong></span>
-                    <span>Corrected Drift %: <strong id="sih-corr-drift-pct">0.0%</strong></span>
-                    <span class="qs-badge fair" id="sih-target-badge" style="font-size: 0.75rem; padding: 4px 10px;">Target Status: Prototype Evaluation</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Step 8 Charts Grid: Raw vs Corrected, Vector, Confidence, Correction Mag, Outage vs Error -->
-        <div class="sf-charts-grid">
-            <div class="chart-card">
-                <h4>Raw DR Error vs AI Corrected Error <span class="chart-unit">(meters)</span></h4>
-                <canvas id="chart-drift-error"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Estimated North / East Error Vector <span class="chart-unit">(meters)</span></h4>
-                <canvas id="chart-drift-vector"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>AI Drift Correction Confidence Score <span class="chart-unit">(0-100)</span></h4>
-                <canvas id="chart-drift-confidence"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Applied Correction Magnitude <span class="chart-unit">(meters)</span></h4>
-                <canvas id="chart-drift-correction"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>GNSS Outage Duration vs Estimated Error <span class="chart-unit">(sec vs m)</span></h4>
-                <canvas id="chart-drift-outage"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════ ACCURACY & SIH BENCHMARK (STEP 9) ═══════════════ -->
-    <section id="accuracy-benchmark-section">
-        <div class="section-header">
-            <div class="header-title-group">
-                <h2>Accuracy Benchmark</h2>
-                <span class="step9-badge">PROTOTYPE SIMULATION BENCHMARK</span>
-            </div>
-            <div class="fusion-controls-row">
-                <select id="benchmark-scenario-select" class="source-select" style="padding: 6px 12px; font-weight: 600;">
-                    <option value="SHORT_TUNNEL">Short Tunnel (5s Outage ~50m)</option>
-                    <option value="URBAN_CANYON">Urban Canyon (10s Outage ~100m)</option>
-                    <option value="LONG_TUNNEL">Long Tunnel (30s Outage ~300m)</option>
-                    <option value="EXTENDED_OUTAGE">Extended Outage (60s Outage ~1km)</option>
-                </select>
-                <button class="source-btn active" id="btn-run-scenario"><span class="source-btn-icon">▶</span> Run Scenario Test</button>
-                <button class="source-btn" id="btn-run-suite"><span class="source-btn-icon">⚡</span> Run Full Suite</button>
-                <button class="source-btn" id="btn-export-benchmark"><span class="source-btn-icon">📥</span> Export Benchmark CSV</button>
-                <button class="source-btn" id="btn-reset-benchmark"><span class="source-btn-icon">↺</span> Reset Benchmark</button>
-            </div>
-        </div>
-
-        <!-- Demo Evaluation Mode Pipeline Chips -->
-        <div class="demo-eval-pipeline">
-            <div class="eval-chip active" id="demo-chip-gnss">GNSS AVAILABLE</div>
-            <div class="eval-chip" id="demo-chip-outage">GNSS OUTAGE DETECTED</div>
-            <div class="eval-chip" id="demo-chip-dr">DEAD RECKONING ACTIVE</div>
-            <div class="eval-chip" id="demo-chip-mm">MAP MATCHING ACTIVE</div>
-            <div class="eval-chip" id="demo-chip-ai">AI CORRECTION ACTIVE</div>
-            <div class="eval-chip" id="demo-chip-rec">GNSS RECOVERY</div>
-        </div>
-
-        <div class="dr-dashboard-grid" style="margin-top: 16px;">
-            <!-- Card 1: Test Scenario & Nav Mode -->
-            <div class="dr-card">
-                <div class="dr-card-title">Test Scenario &amp; Navigation Mode</div>
-                <div class="dr-metric-main">
-                    <span class="dr-nav-mode-badge matched" id="bench-scenario-name">Short Tunnel</span>
-                    <span class="dr-nav-mode-badge gnss" id="bench-nav-mode">GNSS</span>
-                </div>
-                <div class="dr-sub-row" style="margin-top: 8px;">
-                    <span>Benchmark Status: <strong id="bench-status-badge" class="qs-badge fair">INSUFFICIENT DATA</strong></span>
-                </div>
-            </div>
-
-            <!-- Card 2: Outage Duration & Distance -->
-            <div class="dr-card">
-                <div class="dr-card-title">GNSS Outage Duration &amp; Distance</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Outage Duration</span>
-                        <span class="dr-val-large mono" id="bench-outage-dur">0.0 <small>s</small></span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Outage Distance</span>
-                        <span class="dr-val-large mono" id="bench-outage-dist">0.0 <small>m</small></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3: Live Position Error -->
-            <div class="dr-card">
-                <div class="dr-card-title">Live Position Error (m)</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Raw DR Error</span>
-                        <span class="dr-val-large mono" id="bench-raw-err">0.0 <small>m</small></span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">AI Corrected Error</span>
-                        <span class="dr-val-large mono" id="bench-corr-err" style="color: var(--accent-cyan);">0.0 <small>m</small></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4: Accuracy & Improvement -->
-            <div class="dr-card">
-                <div class="dr-card-title">Error Reduction &amp; Corrected Drift</div>
-                <div class="dr-metric-pair">
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Error Reduction</span>
-                        <span class="dr-val-large mono" id="bench-improvement" style="color: var(--status-green);">+0.0%</span>
-                    </div>
-                    <div class="dr-metric-item">
-                        <span class="dr-label">Corrected Drift</span>
-                        <span class="dr-val-large mono" id="bench-corr-drift">0.0 <small>%</small></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 5 (Wide): Prototype Benchmark Target Card -->
-            <div class="dr-card dr-card-wide">
-                <div class="dr-card-title">System Accuracy Target (Target: Drift &lt; 10% of Distance)</div>
-                <div class="dr-coords-row mono" style="justify-content: space-between; align-items: center;">
-                    <span>Target: <strong>Positional drift &lt; 10% of distance travelled during GNSS outage</strong></span>
-                    <span>Examples: <strong>&lt; 5m over 50m | &lt; 100m over 1km</strong></span>
-                    <span class="qs-badge fair" id="bench-target-badge" style="padding: 4px 12px;">Prototype Evaluation</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Step 9 Charts Grid: Error vs Time, Drift % vs 10% Target Line, Error vs Distance -->
-        <div class="sf-charts-grid" style="margin-top: 16px;">
-            <div class="chart-card">
-                <h4>Raw DR Error vs AI-Corrected Error <span class="chart-unit">(meters)</span></h4>
-                <canvas id="chart-benchmark-error"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Positional Drift (%) vs 10% SIH Target Line <span class="chart-unit">(%)</span></h4>
-                <canvas id="chart-benchmark-drift"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Position Error vs Outage Distance <span class="chart-unit">(meters vs meters)</span></h4>
-                <canvas id="chart-benchmark-dist"></canvas>
-            </div>
-        </div>
-
-        <!-- In-Session Benchmark History Table -->
-        <div class="benchmark-history-panel" style="margin-top: 20px;">
-            <h3>In-Session Evaluation History Table</h3>
-            <table class="benchmark-table" id="benchmark-history-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Timestamp</th>
-                        <th>Scenario</th>
-                        <th>Outage Time</th>
-                        <th>Outage Dist</th>
-                        <th>Max Raw Error</th>
-                        <th>Max Corrected Error</th>
-                        <th>Improvement %</th>
-                        <th>Drift %</th>
-                        <th>SIH Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="10" style="text-align: center; color: var(--text-secondary); padding: 12px;">No benchmark runs recorded yet. Select a scenario and click <strong>Run Scenario Test</strong>.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- ═══════════════ IMU SENSOR MONITOR ═══════════════ -->
-    <section id="imu-monitor">
-        <div class="section-header">
-            <h2>IMU Sensor Monitor</h2>
-            <span class="sim-tag" id="imu-source-tag">Simulated Data</span>
-        </div>
-        <div class="imu-grid">
-            <div class="imu-card">
-                <h4>Accelerometer <span class="imu-unit">(m/s²)</span></h4>
-                <div class="imu-axes">
-                    <div class="imu-axis">
-                        <span class="axis-label">X</span>
-                        <div class="axis-bar-track"><div class="axis-bar accel" id="bar-accel-x" style="width:50%"></div></div>
-                        <span class="axis-value mono" id="val-accel-x">0.00</span>
-                    </div>
-                    <div class="imu-axis">
-                        <span class="axis-label">Y</span>
-                        <div class="axis-bar-track"><div class="axis-bar accel" id="bar-accel-y" style="width:50%"></div></div>
-                        <span class="axis-value mono" id="val-accel-y">0.00</span>
-                    </div>
-                    <div class="imu-axis">
-                        <span class="axis-label">Z</span>
-                        <div class="axis-bar-track"><div class="axis-bar accel" id="bar-accel-z" style="width:50%"></div></div>
-                        <span class="axis-value mono" id="val-accel-z">9.81</span>
-                    </div>
-                </div>
-            </div>
-            <div class="imu-card">
-                <h4>Gyroscope <span class="imu-unit">(rad/s)</span></h4>
-                <div class="imu-axes">
-                    <div class="imu-axis">
-                        <span class="axis-label">X</span>
-                        <div class="axis-bar-track"><div class="axis-bar gyro" id="bar-gyro-x" style="width:50%"></div></div>
-                        <span class="axis-value mono" id="val-gyro-x">0.00</span>
-                    </div>
-                    <div class="imu-axis">
-                        <span class="axis-label">Y</span>
-                        <div class="axis-bar-track"><div class="axis-bar gyro" id="bar-gyro-y" style="width:50%"></div></div>
-                        <span class="axis-value mono" id="val-gyro-y">0.00</span>
-                    </div>
-                    <div class="imu-axis">
-                        <span class="axis-label">Z</span>
-                        <div class="axis-bar-track"><div class="axis-bar gyro" id="bar-gyro-z" style="width:50%"></div></div>
-                        <span class="axis-value mono" id="val-gyro-z">0.00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="imu-card">
-                <h4>Magnetometer <span class="imu-unit">(µT)</span></h4>
-                <div class="imu-axes">
-                    <div class="imu-axis">
-                        <span class="axis-label">X</span>
-                        <div class="axis-bar-track"><div class="axis-bar mag" id="bar-mag-x" style="width:50%"></div></div>
-                        <span class="axis-value mono" id="val-mag-x">0.00</span>
-                    </div>
-                    <div class="imu-axis">
-                        <span class="axis-label">Y</span>
-                        <div class="axis-bar-track"><div class="axis-bar mag" id="bar-mag-y" style="width:50%"></div></div>
-                        <span class="axis-value mono" id="val-mag-y">0.00</span>
-                    </div>
-                    <div class="imu-axis">
-                        <span class="axis-label">Z</span>
-                        <div class="axis-bar-track"><div class="axis-bar mag" id="bar-mag-z" style="width:50%"></div></div>
-                        <span class="axis-value mono" id="val-mag-z">0.00</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════ CHARTS ═══════════════ -->
-    <section id="charts-panel">
-        <div class="section-header">
-            <h2>Real-Time Analytics</h2>
-        </div>
-        <div class="charts-grid">
-            <div class="chart-card">
-                <h4>Vehicle Speed <span class="chart-unit">(km/h)</span></h4>
-                <canvas id="chart-speed"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Position Error <span class="chart-unit">(meters)</span></h4>
-                <canvas id="chart-error"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Accelerometer Magnitude <span class="chart-unit">(m/s²)</span></h4>
-                <canvas id="chart-accel"></canvas>
-            </div>
-            <div class="chart-card">
-                <h4>Gyroscope Magnitude <span class="chart-unit">(rad/s)</span></h4>
-                <canvas id="chart-gyro"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════ GNSS TIMELINE ═══════════════ -->
-    <section id="gnss-timeline">
-        <div class="section-header">
-            <h2>GNSS Outage Timeline</h2>
-        </div>
-        <div class="timeline-track">
-            <div class="timeline-segment tl-on" id="tl-gnss-on">
-                <span class="tl-label">GNSS ON</span>
-                <div class="tl-fill" id="tl-fill-on"></div>
-            </div>
-            <div class="timeline-segment tl-lost" id="tl-gnss-lost">
-                <span class="tl-label">GNSS LOST</span>
-                <div class="tl-fill" id="tl-fill-lost"></div>
-            </div>
-            <div class="timeline-segment tl-dr" id="tl-dr">
-                <span class="tl-label">DEAD RECKONING</span>
-                <div class="tl-fill" id="tl-fill-dr"></div>
-            </div>
-            <div class="timeline-segment tl-restored" id="tl-gnss-restored">
-                <span class="tl-label">GNSS RESTORED</span>
-                <div class="tl-fill" id="tl-fill-restored"></div>
-            </div>
-            <div class="timeline-segment tl-fusion" id="tl-fusion">
-                <span class="tl-label">FUSION</span>
-                <div class="tl-fill" id="tl-fill-fusion"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════ SYSTEM ARCHITECTURE ═══════════════ -->
-    <section id="system-architecture">
-        <div class="section-header">
-            <h2>System Architecture</h2>
-        </div>
-        <div class="arch-flow">
-            <div class="arch-block">
-                <div class="arch-icon">📱</div>
-                <div class="arch-label">Smartphone IMU</div>
-            </div>
-            <div class="arch-connector">→</div>
-            <div class="arch-block">
-                <div class="arch-icon">⚙️</div>
-                <div class="arch-label">Sensor Processing</div>
-            </div>
-            <div class="arch-connector">→</div>
-            <div class="arch-block highlight">
-                <div class="arch-icon">🤖</div>
-                <div class="arch-label">AI/ML Engine</div>
-            </div>
-            <div class="arch-connector">→</div>
-            <div class="arch-block">
-                <div class="arch-icon">📐</div>
-                <div class="arch-label">Dead Reckoning</div>
-            </div>
-            <div class="arch-connector">→</div>
-            <div class="arch-block">
-                <div class="arch-icon">🗺️</div>
-                <div class="arch-label">Map Matching</div>
-            </div>
-            <div class="arch-connector">→</div>
-            <div class="arch-block">
-                <div class="arch-icon">🔗</div>
-                <div class="arch-label">GNSS + INS Fusion</div>
-            </div>
-            <div class="arch-connector">→</div>
-            <div class="arch-block final">
-                <div class="arch-icon">🛰️</div>
-                <div class="arch-label">Seamless Navigation</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══════════════ SENSOR DATA PIPELINE ═══════════════ -->
-    <section id="sensor-pipeline">
-        <div class="section-header">
-            <h2>Sensor Data Pipeline</h2>
-        </div>
-        <div class="pipeline-flow">
-            <div class="pipeline-block source-block">
-                <div class="pipeline-icon">📱</div>
-                <div class="pipeline-label">Real Smartphone<br>Sensors</div>
-            </div>
-            <div class="pipeline-connector">→</div>
-            <div class="pipeline-block">
-                <div class="pipeline-icon">🔓</div>
-                <div class="pipeline-label">Permission<br>Manager</div>
-            </div>
-            <div class="pipeline-connector">→</div>
-            <div class="pipeline-block highlight">
-                <div class="pipeline-icon">🔄</div>
-                <div class="pipeline-label">SensorManager<br><small>(HAL)</small></div>
-            </div>
-            <div class="pipeline-connector">→</div>
-            <div class="pipeline-block">
-                <div class="pipeline-icon">📐</div>
-                <div class="pipeline-label">Normalization<br>&amp; Filtering</div>
-            </div>
-            <div class="pipeline-connector">→</div>
-            <div class="pipeline-block final">
-                <div class="pipeline-icon">🧭</div>
-                <div class="pipeline-label">Navigation<br>Engine</div>
-            </div>
-        </div>
-        <div class="pipeline-note">
-            <strong>Current:</strong> SensorManager routes data from <em id="pipeline-source-label">Simulation</em> to Navigation Engine
-        </div>
-    </section>
-
+      </dl>
+      <p>
+        Fixed phone mount. The planar motion model assumes forward travel on
+        approximately level roads.
+      </p>
+      <div class="workbench-controls">
+        <button data-scenario="SHORT_TUNNEL">5 s outage</button
+        ><button data-scenario="URBAN_CANYON">10 s outage</button
+        ><button data-scenario="LONG_TUNNEL">30 s outage</button
+        ><button data-scenario="EXTENDED_OUTAGE">60 s outage</button
+        ><button id="btn-run-suite">Run scenario suite</button
+        ><button id="btn-export-benchmark">Export scenario CSV</button
+        ><button id="btn-reset-benchmark">Clear scenario history</button>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Outage</th>
+              <th>Reference distance</th>
+              <th>Peak error</th>
+              <th>Drift</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody id="scenario-results">
+            <tr>
+              <td colspan="6">No completed scenarios</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
     <!-- ═══════════════ FOOTER ═══════════════ -->
     <footer id="app-footer">
-        <p class="disclaimer">⚠️ Prototype supports both simulated and real smartphone IMU data. Real sensor mode requires a compatible mobile browser. Trained AI/ML models are planned for the next development phase.</p>
-        <p class="credits">IDRN &nbsp;|&nbsp; AI-ML Based Intelligent Dead Reckoning System for Seamless Navigation</p>
+      <p class="disclaimer">
+        ⚠️ Prototype supports both simulated and real smartphone IMU data. Real
+        sensor mode requires a compatible mobile browser. Trained AI/ML models
+        are not implemented. The selected pipeline is conventional alignment,
+        planar EKF and optional road HMM.
+      </p>
+      <p class="credits">
+        NavDR &nbsp;|&nbsp; AI-ML Based Intelligent Dead Reckoning System for
+        Seamless Navigation
+      </p>
     </footer>
 
     <!-- ═══════════════ SCRIPTS ═══════════════ -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script
+      src="vendor/leaflet/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
     <script src="js/config.js"></script>
+    <script src="js/demo-route.js"></script>
     <script src="js/engine.js"></script>
     <script src="js/sensors-manager.js"></script>
     <script src="js/sensor-processing.js"></script>
     <script src="js/handheld-compensation.js"></script>
-    <script src="js/ai-motion-estimator.js"></script>
+    <script src="js/ai-motion-estimator.js?v=tcn1"></script>
     <script src="js/ai-drift-correction.js"></script>
     <script src="js/accuracy-benchmark.js"></script>
     <script src="js/dead-reckoning.js"></script>
@@ -1393,5 +535,11 @@
     <script src="js/sensor-fusion.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/app.js"></script>
-</body>
+    <script src="js/road-hmm.js"></script>
+    <script src="js/gnss-quality.js"></script>
+    <script src="js/navigation-core.js?v=tcn1"></script>
+    <script src="js/replay.js?v=tcn1"></script>
+    <script src="js/sih-demo.js"></script>
+    <script src="js/navigation-workbench.js?v=tcn1"></script>
+  </body>
 </html>

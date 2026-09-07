@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════
-   IDRN — Handheld Phone Motion Compensation Module
+   NavDR — Handheld Phone Motion Compensation Module
    Detects device-only motion (rotation, tilt, handling)
    and protects vehicle-frame heading during GNSS outage.
    ═══════════════════════════════════════════════════════ */
 
-IDRN.HandheldCompensation = {
+NavDR.HandheldCompensation = {
     // Configuration parameters
     config: {
         CONFIDENCE_ALPHA: 0.15,           // EMA smoothing factor for confidence
@@ -78,7 +78,7 @@ IDRN.HandheldCompensation = {
 
     /**
      * Update handheld motion analysis and vehicle-frame heading protection.
-     * @param {Object} sensorData - Processed sensor data from IDRN.SensorProcessor
+     * @param {Object} sensorData - Processed sensor data from NavDR.SensorProcessor
      * @param {Object} navState - Current navigation state (gnssAvailable, refHeading, speedKmh, etc.)
      * @param {number} dt - Time delta in seconds
      * @returns {Object} Compensation result containing compensatedYawRate and protectedVehicleHeading
@@ -122,8 +122,8 @@ IDRN.HandheldCompensation = {
 
         // Expected vehicle yaw rate (from MapMatcher road curvature or GNSS heading rate)
         let expectedVehicleYawRate = 0;
-        if (IDRN.MapMatcher && IDRN.MapMatcher.enabled) {
-            const mmState = IDRN.MapMatcher.getState();
+        if (NavDR.MapMatcher && NavDR.MapMatcher.enabled) {
+            const mmState = NavDR.MapMatcher.getState();
             if (mmState && mmState.isMatched && mmState.segmentHeading !== null) {
                 expectedVehicleYawRate = 0; // Road segments are locally piecewise linear
             }
@@ -165,8 +165,8 @@ IDRN.HandheldCompensation = {
                 this.headingProtectionStatus = 'ACTIVE';
                 this.deviceOrientationStatus = 'INDEPENDENT';
                 this.lastStateChangeTime = now;
-                if (IDRN.Notifications) {
-                    IDRN.Notifications.show('Handheld Motion Detected — Vehicle Heading Protected', 'warning', 3000);
+                if (NavDR.Notifications) {
+                    NavDR.Notifications.show('Handheld Motion Detected — Vehicle Heading Protected', 'warning', 3000);
                 }
             }
         } else if (this.handheldConfidence >= this.config.CONF_POSSIBLE_THRESHOLD) {
@@ -197,11 +197,11 @@ IDRN.HandheldCompensation = {
         // Calculate compensated yaw rate
         if (this.headingProtectionStatus === 'ACTIVE') {
             // Phone is being handled/rotated: REJECT phone-only rotation!
-            if (IDRN.MapMatcher && IDRN.MapMatcher.enabled) {
-                const mmState = IDRN.MapMatcher.getState();
+            if (NavDR.MapMatcher && NavDR.MapMatcher.enabled) {
+                const mmState = NavDR.MapMatcher.getState();
                 if (mmState && mmState.isMatched && mmState.segmentHeading !== undefined) {
-                    const roadHeadingRad = IDRN.Geo ? IDRN.Geo.degreesToRadians(mmState.segmentHeading) : navState.refHeading;
-                    const headingError = IDRN.Geo ? IDRN.Geo.normalizeAngleRad(roadHeadingRad - this.vehicleHeadingRad) : 0;
+                    const roadHeadingRad = NavDR.Geo ? NavDR.Geo.degreesToRadians(mmState.segmentHeading) : navState.refHeading;
+                    const headingError = NavDR.Geo ? NavDR.Geo.normalizeAngleRad(roadHeadingRad - this.vehicleHeadingRad) : 0;
                     this.compensatedYawRateRad = Math.sign(headingError) * Math.min(Math.abs(headingError) / 0.5, 0.08);
                 } else {
                     this.compensatedYawRateRad = 0; // Lock heading straight
@@ -215,8 +215,8 @@ IDRN.HandheldCompensation = {
         }
 
         // Update protected vehicle heading
-        if (IDRN.Geo) {
-            this.vehicleHeadingRad = IDRN.Geo.normalizeAngleRad(this.vehicleHeadingRad + this.compensatedYawRateRad * dt);
+        if (NavDR.Geo) {
+            this.vehicleHeadingRad = NavDR.Geo.normalizeAngleRad(this.vehicleHeadingRad + this.compensatedYawRateRad * dt);
         }
 
         return {

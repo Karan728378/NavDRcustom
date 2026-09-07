@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════════
-   IDRN — AI-Based Drift & Position Error Correction Engine
+   NavDR — AI-Based Drift & Position Error Correction Engine
    SIH 2026 Problem Statement 26168
    ═══════════════════════════════════════════════════════ */
 
-window.IDRN = window.IDRN || {};
+window.NavDR = window.NavDR || {};
 
-IDRN.AIDriftCorrection = {
+NavDR.AIDriftCorrection = {
     // ── Module State ──
     enabled: true,
     _running: true,
@@ -59,7 +59,7 @@ IDRN.AIDriftCorrection = {
      * Initialize AIDriftCorrection module
      */
     initialize() {
-        this.enabled = IDRN.Config.AI_DRIFT_MODEL ? IDRN.Config.AI_DRIFT_MODEL.ENABLED : true;
+        this.enabled = NavDR.Config.AI_DRIFT_MODEL ? NavDR.Config.AI_DRIFT_MODEL.ENABLED : true;
         this.reset();
         console.log('[AIDriftCorrection] Prototype On-Device Drift Error Estimation Model initialized.');
     },
@@ -121,8 +121,8 @@ IDRN.AIDriftCorrection = {
             this.modelStatus = 'DISABLED';
             this.correctionStatus = 'DISABLED';
         }
-        if (IDRN.Notifications) {
-            IDRN.Notifications.show(`AI Drift Correction: ${this.enabled ? 'ENABLED' : 'DISABLED'}`, 'info', 2000);
+        if (NavDR.Notifications) {
+            NavDR.Notifications.show(`AI Drift Correction: ${this.enabled ? 'ENABLED' : 'DISABLED'}`, 'info', 2000);
         }
     },
 
@@ -149,7 +149,7 @@ IDRN.AIDriftCorrection = {
 
         const mapLatDev = mmState ? mmState.lateralDeviationMeters : 0;
         const mapCorrMag = mmState ? mmState.mapMatchCorrectionMeters : 0;
-        const routeProgress = (IDRN.Route && IDRN.Route.progress) ? IDRN.Route.progress : 0;
+        const routeProgress = (NavDR.Route && NavDR.Route.progress) ? NavDR.Route.progress : 0;
 
         const outageDuration = this.outageDurationSeconds;
         const drUncertainty = sfState ? sfState.positionUncertaintyMeters : (2.5 + outageDuration * 0.25);
@@ -232,7 +232,7 @@ IDRN.AIDriftCorrection = {
         }
 
         const tStart = performance.now();
-        const C = IDRN.Config.AI_DRIFT_MODEL || {};
+        const C = NavDR.Config.AI_DRIFT_MODEL || {};
 
         // Extract 18 Features
         const features = this.extractFeatures(cleanSensors, drState, mmState, sfState, aiMotionState, gnssData, dt);
@@ -248,7 +248,7 @@ IDRN.AIDriftCorrection = {
         const refLon = (gnssData && gnssData.lon) ? gnssData.lon : drState.position.lon;
 
         // Ground-truth Reference DR Deviation (meters relative to reference trajectory)
-        const refDist = IDRN.Geo ? IDRN.Geo.haversine(refLat, refLon, drState.position.lat, drState.position.lon) : drState.positionErrorMeters;
+        const refDist = NavDR.Geo ? NavDR.Geo.haversine(refLat, refLon, drState.position.lat, drState.position.lon) : drState.positionErrorMeters;
         this.rawDRDeviationMeters = parseFloat(refDist.toFixed(2));
 
         if (isGnssAvail) {
@@ -272,8 +272,8 @@ IDRN.AIDriftCorrection = {
             this.improvementPercent = 0;
         } else {
             // ── GNSS OUTAGE: Outage Drift Error Estimation & Controlled Correction ──
-            this.outageDurationSeconds = parseFloat((this.outageDurationSeconds + dt).toFixed(1));
-            this.outageDistanceMeters = parseFloat((this.outageDistanceMeters + drState.currentSpeedMps * dt).toFixed(1));
+            this.outageDurationSeconds = this.outageDurationSeconds + dt;
+            this.outageDistanceMeters = this.outageDistanceMeters + drState.currentSpeedMps * dt;
 
             // Predict Error Magnitude & Confidence
             const pred = this.predictError(features);
@@ -317,8 +317,8 @@ IDRN.AIDriftCorrection = {
                 this.correctionMagnitudeMeters = parseFloat(Math.sqrt(this._currentAppliedCorrN ** 2 + this._currentAppliedCorrE ** 2).toFixed(2));
 
                 // Apply Controlled Correction to Raw DR Position (No Position Teleportation!)
-                if (IDRN.Geo && typeof IDRN.Geo.metersToDegrees === 'function') {
-                    const offset = IDRN.Geo.metersToDegrees(this.correctionNorthMeters, this.correctionEastMeters, drState.position.lat);
+                if (NavDR.Geo && typeof NavDR.Geo.metersToDegrees === 'function') {
+                    const offset = NavDR.Geo.metersToDegrees(this.correctionNorthMeters, this.correctionEastMeters, drState.position.lat);
                     this.aiCorrectedPosition = {
                         lat: drState.position.lat + offset.dLat,
                         lon: drState.position.lon + offset.dLon
@@ -328,13 +328,13 @@ IDRN.AIDriftCorrection = {
                 }
 
                 // Compute Corrected Position Deviation vs Ground-Truth Reference
-                const correctedDist = IDRN.Geo ? IDRN.Geo.haversine(refLat, refLon, this.aiCorrectedPosition.lat, this.aiCorrectedPosition.lon) : (this.rawDRDeviationMeters - this.correctionMagnitudeMeters);
+                const correctedDist = NavDR.Geo ? NavDR.Geo.haversine(refLat, refLon, this.aiCorrectedPosition.lat, this.aiCorrectedPosition.lon) : (this.rawDRDeviationMeters - this.correctionMagnitudeMeters);
                 this.correctedDeviationMeters = parseFloat(Math.max(0, correctedDist).toFixed(2));
 
                 // Compute Error Improvement Percentage
                 if (this.rawDRDeviationMeters > 0.1) {
                     const imp = ((this.rawDRDeviationMeters - this.correctedDeviationMeters) / this.rawDRDeviationMeters) * 100;
-                    this.improvementPercent = parseFloat(Math.max(0, Math.min(100, imp)).toFixed(1));
+                    this.improvementPercent = parseFloat(imp.toFixed(1));
                 } else {
                     this.improvementPercent = 0;
                 }

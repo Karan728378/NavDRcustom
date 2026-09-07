@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   IDRN — Sensor Manager
+   NavDR — Sensor Manager
    Hardware Abstraction Layer for IMU Sensor Sources
    Supports: Simulation Mode & Real Device Sensors
    ═══════════════════════════════════════════════════════ */
@@ -13,7 +13,7 @@
 //   - Magnetometer API (Generic Sensor, if available)
 // ════════════════════════════════════════════════════
 
-IDRN.DeviceSensors = {
+NavDR.DeviceSensors = {
     // Latest readings from device hardware
     accelerometer: { x: 0, y: 0, z: 9.81 },
     gyroscope: { x: 0, y: 0, z: 0 },
@@ -100,7 +100,7 @@ IDRN.DeviceSensors = {
 
             this.permission = 'granted';
         } catch (e) {
-            console.warn('[IDRN DeviceSensors] Permission request failed:', e);
+            console.warn('[NavDR DeviceSensors] Permission request failed:', e);
             this.permission = 'denied';
         }
 
@@ -114,7 +114,7 @@ IDRN.DeviceSensors = {
         if (this.active) return;
 
         if (this.permission === 'denied' || this.permission === 'unsupported') {
-            console.warn('[IDRN DeviceSensors] Cannot start — permission:', this.permission);
+            console.warn('[NavDR DeviceSensors] Cannot start — permission:', this.permission);
             return;
         }
 
@@ -157,7 +157,7 @@ IDRN.DeviceSensors = {
                 this.available.orientation = false;
             }
             // Update UI
-            IDRN.SensorManager.updateDeviceStatusUI();
+            NavDR.SensorManager.updateDeviceStatusUI();
         }, 1500);
     },
 
@@ -205,9 +205,9 @@ IDRN.DeviceSensors = {
         const rot = e.rotationRate;
         if (rot) {
             // DeviceMotionEvent rotationRate is in deg/s — convert to rad/s
-            this.gyroscope.x = (rot.beta || 0) * IDRN.Config.DEG_TO_RAD;
-            this.gyroscope.y = (rot.gamma || 0) * IDRN.Config.DEG_TO_RAD;
-            this.gyroscope.z = (rot.alpha || 0) * IDRN.Config.DEG_TO_RAD;
+            this.gyroscope.x = (rot.beta || 0) * NavDR.Config.DEG_TO_RAD;
+            this.gyroscope.y = (rot.gamma || 0) * NavDR.Config.DEG_TO_RAD;
+            this.gyroscope.z = (rot.alpha || 0) * NavDR.Config.DEG_TO_RAD;
         }
     },
 
@@ -223,7 +223,7 @@ IDRN.DeviceSensors = {
 
         // Derive approximate magnetometer from orientation if no hardware magnetometer
         if (!this.available.magnetometer && this._hasReceivedOrientation) {
-            const heading = (e.alpha || 0) * IDRN.Config.DEG_TO_RAD;
+            const heading = (e.alpha || 0) * NavDR.Config.DEG_TO_RAD;
             const magStrength = 47; // µT — approximate for India
             const inclination = -0.7; // radians
             this.magnetometer.x = magStrength * Math.cos(inclination) * Math.cos(heading);
@@ -266,11 +266,11 @@ IDRN.DeviceSensors = {
 // Navigation Engine
 // ════════════════════════════════════════════════════
 
-IDRN.SensorManager = {
+NavDR.SensorManager = {
     // Current source: 'simulation' | 'device'
     source: 'simulation',
 
-    // Unified normalized output — same shape as IDRN.Sensors
+    // Unified normalized output — same shape as NavDR.Sensors
     accelerometer: { x: 0, y: 0, z: 9.81 },
     gyroscope: { x: 0, y: 0, z: 0 },
     magnetometer: { x: 25, y: 5, z: -40 },
@@ -284,12 +284,12 @@ IDRN.SensorManager = {
 
         if (newSource === 'device') {
             // Check availability first
-            IDRN.DeviceSensors.checkAvailability();
+            NavDR.DeviceSensors.checkAvailability();
 
             // Request permission if needed
-            const perm = await IDRN.DeviceSensors.requestPermission();
+            const perm = await NavDR.DeviceSensors.requestPermission();
             if (perm === 'denied') {
-                IDRN.Notifications.show(
+                NavDR.Notifications.show(
                     'Sensor permission denied — falling back to Simulation mode',
                     'warning', 4000
                 );
@@ -298,7 +298,7 @@ IDRN.SensorManager = {
                 return;
             }
             if (perm === 'unsupported') {
-                IDRN.Notifications.show(
+                NavDR.Notifications.show(
                     'Device sensors not available on this browser — using Simulation mode',
                     'warning', 4000
                 );
@@ -308,17 +308,17 @@ IDRN.SensorManager = {
             }
 
             // Start device sensors
-            IDRN.DeviceSensors.start();
+            NavDR.DeviceSensors.start();
             this.source = 'device';
-            IDRN.Notifications.show(
+            NavDR.Notifications.show(
                 'Switched to Real Device sensor mode',
                 'info', 3000
             );
         } else {
             // Switch back to simulation
-            IDRN.DeviceSensors.stop();
+            NavDR.DeviceSensors.stop();
             this.source = 'simulation';
-            IDRN.Notifications.show(
+            NavDR.Notifications.show(
                 'Switched to Simulation sensor mode',
                 'info', 3000
             );
@@ -331,7 +331,7 @@ IDRN.SensorManager = {
     /**
      * Update sensor readings for current tick.
      * Called from the simulation loop. In simulation mode, delegates
-     * to IDRN.Sensors. In device mode, reads from IDRN.DeviceSensors.
+     * to NavDR.Sensors. In device mode, reads from NavDR.DeviceSensors.
      *
      * @param {number} speedMs - Vehicle speed m/s (used by simulation)
      * @param {number} heading - Vehicle heading rad (used by simulation)
@@ -340,16 +340,16 @@ IDRN.SensorManager = {
     update(speedMs, heading, dt) {
         if (this.source === 'simulation') {
             // Delegate to existing simulation engine
-            IDRN.Sensors.update(speedMs, heading, dt);
+            NavDR.Sensors.update(speedMs, heading, dt);
             // Copy references
-            this.accelerometer = IDRN.Sensors.accelerometer;
-            this.gyroscope = IDRN.Sensors.gyroscope;
-            this.magnetometer = IDRN.Sensors.magnetometer;
+            this.accelerometer = NavDR.Sensors.accelerometer;
+            this.gyroscope = NavDR.Sensors.gyroscope;
+            this.magnetometer = NavDR.Sensors.magnetometer;
         } else {
             // Read from device hardware (already updated via event listeners)
-            this.accelerometer = IDRN.DeviceSensors.accelerometer;
-            this.gyroscope = IDRN.DeviceSensors.gyroscope;
-            this.magnetometer = IDRN.DeviceSensors.magnetometer;
+            this.accelerometer = NavDR.DeviceSensors.accelerometer;
+            this.gyroscope = NavDR.DeviceSensors.gyroscope;
+            this.magnetometer = NavDR.DeviceSensors.magnetometer;
         }
     },
 
@@ -373,8 +373,8 @@ IDRN.SensorManager = {
      * Reset all sensor sources.
      */
     reset() {
-        IDRN.Sensors.reset();
-        IDRN.DeviceSensors.reset();
+        NavDR.Sensors.reset();
+        NavDR.DeviceSensors.reset();
         this.source = 'simulation';
         this.accelerometer = { x: 0, y: 0, z: 9.81 };
         this.gyroscope = { x: 0, y: 0, z: 0 };
@@ -429,7 +429,7 @@ IDRN.SensorManager = {
      * Update device sensor status panel.
      */
     updateDeviceStatusUI() {
-        const ds = IDRN.DeviceSensors;
+        const ds = NavDR.DeviceSensors;
 
         const setStatus = (id, available) => {
             const el = document.getElementById(id);
@@ -456,7 +456,7 @@ IDRN.SensorManager = {
      * Initialize — check availability and set default UI state.
      */
     initialize() {
-        IDRN.DeviceSensors.checkAvailability();
+        NavDR.DeviceSensors.checkAvailability();
         this.updateSourceUI('simulation');
         this.updateDeviceStatusUI();
     }

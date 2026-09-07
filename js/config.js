@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════════
-   IDRN — Configuration, Constants & Route Data
+   NavDR — Configuration, Constants & Route Data
    ═══════════════════════════════════════════════════════ */
 
-window.IDRN = window.IDRN || {};
+window.NavDR = window.NavDR || {};
 
 // ── Simulation Constants ──
-IDRN.Config = {
+NavDR.Config = {
     UPDATE_INTERVAL_MS: 50,          // Simulation tick rate (20 fps)
     DEFAULT_SPEED_KMH: 40,          // Default vehicle speed
     SPEED_INCREMENT_KMH: 10,        // Speed button step
@@ -154,7 +154,7 @@ IDRN.Config = {
 // Predefined route through central New Delhi (Kartavya Path → India Gate area)
 // with a clearly marked GNSS Denied Zone in the middle section.
 
-IDRN.RouteData = {
+NavDR.RouteData = {
     // Key waypoints defining the route path
     keyWaypoints: [
         // ── Section 1: Start — GNSS Available ──
@@ -193,7 +193,7 @@ IDRN.RouteData = {
 };
 
 // ── Route Processing ──
-IDRN.Route = {
+NavDR.Route = {
     points: [],               // Interpolated route [{lat, lng}, ...]
     cumulativeDist: [],       // Cumulative distance at each point (meters)
     totalLength: 0,           // Total route length (meters)
@@ -204,8 +204,8 @@ IDRN.Route = {
      * Initialize route: interpolate waypoints, compute distances.
      */
     initialize() {
-        const kw = IDRN.RouteData.keyWaypoints;
-        const density = IDRN.RouteData.interpolationDensity;
+        const kw = NavDR.RouteData.keyWaypoints;
+        const density = NavDR.RouteData.interpolationDensity;
         this.points = [];
 
         // Interpolate between consecutive key waypoints
@@ -227,7 +227,7 @@ IDRN.Route = {
         // Compute cumulative distances
         this.cumulativeDist = [0];
         for (let i = 1; i < this.points.length; i++) {
-            const d = IDRN.Geo.haversine(
+            const d = NavDR.Geo.haversine(
                 this.points[i - 1].lat, this.points[i - 1].lng,
                 this.points[i].lat, this.points[i].lng
             );
@@ -236,8 +236,8 @@ IDRN.Route = {
         this.totalLength = this.cumulativeDist[this.cumulativeDist.length - 1];
 
         // Compute GNSS blocked zone distance boundaries
-        const blockedStartPtIdx = IDRN.RouteData.gnssBlockedStartIdx * density;
-        const blockedEndPtIdx = IDRN.RouteData.gnssBlockedEndIdx * density;
+        const blockedStartPtIdx = NavDR.RouteData.gnssBlockedStartIdx * density;
+        const blockedEndPtIdx = NavDR.RouteData.gnssBlockedEndIdx * density;
         this.gnssBlockedDistStart = this.cumulativeDist[Math.min(blockedStartPtIdx, this.points.length - 1)];
         this.gnssBlockedDistEnd = this.cumulativeDist[Math.min(blockedEndPtIdx, this.points.length - 1)];
     },
@@ -252,7 +252,7 @@ IDRN.Route = {
         if (distance <= 0) {
             return {
                 lat: pts[0].lat, lng: pts[0].lng,
-                heading: IDRN.Geo.bearing(pts[0].lat, pts[0].lng, pts[1].lat, pts[1].lng),
+                heading: NavDR.Geo.bearing(pts[0].lat, pts[0].lng, pts[1].lat, pts[1].lng),
                 index: 0, finished: false
             };
         }
@@ -261,7 +261,7 @@ IDRN.Route = {
             const n = pts.length;
             return {
                 lat: pts[n - 1].lat, lng: pts[n - 1].lng,
-                heading: IDRN.Geo.bearing(pts[n - 2].lat, pts[n - 2].lng, pts[n - 1].lat, pts[n - 1].lng),
+                heading: NavDR.Geo.bearing(pts[n - 2].lat, pts[n - 2].lng, pts[n - 1].lat, pts[n - 1].lng),
                 index: n - 1, finished: true
             };
         }
@@ -280,7 +280,7 @@ IDRN.Route = {
         return {
             lat: pts[lo].lat + t * (pts[lo + 1].lat - pts[lo].lat),
             lng: pts[lo].lng + t * (pts[lo + 1].lng - pts[lo].lng),
-            heading: IDRN.Geo.bearing(pts[lo].lat, pts[lo].lng, pts[lo + 1].lat, pts[lo + 1].lng),
+            heading: NavDR.Geo.bearing(pts[lo].lat, pts[lo].lng, pts[lo + 1].lat, pts[lo + 1].lng),
             index: lo,
             finished: false
         };
@@ -296,7 +296,7 @@ IDRN.Route = {
         let bestLat = lat, bestLng = lng, bestIdx = 0;
 
         for (let i = 0; i < pts.length - 1; i++) {
-            const proj = IDRN.Geo.projectOnSegment(
+            const proj = NavDR.Geo.projectOnSegment(
                 lat, lng,
                 pts[i].lat, pts[i].lng,
                 pts[i + 1].lat, pts[i + 1].lng
@@ -323,9 +323,9 @@ IDRN.Route = {
      * Get the GNSS denied zone boundary polygon (for map overlay).
      */
     getGNSSZoneBounds() {
-        const kw = IDRN.RouteData.keyWaypoints;
-        const si = IDRN.RouteData.gnssBlockedStartIdx;
-        const ei = IDRN.RouteData.gnssBlockedEndIdx;
+        const kw = NavDR.RouteData.keyWaypoints;
+        const si = NavDR.RouteData.gnssBlockedStartIdx;
+        const ei = NavDR.RouteData.gnssBlockedEndIdx;
         // Create a bounding box around the denied zone waypoints
         let minLat = Infinity, maxLat = -Infinity, minLng = Infinity, maxLng = -Infinity;
         for (let i = si; i <= ei; i++) {
@@ -347,25 +347,25 @@ IDRN.Route = {
      * Get the denied zone section of the route (for drawing on map).
      */
     getGNSSZoneRouteLatLngs() {
-        const density = IDRN.RouteData.interpolationDensity;
-        const si = IDRN.RouteData.gnssBlockedStartIdx * density;
-        const ei = Math.min(IDRN.RouteData.gnssBlockedEndIdx * density, this.points.length - 1);
+        const density = NavDR.RouteData.interpolationDensity;
+        const si = NavDR.RouteData.gnssBlockedStartIdx * density;
+        const ei = Math.min(NavDR.RouteData.gnssBlockedEndIdx * density, this.points.length - 1);
         return this.points.slice(si, ei + 1).map(p => [p.lat, p.lng]);
     }
 };
 
 // ── Geodesic Utilities ──
-IDRN.Geo = {
+NavDR.Geo = {
     /**
      * Haversine distance between two lat/lng points in meters.
      */
     haversine(lat1, lng1, lat2, lng2) {
-        const R = IDRN.Config.EARTH_RADIUS_M;
-        const dLat = (lat2 - lat1) * IDRN.Config.DEG_TO_RAD;
-        const dLng = (lng2 - lng1) * IDRN.Config.DEG_TO_RAD;
+        const R = NavDR.Config.EARTH_RADIUS_M;
+        const dLat = (lat2 - lat1) * NavDR.Config.DEG_TO_RAD;
+        const dLng = (lng2 - lng1) * NavDR.Config.DEG_TO_RAD;
         const a = Math.sin(dLat / 2) ** 2 +
-                  Math.cos(lat1 * IDRN.Config.DEG_TO_RAD) *
-                  Math.cos(lat2 * IDRN.Config.DEG_TO_RAD) *
+                  Math.cos(lat1 * NavDR.Config.DEG_TO_RAD) *
+                  Math.cos(lat2 * NavDR.Config.DEG_TO_RAD) *
                   Math.sin(dLng / 2) ** 2;
         return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     },
@@ -374,10 +374,10 @@ IDRN.Geo = {
      * Bearing from point 1 to point 2 in radians (0 = North, clockwise).
      */
     bearing(lat1, lng1, lat2, lng2) {
-        const dLng = (lng2 - lng1) * IDRN.Config.DEG_TO_RAD;
-        const y = Math.sin(dLng) * Math.cos(lat2 * IDRN.Config.DEG_TO_RAD);
-        const x = Math.cos(lat1 * IDRN.Config.DEG_TO_RAD) * Math.sin(lat2 * IDRN.Config.DEG_TO_RAD) -
-                  Math.sin(lat1 * IDRN.Config.DEG_TO_RAD) * Math.cos(lat2 * IDRN.Config.DEG_TO_RAD) * Math.cos(dLng);
+        const dLng = (lng2 - lng1) * NavDR.Config.DEG_TO_RAD;
+        const y = Math.sin(dLng) * Math.cos(lat2 * NavDR.Config.DEG_TO_RAD);
+        const x = Math.cos(lat1 * NavDR.Config.DEG_TO_RAD) * Math.sin(lat2 * NavDR.Config.DEG_TO_RAD) -
+                  Math.sin(lat1 * NavDR.Config.DEG_TO_RAD) * Math.cos(lat2 * NavDR.Config.DEG_TO_RAD) * Math.cos(dLng);
         return Math.atan2(y, x);
     },
 
@@ -385,9 +385,9 @@ IDRN.Geo = {
      * Move a lat/lng point by distance (m) along a bearing (rad).
      */
     movePoint(lat, lng, distM, bearingRad) {
-        const dLat = distM * Math.cos(bearingRad) / IDRN.Config.METERS_PER_DEG_LAT;
+        const dLat = distM * Math.cos(bearingRad) / NavDR.Config.METERS_PER_DEG_LAT;
         const dLng = distM * Math.sin(bearingRad) /
-                     (IDRN.Config.METERS_PER_DEG_LAT * Math.cos(lat * IDRN.Config.DEG_TO_RAD));
+                     (NavDR.Config.METERS_PER_DEG_LAT * Math.cos(lat * NavDR.Config.DEG_TO_RAD));
         return { lat: lat + dLat, lng: lng + dLng };
     },
 
@@ -395,8 +395,8 @@ IDRN.Geo = {
      * Convert North/East displacement meters into latitude and longitude degree offsets.
      */
     metersToDegrees(northM, eastM, lat) {
-        const dLat = northM / IDRN.Config.METERS_PER_DEG_LAT;
-        const dLon = eastM / (IDRN.Config.METERS_PER_DEG_LAT * Math.cos(lat * IDRN.Config.DEG_TO_RAD));
+        const dLat = northM / NavDR.Config.METERS_PER_DEG_LAT;
+        const dLon = eastM / (NavDR.Config.METERS_PER_DEG_LAT * Math.cos(lat * NavDR.Config.DEG_TO_RAD));
         return { dLat, dLon };
     },
 
@@ -429,7 +429,7 @@ IDRN.Geo = {
      * Convert bearing (radians) to compass degrees string.
      */
     bearingToDegrees(bearingRad) {
-        let deg = bearingRad * IDRN.Config.RAD_TO_DEG;
+        let deg = bearingRad * NavDR.Config.RAD_TO_DEG;
         deg = ((deg % 360) + 360) % 360;
         return deg;
     },

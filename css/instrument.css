@@ -1,0 +1,616 @@
+/* NavDR instrument surface. Existing diagnostics retain their structural CSS. */
+:root {
+  --bg-primary: #f3f6f8;
+  --bg-secondary: #fff;
+  --bg-card: #fff;
+  --bg-card-hover: #edf2f5;
+  --border-subtle: #cad4dc;
+  --border-accent: #9bafbd;
+  --text-primary: #20364a;
+  --text-secondary: #42596b;
+  --text-muted: #526878;
+  --text-mono: #20364a;
+  --accent-cyan: #245da8;
+  --accent-blue: #245da8;
+  --accent-indigo: #245da8;
+  --status-green: #087e83;
+  --status-red: #b3343b;
+  --status-amber: #996000;
+  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --shadow-card: none;
+  --shadow-glow-cyan: none;
+  --shadow-glow-red: none;
+  --radius-sm: 3px;
+  --radius-md: 3px;
+  --radius-lg: 3px;
+  --radius-xl: 3px;
+  --sidebar-width: 360px;
+}
+html {
+  font-size: 16px;
+  scroll-behavior: auto;
+}
+body {
+  overflow-x: visible;
+}
+h1,
+h2,
+h3,
+summary {
+  font-family: "IBM Plex Sans Condensed", sans-serif;
+  letter-spacing: 0 !important;
+}
+h2 {
+  font-size: 1.35rem;
+}
+button,
+input,
+label {
+  font: inherit;
+}
+button,
+.ctrl-btn,
+.source-btn {
+  min-height: 42px;
+  cursor: pointer;
+}
+button {
+  background: white;
+  border: 1px solid #9bafbd;
+  border-radius: 3px;
+  padding: 8px 14px;
+  color: #20364a;
+}
+button:hover {
+  background: #e7edf3;
+  transform: none !important;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+:focus-visible {
+  outline: 3px solid #245da8;
+  outline-offset: 3px;
+}
+summary {
+  cursor: pointer;
+  padding: 14px 0;
+  font-size: 1.2rem;
+}
+p {
+  line-height: 1.5;
+}
+details > p {
+  margin-bottom: 12px;
+}
+input[type="checkbox"] {
+  accent-color: #245da8;
+  width: 17px;
+  height: 17px;
+  vertical-align: middle;
+}
+* {
+  text-shadow: none !important;
+}
+.logo-icon,
+.badge-dot,
+.banner-dot,
+.pipe-step,
+.pipeline-block {
+  animation: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+#app-header {
+  height: 72px;
+  background: #fff;
+  border-top: 4px solid #245da8;
+  padding: 10px 24px;
+  position: relative;
+}
+#app-header h1 {
+  font-size: 2rem;
+  color: #20364a;
+}
+.header-subtitle {
+  font-size: 0.8rem;
+  color: #42596b;
+}
+.header-badge {
+  font-size: 0.8rem;
+  letter-spacing: 0;
+}
+.logo-icon {
+  background: none;
+}
+.run-strip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 12px 24px;
+  background: #20364a;
+  color: white;
+}
+.run-strip > div {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.run-strip label {
+  font-size: 0.85rem;
+}
+#run-status {
+  font-weight: 600;
+  margin-right: auto;
+}
+#demo-phase {
+  font-size: 0.8rem;
+}
+#app-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  height: 610px;
+  min-height: 0;
+  gap: 0;
+  padding: 0 24px;
+  margin-top: 18px;
+}
+#map-container {
+  min-height: 400px;
+  border: 1px solid #cad4dc;
+  border-radius: 0;
+}
+#sidebar {
+  background: white;
+  overflow: auto;
+  padding: 0;
+  border: 1px solid #cad4dc;
+  border-left: 0;
+  min-width: 0;
+}
+.benchmark-hero {
+  padding: 22px;
+}
+.benchmark-hero h2 {
+  font-size: 1.55rem;
+  margin-bottom: 8px;
+}
+#source-provenance {
+  font-size: 0.78rem;
+  color: #526878;
+}
+.drift-readout {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 12px 0 0;
+}
+.drift-readout strong {
+  font: 500 4.4rem/1.1 var(--font-mono);
+  letter-spacing: -0.08em;
+  color: #245da8;
+}
+.drift-readout span {
+  font-size: 1rem;
+}
+#hero-target {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #996000;
+  margin: 8px 0;
+}
+.metric-definition {
+  font-size: 0.75rem;
+  color: #526878;
+  margin: 8px 0 16px;
+}
+.hero-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 12px;
+  border-top: 1px solid #cad4dc;
+  padding-top: 16px;
+}
+.hero-metrics dt {
+  font-size: 0.78rem;
+  color: #526878;
+}
+.hero-metrics dd {
+  font: 500 1.15rem var(--font-mono);
+  margin: 3px 0;
+}
+.uncertainty-readout {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #cad4dc;
+  padding-top: 12px;
+  margin-top: 16px;
+  font-size: 0.85rem;
+}
+.uncertainty-readout strong {
+  font-family: var(--font-mono);
+}
+#filter-status {
+  font-size: 0.75rem;
+}
+.legacy-telemetry {
+  padding: 0 20px;
+}
+#map-legend {
+  background: #fffffff2;
+  color: #20364a;
+  max-width: calc(100% - 30px);
+  font-size: 0.8rem;
+  border-radius: 2px;
+}
+.legend-title {
+  display: none;
+}
+.legend-item {
+  font-size: 0.76rem;
+}
+.gnss-banner {
+  background: white !important;
+  color: #20364a !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  font-size: 0.8rem !important;
+}
+.gnss-banner.lost {
+  border-left: 4px solid #b3343b;
+  animation: outage-entry 0.4s ease-out;
+}
+.gnss-banner.available {
+  border-left: 4px solid #087e83;
+}
+.gnss-banner.recovery {
+  border-left: 4px solid #996000;
+}
+@keyframes outage-entry {
+  from {
+    transform: translateY(-8px);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+#control-panel {
+  height: auto;
+  min-height: 66px;
+  flex-wrap: wrap;
+  background: transparent;
+  padding: 14px 24px;
+  gap: 12px;
+}
+.controls-group {
+  flex-wrap: wrap;
+}
+.ctrl-btn {
+  font-size: 0.82rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.ctrl-btn.primary {
+  background: #245da8;
+  color: white;
+}
+.ctrl-btn.danger {
+  color: #b3343b;
+}
+.ctrl-btn.success {
+  color: #087e83;
+}
+#sensor-source-section {
+  margin: 0 24px 18px;
+  padding: 16px;
+  border: 1px solid #cad4dc;
+  background: white;
+}
+.section-header {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sensor-source-row {
+  flex-wrap: wrap;
+}
+.source-btn {
+  font-size: 0.8rem;
+}
+.evaluation-panel,
+.replay-panel,
+#legacy-diagnostics {
+  margin: 18px 24px;
+  background: white;
+  border: 1px solid #cad4dc;
+  padding: 20px;
+}
+.evaluation-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.evaluation-title span {
+  font-size: 0.8rem;
+}
+.raw-key,
+.output-key {
+  display: inline-block;
+  width: 22px;
+  border-top: 3px solid #b3343b;
+  margin: 0 14px 3px 5px;
+}
+.output-key {
+  border-color: #087e83;
+}
+#error-plot {
+  width: 100%;
+  height: 180px;
+  display: block;
+  margin-top: 12px;
+}
+#error-plot text {
+  font: 12px var(--font-sans);
+  fill: #42596b;
+}
+.replay-panel > p {
+  font-size: 0.85rem;
+  margin: 8px 0;
+}
+.workbench-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+}
+.file-control {
+  border: 1px solid #9bafbd;
+  padding: 8px 12px;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  max-width: 100%;
+}
+.file-control input {
+  display: block;
+  font-size: 0.8rem;
+  max-width: 100%;
+  margin-top: 6px;
+}
+.table-scroll {
+  overflow: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.85rem;
+}
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #cad4dc;
+}
+th {
+  font-weight: 500;
+  background: #edf2f5;
+}
+.legacy-notice {
+  border-left: 3px solid #996000;
+  padding: 12px;
+  background: #f6f0e4;
+}
+#legacy-diagnostics > section {
+  margin: 12px 0;
+}
+#legacy-diagnostics .section-header h2 {
+  font-size: 1.25rem;
+}
+#legacy-diagnostics button {
+  min-height: 42px;
+}
+#app-footer {
+  background: transparent;
+  color: #42596b;
+}
+#app-footer p {
+  font-size: 0.8rem;
+}
+@media (max-width: 800px) {
+  #app-header {
+    height: auto;
+    padding: 10px 14px;
+  }
+  .header-right {
+    display: none;
+  }
+  .header-subtitle {
+    font-size: 0.7rem;
+  }
+  .run-strip {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+  #run-status {
+    width: 100%;
+  }
+  .run-strip > div {
+    gap: 12px;
+  }
+  #app-main {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 0 12px;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  #map-container {
+    height: 430px;
+    min-height: 430px;
+    order: 2;
+  }
+  #sidebar {
+    order: 1;
+    overflow: visible;
+    border: 1px solid #cad4dc;
+  }
+  .benchmark-hero {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 12px;
+  }
+  .benchmark-hero h2,
+  #source-provenance,
+  .hero-metrics,
+  .metric-definition,
+  .uncertainty-readout,
+  #filter-status {
+    grid-column: 1/-1;
+  }
+  .drift-readout strong {
+    font-size: 3rem;
+  }
+  .hero-metrics {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .hero-metrics dd {
+    font-size: 1rem;
+  }
+  .hero-metrics dt {
+    font-size: 0.68rem;
+  }
+  #hero-target {
+    align-self: center;
+    font-size: 0.75rem;
+  }
+  .benchmark-hero > .metric-definition {
+    margin-bottom: 8px;
+  }
+  .legacy-telemetry {
+    display: none;
+  }
+  #control-panel {
+    padding: 12px;
+    gap: 10px;
+  }
+  .controls-divider {
+    display: none;
+  }
+  .controls-group {
+    gap: 7px;
+  }
+  #sensor-source-section,
+  .evaluation-panel,
+  .replay-panel,
+  #legacy-diagnostics {
+    margin: 12px;
+    padding: 14px;
+  }
+  .source-toggle {
+    flex-wrap: wrap;
+  }
+  #map-legend {
+    left: 10px;
+    bottom: 20px;
+    padding: 10px;
+  }
+  .gnss-banner {
+    max-width: calc(100% - 70px);
+    white-space: normal;
+  }
+  .header-left {
+    gap: 8px;
+  }
+  .controls-group .ctrl-btn {
+    padding: 8px 10px;
+  }
+  #error-plot {
+    height: 150px;
+  }
+  #legacy-diagnostics {
+    overflow: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.leaflet-tile-pane {
+  filter: none !important;
+}
+.zone-label-title {
+  font-size: 11px !important;
+}
+.zone-label-sub {
+  display: none;
+}
+.header-badge {
+  text-transform: none !important;
+}
+.ctrl-btn .btn-icon {
+  display: none;
+}
+.source-label {
+  display: none;
+}
+#sidebar {
+  max-height: none;
+}
+.leaflet-container {
+  background: #e8eef1 !important;
+}
+.leaflet-control-attribution {
+  background: #ffffffe8 !important;
+  color: #20364a !important;
+}
+.leaflet-control-attribution a {
+  color: #245da8 !important;
+}
+@media (max-width: 800px) {
+  .benchmark-hero {
+    display: block;
+  }
+  .drift-readout {
+    display: inline-flex;
+    margin-right: 18px;
+  }
+  #hero-target {
+    display: inline-block;
+  }
+  .hero-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .benchmark-hero .metric-definition {
+    font-size: 0.72rem;
+  }
+  .uncertainty-readout {
+    margin-top: 12px;
+  }
+  #sidebar {
+    flex-shrink: 0;
+  }
+  .header-title h1 {
+    font-size: 1.6rem !important;
+  }
+  #app-header {
+    padding: 8px 14px;
+  }
+  .run-strip {
+    padding: 10px 14px;
+  }
+}

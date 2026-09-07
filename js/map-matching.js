@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════════
-   IDRN — Offline Map Matching & Road Network Constraints
+   NavDR — Offline Map Matching & Road Network Constraints
    SIH 2026 Problem Statement 26168
    ═══════════════════════════════════════════════════════ */
 
-window.IDRN = window.IDRN || {};
+window.NavDR = window.NavDR || {};
 
-IDRN.MapMatcher = {
+NavDR.MapMatcher = {
     // ── Module State ──
     enabled: true,
     status: 'UNAVAILABLE', // 'MATCHED' | 'DEGRADED' | 'UNAVAILABLE'
@@ -45,15 +45,15 @@ IDRN.MapMatcher = {
      */
     initialize() {
         try {
-            this.enabled = IDRN.Config.MAP_MATCHING ? IDRN.Config.MAP_MATCHING.ENABLED : true;
+            this.enabled = NavDR.Config.MAP_MATCHING ? NavDR.Config.MAP_MATCHING.ENABLED : true;
             this.reset();
             this.loadRoadNetwork();
             console.log('[MapMatcher] Initialized offline road network with', this.segments.length, 'road segments.');
         } catch (err) {
             console.error('[MapMatcher] Initialization error — falling back to raw DR:', err);
             this.status = 'UNAVAILABLE';
-            if (IDRN.Notifications) {
-                IDRN.Notifications.show('Map Matching Unavailable — Dead Reckoning Fallback Active', 'warning', 4000);
+            if (NavDR.Notifications) {
+                NavDR.Notifications.show('Map Matching Unavailable — Dead Reckoning Fallback Active', 'warning', 4000);
             }
         }
     },
@@ -92,23 +92,23 @@ IDRN.MapMatcher = {
         if (!this.enabled) {
             this.status = 'UNAVAILABLE';
         }
-        if (IDRN.Notifications) {
-            IDRN.Notifications.show(`Offline Map Matching: ${this.enabled ? 'ENABLED' : 'DISABLED'}`, 'info', 2000);
+        if (NavDR.Notifications) {
+            NavDR.Notifications.show(`Offline Map Matching: ${this.enabled ? 'ENABLED' : 'DISABLED'}`, 'info', 2000);
         }
     },
 
     /**
-     * Load Offline Road Network from IDRN.Route or custom geometry
+     * Load Offline Road Network from NavDR.Route or custom geometry
      */
     loadRoadNetwork(customNetwork = null) {
         let rawPoints = customNetwork;
         if (!rawPoints) {
-            if (IDRN.Route && typeof IDRN.Route.getLatLngs === 'function') {
-                rawPoints = IDRN.Route.getLatLngs();
-            } else if (IDRN.Route && Array.isArray(IDRN.Route.points)) {
-                rawPoints = IDRN.Route.points;
-            } else if (IDRN.RouteData && Array.isArray(IDRN.RouteData.keyWaypoints)) {
-                rawPoints = IDRN.RouteData.keyWaypoints;
+            if (NavDR.Route && typeof NavDR.Route.getLatLngs === 'function') {
+                rawPoints = NavDR.Route.getLatLngs();
+            } else if (NavDR.Route && Array.isArray(NavDR.Route.points)) {
+                rawPoints = NavDR.Route.points;
+            } else if (NavDR.RouteData && Array.isArray(NavDR.RouteData.keyWaypoints)) {
+                rawPoints = NavDR.RouteData.keyWaypoints;
             } else {
                 rawPoints = [];
             }
@@ -128,8 +128,8 @@ IDRN.MapMatcher = {
 
             if (!p1 || !p2) continue;
 
-            const length = IDRN.Geo ? IDRN.Geo.haversine(p1.lat, p1.lon, p2.lat, p2.lon) : 100;
-            const bearing = IDRN.Geo ? IDRN.Geo.bearingToDegrees(IDRN.Geo.bearing(p1.lat, p1.lon, p2.lat, p2.lon)) : 90;
+            const length = NavDR.Geo ? NavDR.Geo.haversine(p1.lat, p1.lon, p2.lat, p2.lon) : 100;
+            const bearing = NavDR.Geo ? NavDR.Geo.bearingToDegrees(NavDR.Geo.bearing(p1.lat, p1.lon, p2.lat, p2.lon)) : 90;
 
             this.segments.push({
                 id: `seg-${String(i + 1).padStart(3, '0')}`,
@@ -175,7 +175,7 @@ IDRN.MapMatcher = {
             return this.getState();
         }
 
-        const C = IDRN.Config;
+        const C = NavDR.Config;
         const MM = C.MAP_MATCHING || {
             ENABLED: true,
             MAP_MATCH_MAX_DISTANCE_M: 30,
@@ -261,14 +261,14 @@ IDRN.MapMatcher = {
             this.smoothedMatchedPosition.lon += alpha * (targetLon - this.smoothedMatchedPosition.lon);
 
             // Compute map match correction distance
-            this.mapMatchCorrectionMeters = IDRN.Geo ? parseFloat(IDRN.Geo.haversine(
+            this.mapMatchCorrectionMeters = NavDR.Geo ? parseFloat(NavDR.Geo.haversine(
                 this.rawDRPosition.lat, this.rawDRPosition.lon,
                 this.smoothedMatchedPosition.lat, this.smoothedMatchedPosition.lon
             ).toFixed(1)) : 0;
 
             // Diagnostic comparison metrics
             this.rawDRDeviationMeters = this.distanceToRoadMeters;
-            this.matchedDeviationMeters = IDRN.Geo ? parseFloat(IDRN.Geo.haversine(
+            this.matchedDeviationMeters = NavDR.Geo ? parseFloat(NavDR.Geo.haversine(
                 this.smoothedMatchedPosition.lat, this.smoothedMatchedPosition.lon,
                 bestMatch.projected.lat, bestMatch.projected.lon
             ).toFixed(1)) : 0;
@@ -309,7 +309,7 @@ IDRN.MapMatcher = {
      * Project point P onto segment AB using local (x,y) meter approximation
      */
     _projectPointToSegment(P, A, B) {
-        const C = IDRN.Config;
+        const C = NavDR.Config;
         const R = C.EARTH_RADIUS_M || 6371000;
         const degToRad = C.DEG_TO_RAD || (Math.PI / 180);
         const radToDeg = C.RAD_TO_DEG || (180 / Math.PI);

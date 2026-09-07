@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════════
-   IDRN — Dead Reckoning Engine (Deterministic Baseline)
+   NavDR — Dead Reckoning Engine (Deterministic Baseline)
    SIH 2026 Problem Statement 26168
    ═══════════════════════════════════════════════════════ */
 
-window.IDRN = window.IDRN || {};
+window.NavDR = window.NavDR || {};
 
-IDRN.DeadReckoningEngine = {
+NavDR.DeadReckoningEngine = {
     // ── Navigation State ──
     navigationMode: 'GNSS', // 'GNSS' | 'DEAD_RECKONING' | 'GNSS_RECOVERY'
     
@@ -121,13 +121,13 @@ IDRN.DeadReckoningEngine = {
     /**
      * Main Dead Reckoning Update Loop (called every tick from app.js)
      * @param {number} dt - Time delta in seconds
-     * @param {Object} processedData - Clean output from IDRN.SensorProcessor.getProcessedSensorData()
+     * @param {Object} processedData - Clean output from NavDR.SensorProcessor.getProcessedSensorData()
      * @param {Object} gnssData - { available: boolean, lat: number, lon: number, heading: number, speedMps: number }
      */
     update(dt, processedData, gnssData) {
         if (!this._running || !dt || dt <= 0) return;
 
-        const C = IDRN.Config;
+        const C = NavDR.Config;
         const DR = C.DEAD_RECKONING || {
             EARTH_RADIUS_M: 6371000,
             MAX_SPEED_MPS: 60,
@@ -144,8 +144,8 @@ IDRN.DeadReckoningEngine = {
         if (isGnssAvail) {
             if (this.navigationMode === 'DEAD_RECKONING') {
                 this.navigationMode = 'GNSS_RECOVERY';
-                if (IDRN.Notifications) {
-                    IDRN.Notifications.show('GNSS Signal Restored — Recovery Pending', 'success', 3500);
+                if (NavDR.Notifications) {
+                    NavDR.Notifications.show('GNSS Signal Restored — Recovery Pending', 'success', 3500);
                 }
             } else if (this.navigationMode !== 'GNSS_RECOVERY') {
                 this.navigationMode = 'GNSS';
@@ -161,8 +161,8 @@ IDRN.DeadReckoningEngine = {
                 this.navigationMode = 'DEAD_RECKONING';
                 this._outageStartTime = performance.now();
                 this.headingSource = 'IMU';
-                if (IDRN.Notifications) {
-                    IDRN.Notifications.show('GNSS Signal Lost — Dead Reckoning Active', 'warning', 3500);
+                if (NavDR.Notifications) {
+                    NavDR.Notifications.show('GNSS Signal Lost — Dead Reckoning Active', 'warning', 3500);
                 }
             }
         }
@@ -210,8 +210,8 @@ IDRN.DeadReckoningEngine = {
             newSpeed *= DR.VELOCITY_DAMPING;
 
             // AI Speed Estimation Integration (Requirement 21 & 22)
-            if (IDRN.AIMotionEstimator && IDRN.AIMotionEstimator.enabled) {
-                const aiState = IDRN.AIMotionEstimator.getState();
+            if (NavDR.AIMotionEstimator && NavDR.AIMotionEstimator.enabled) {
+                const aiState = NavDR.AIMotionEstimator.getState();
                 if (aiState && (aiState.modelStatus === 'RUNNING' || aiState.modelStatus === 'READY' || aiState.modelStatus === 'LOW_CONFIDENCE')) {
                     let aiWeight = 0.50;
                     if (aiState.speedConfidence >= 85) aiWeight = 0.75;
@@ -260,7 +260,7 @@ IDRN.DeadReckoningEngine = {
         const headingRad = this.heading * C.DEG_TO_RAD;
 
         // Apply realistic simulated lateral drift during GNSS outage
-        const isDeviceMode = IDRN.SensorManager && IDRN.SensorManager.source === 'device';
+        const isDeviceMode = NavDR.SensorManager && NavDR.SensorManager.source === 'device';
         let lateralDriftM = 0;
         if (this.navigationMode === 'DEAD_RECKONING' && !isDeviceMode) {
             const driftRate = DR.DR_SIMULATION_LATERAL_DRIFT_MPS !== undefined ? DR.DR_SIMULATION_LATERAL_DRIFT_MPS : 0.25;
@@ -291,9 +291,9 @@ IDRN.DeadReckoningEngine = {
 
         // 7. DR vs GNSS Error & Drift Calculation
         if (isGnssAvail && this.referencePosition) {
-            this.positionErrorMeters = IDRN.Geo ? IDRN.Geo.haversine(this.position.lat, this.position.lon, this.referencePosition.lat, this.referencePosition.lon) : 0;
+            this.positionErrorMeters = NavDR.Geo ? NavDR.Geo.haversine(this.position.lat, this.position.lon, this.referencePosition.lat, this.referencePosition.lon) : 0;
         } else if (this._lastKnownGnssPosition) {
-            this.positionErrorMeters = IDRN.Geo ? IDRN.Geo.haversine(this.position.lat, this.position.lon, this._lastKnownGnssPosition.lat, this._lastKnownGnssPosition.lon) : 0;
+            this.positionErrorMeters = NavDR.Geo ? NavDR.Geo.haversine(this.position.lat, this.position.lon, this._lastKnownGnssPosition.lat, this._lastKnownGnssPosition.lon) : 0;
         }
 
         if (this.travelledDistanceM > 0) {

@@ -1,12 +1,12 @@
 /* ═══════════════════════════════════════════════════════
-   IDRN — Sensor Processing Module
+   NavDR — Sensor Processing Module
    Calibration, Bias Estimation, Low-Pass Filtering,
    Vehicle Alignment, Vibration Analysis, Shock Detection, Quality Score
    ═══════════════════════════════════════════════════════ */
 
-window.IDRN = window.IDRN || {};
+window.NavDR = window.NavDR || {};
 
-IDRN.SensorProcessor = {
+NavDR.SensorProcessor = {
     // ── Calibration State ──
     isCalibrating: false,
     calibrationProgress: 0, // 0 to 100%
@@ -64,8 +64,8 @@ IDRN.SensorProcessor = {
         this._calibrationSamples = [];
         this._calibrationStartTime = performance.now();
 
-        if (IDRN.Notifications) {
-            IDRN.Notifications.show('Sensor calibration started — hold device steady', 'info', 3000);
+        if (NavDR.Notifications) {
+            NavDR.Notifications.show('Sensor calibration started — hold device steady', 'info', 3000);
         }
     },
 
@@ -75,8 +75,8 @@ IDRN.SensorProcessor = {
      */
     process(dt) {
         this._tickCount = (this._tickCount || 0) + 1;
-        const C = IDRN.Config;
-        const rawSensors = IDRN.SensorManager;
+        const C = NavDR.Config;
+        const rawSensors = NavDR.SensorManager;
 
         // 1. Store Raw Readings
         this.rawAccel = { ...rawSensors.accelerometer };
@@ -150,7 +150,7 @@ IDRN.SensorProcessor = {
      * Calibration sample collection step
      */
     _stepCalibration() {
-        const C = IDRN.Config;
+        const C = NavDR.Config;
         const elapsed = performance.now() - this._calibrationStartTime;
         const totalDuration = C.CALIBRATION_DURATION_MS || 3000;
 
@@ -231,8 +231,8 @@ IDRN.SensorProcessor = {
         this.calibrationProgress = 100;
         this.calibrationStatus = 'COMPLETE';
 
-        if (IDRN.Notifications) {
-            IDRN.Notifications.show('Calibration Complete — Sensor biases zeroed', 'success', 3500);
+        if (NavDR.Notifications) {
+            NavDR.Notifications.show('Calibration Complete — Sensor biases zeroed', 'success', 3500);
         }
     },
 
@@ -240,7 +240,7 @@ IDRN.SensorProcessor = {
      * Estimate pitch, roll, yaw and transform to vehicle coordinate frame
      */
     _updateAlignment() {
-        const C = IDRN.Config;
+        const C = NavDR.Config;
         const ax = this.filteredAccel.x;
         const ay = this.filteredAccel.y;
         const az = this.filteredAccel.z;
@@ -271,7 +271,7 @@ IDRN.SensorProcessor = {
      * Compute residual high-frequency noise & classify vibration level
      */
     _updateVibrationAnalysis() {
-        const C = IDRN.Config;
+        const C = NavDR.Config;
         const diff = Math.abs(this.rawAccelMag - this.filteredAccelMag);
 
         this._vibHistory.push(diff);
@@ -310,8 +310,8 @@ IDRN.SensorProcessor = {
 
         console.log('[SensorProcessing] Shock detected:', this.lastShock);
 
-        if (IDRN.Notifications) {
-            IDRN.Notifications.show(
+        if (NavDR.Notifications) {
+            NavDR.Notifications.show(
                 `⚠️ ROAD SHOCK DETECTED (Magnitude: ${rawMag} m/s²)`,
                 'warning',
                 2500
@@ -322,14 +322,14 @@ IDRN.SensorProcessor = {
         this._shockClearTimer = setTimeout(() => {
             console.log('[SensorProcessing] Shock state cleared');
             this.shockDetected = false;
-            if (IDRN.SensorProcessingUI) {
-                IDRN.SensorProcessingUI.update(this.getProcessedSensorData());
+            if (NavDR.SensorProcessingUI) {
+                NavDR.SensorProcessingUI.update(this.getProcessedSensorData());
             }
         }, 1500);
 
         // Immediately update UI
-        if (IDRN.SensorProcessingUI) {
-            IDRN.SensorProcessingUI.update(this.getProcessedSensorData());
+        if (NavDR.SensorProcessingUI) {
+            NavDR.SensorProcessingUI.update(this.getProcessedSensorData());
         }
     },
 
@@ -337,7 +337,7 @@ IDRN.SensorProcessor = {
      * Shock / Pothole Detector
      */
     _detectShocks() {
-        const C = IDRN.Config;
+        const C = NavDR.Config;
         const shockThresh = C.SHOCK_THRESHOLD || 6.5;
 
         // Skip stream shock detection during initial warm-up ticks
@@ -354,8 +354,8 @@ IDRN.SensorProcessor = {
                 intensity: parseFloat(deltaAccel.toFixed(2)),
             };
 
-            if (IDRN.Notifications) {
-                IDRN.Notifications.show(
+            if (NavDR.Notifications) {
+                NavDR.Notifications.show(
                     `⚠️ ROAD SHOCK DETECTED (${deltaAccel.toFixed(1)} m/s²)`,
                     'warning',
                     2500
@@ -365,8 +365,8 @@ IDRN.SensorProcessor = {
             if (this._shockClearTimer) clearTimeout(this._shockClearTimer);
             this._shockClearTimer = setTimeout(() => {
                 this.shockDetected = false;
-                if (IDRN.SensorProcessingUI) {
-                    IDRN.SensorProcessingUI.update(this.getProcessedSensorData());
+                if (NavDR.SensorProcessingUI) {
+                    NavDR.SensorProcessingUI.update(this.getProcessedSensorData());
                 }
             }, 1500);
         }
@@ -376,7 +376,7 @@ IDRN.SensorProcessor = {
      * Composite Sensor Quality Score (0 - 100)
      */
     _calculateQualityScore() {
-        const C = IDRN.Config;
+        const C = NavDR.Config;
         let score = 100;
 
         // Deduction for vibration/noise
@@ -387,7 +387,7 @@ IDRN.SensorProcessor = {
         if (this.calibrationStatus !== 'COMPLETE') score -= 15;
 
         // Deduction if magnetometer unavailable in real device mode
-        if (IDRN.SensorManager.source === 'device' && !IDRN.DeviceSensors.available.orientation) {
+        if (NavDR.SensorManager.source === 'device' && !NavDR.DeviceSensors.available.orientation) {
             score -= 10;
         }
 
