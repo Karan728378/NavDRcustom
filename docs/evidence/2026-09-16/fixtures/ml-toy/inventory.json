@@ -1,0 +1,47 @@
+{
+  "synthetic": true,
+  "trips": [
+    {
+      "id": "toy-0-0",
+      "path": "toy-0-0.csv",
+      "vehicle": "v0",
+      "phone": "p0-0",
+      "route": "r0-0"
+    },
+    {
+      "id": "toy-0-1",
+      "path": "toy-0-1.csv",
+      "vehicle": "v0",
+      "phone": "p0-1",
+      "route": "r0-1"
+    },
+    {
+      "id": "toy-1-0",
+      "path": "toy-1-0.csv",
+      "vehicle": "v1",
+      "phone": "p1-0",
+      "route": "r1-0"
+    },
+    {
+      "id": "toy-1-1",
+      "path": "toy-1-1.csv",
+      "vehicle": "v1",
+      "phone": "p1-1",
+      "route": "r1-1"
+    },
+    {
+      "id": "toy-2-0",
+      "path": "toy-2-0.csv",
+      "vehicle": "v2",
+      "phone": "p2-0",
+      "route": "r2-0"
+    },
+    {
+      "id": "toy-2-1",
+      "path": "toy-2-1.csv",
+      "vehicle": "v2",
+      "phone": "p2-1",
+      "route": "r2-1"
+    }
+  ]
+}

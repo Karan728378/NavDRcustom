@@ -1,0 +1,44 @@
+[
+  {
+    "check": "missing_manifest",
+    "command": [
+      "/home/rimuru/Downloads/Antigravity/SIH_Pototype/.local-tools/ml-venv/bin/python",
+      "ml/train.py",
+      "--checkpoint",
+      "/tmp/navdr-missing-manifest-check/model.pt"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "ValueError: --split-manifest is required for real runs\n"
+  },
+  {
+    "check": "synthetic_refused_by_training_cli",
+    "command": [
+      "/home/rimuru/Downloads/Antigravity/SIH_Pototype/.local-tools/ml-venv/bin/python",
+      "ml/train.py",
+      "--split-manifest",
+      "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/ml-standalone-final/fixtures/synthetic-manifest.json",
+      "--checkpoint",
+      "/tmp/navdr-refused-synthetic/model.pt"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "ValueError: STOP: explicit real approved manifest required\n"
+  },
+  {
+    "check": "synthetic_refused_by_evaluation_cli",
+    "command": [
+      "/home/rimuru/Downloads/Antigravity/SIH_Pototype/.local-tools/ml-venv/bin/python",
+      "ml/evaluate.py",
+      "--split-manifest",
+      "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/ml-standalone-final/fixtures/synthetic-manifest.json",
+      "--checkpoint",
+      "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/ml-standalone-final/uninterrupted/model.pt",
+      "--output-dir",
+      "/tmp/navdr-refused-evaluation"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "ValueError: STOP: explicit real approved manifest required\n"
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "device": "cuda",
+  "synthetic_only": true,
+  "real_data_touched": false,
+  "real_manifest_created": false,
+  "completed_epochs": 1,
+  "updates": 2,
+  "microbatch": 128,
+  "effective_batch": 128,
+  "identical_resume": true,
+  "smaller_microbatch_recovery": true,
+  "resource_pause_checkpoint_recovery": true,
+  "failed_probe_refused": true,
+  "mixed_precision": "disabled",
+  "cuda_version": "12.8",
+  "torch_version": "2.10.0+cu128"
+}

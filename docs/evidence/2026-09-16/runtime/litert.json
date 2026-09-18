@@ -1,0 +1,33 @@
+{
+  "runtime": "litert",
+  "weights": "fresh random, untrained",
+  "parameters": 49665,
+  "inputShape": [
+    1,
+    6,
+    231
+  ],
+  "outputShape": [
+    1,
+    1
+  ],
+  "jsParityMaxAbsDifference": 2.8559741793721116e-09,
+  "numericTolerance": 1e-05,
+  "onAndroidDevice": "UNTESTED",
+  "runtimeDecision": "reserved for user/team",
+  "operators": [
+    "ADD",
+    "CONV_2D",
+    "DELEGATE",
+    "PAD",
+    "RESHAPE",
+    "SLICE",
+    "TANH",
+    "TRANSPOSE"
+  ],
+  "runtimeVersion": "2.2.0",
+  "status": "converted_and_desktop_cpu_executed",
+  "maxAbsDifference": 9.313225746154785e-09,
+  "artifact": ".local-tools/runtime-comparison/tcn-random.tflite",
+  "torchVersion": "2.10.0+cpu"
+}

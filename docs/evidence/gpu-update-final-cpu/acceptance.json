@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "synthetic_only": true,
+  "real_data_open_attempts": 0,
+  "real_pairing_or_split_manifest_created": false,
+  "synthetic_fixture_manifest": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/gpu-update-final-cpu/fixtures/synthetic-manifest.json",
+  "gradient_max_difference": 1.862645149230957e-09,
+  "adam_weight_max_difference": 7.413327693939209e-07,
+  "resume_weights_bitwise_equal": true,
+  "outage_acceptance": [
+    {
+      "id": 1,
+      "start_seconds": 0.0,
+      "end_seconds": 10.0,
+      "duration_seconds": 10.0,
+      "reference_distance_m": 100.0,
+      "peak_position_error_m": 15.0,
+      "drift_percent": 15.0,
+      "status": "SCORED"
+    },
+    {
+      "id": 2,
+      "start_seconds": 12.0,
+      "end_seconds": 22.0,
+      "duration_seconds": 10.0,
+      "reference_distance_m": 100.0,
+      "peak_position_error_m": 15.0,
+      "drift_percent": 15.0,
+      "status": "SCORED"
+    }
+  ],
+  "missing_reference_acceptance": [
+    {
+      "id": 1,
+      "start_seconds": 0.0,
+      "end_seconds": 10.0,
+      "duration_seconds": 10.0,
+      "reference_distance_m": null,
+      "peak_position_error_m": null,
+      "drift_percent": null,
+      "status": "INCOMPLETE REFERENCE"
+    },
+    {
+      "id": 2,
+      "start_seconds": 12.0,
+      "end_seconds": 22.0,
+      "duration_seconds": 10.0,
+      "reference_distance_m": 100.0,
+      "peak_position_error_m": 15.0,
+      "drift_percent": 15.0,
+      "status": "SCORED"
+    }
+  ],
+  "checks": [
+    "missing manifest refused",
+    "synthetic manifest refused by real CLI path",
+    "group leakage refused",
+    "duplicate payload across splits refused",
+    "missing file refused",
+    "unsupported row selectors refused",
+    "unapproved status refused",
+    "raw inventory schema refused",
+    "malformed JSON refused",
+    "changed payload refused",
+    "elapsed-ms/calendar and seconds-since-midnight align through explicit UTC offsets",
+    "incorrect elapsed-clock mapping refused",
+    "wrong cadence refused",
+    "uneven gradient accumulation agrees with full batch: gradient <1e-6, Adam weights <1e-5",
+    "training opened only train/dev CSVs, never test CSVs",
+    "mid-epoch resume equals uninterrupted weights and epoch losses exactly on CPU",
+    "resume with changed hyperparameters refused",
+    "normalization fit on train rows only",
+    "held-out evaluation executes all four methods including actual Kotlin EKF on the same test timestamps",
+    "Python and existing browser outage acceptance: two 100m / 15m intervals each report 15%; missing truth/output stays null"
+  ],
+  "gpu_budget_verified": false,
+  "mixed_precision": "disabled; untested",
+  "checkpoint": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/gpu-update-final-cpu/uninterrupted/model.pt",
+  "report": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/gpu-update-final-cpu/evaluation/report.md"
+}

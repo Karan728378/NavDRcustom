@@ -1,0 +1,5 @@
+{"fixture": "valid.jsonl", "status": "complete", "frameGaps": 0, "rawGaps": {}, "syncRejected": 0, "hardwareLoss": null, "errors": []}
+{"fixture": "gapped.jsonl", "status": "complete", "frameGaps": 1, "rawGaps": {"1": 1, "4": 1}, "syncRejected": 1, "hardwareLoss": null, "errors": []}
+{"fixture": "incomplete.partial", "status": "incomplete", "frameGaps": 0, "rawGaps": {}, "syncRejected": 0, "hardwareLoss": null, "errors": []}
+{"fixture": "malformed.jsonl", "status": "malformed", "frameGaps": 0, "rawGaps": {}, "syncRejected": 0, "hardwareLoss": null, "errors": [{"line": 4, "message": "invalid frame vectors"}]}
+PASS: valid, gapped, incomplete and malformed fixtures inspected via CLI.

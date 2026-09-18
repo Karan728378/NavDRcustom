@@ -1,0 +1,18 @@
+{
+  "provenance": "synthetic native-format recording; not a physical phone run",
+  "rows": 601,
+  "byteIdentical": true,
+  "numericTolerance": 0,
+  "maximumAbsoluteDifference": 0,
+  "injectedReferenceRejectedBeforeEstimator": true,
+  "observedModes": [
+    "DEAD_RECKONING",
+    "GNSS_AIDED"
+  ]
+}
+RUN 1 first/last:
+10000000,true,GNSS_AIDED,28.0,77.0,10.0,0.0,4.895303872079853,0.0,0,0
+6010000000,true,GNSS_AIDED,28.000539592963552,77.0,10.000000000010044,0.0,6.2516816207083075,1.0,0,0
+RUN 2 first/last:
+10000000,true,GNSS_AIDED,28.0,77.0,10.0,0.0,4.895303872079853,0.0,0,0
+6010000000,true,GNSS_AIDED,28.000539592963552,77.0,10.000000000010044,0.0,6.2516816207083075,1.0,0,0

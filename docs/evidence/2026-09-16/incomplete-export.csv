@@ -1,0 +1,2 @@
+source,id,outageSeconds,outageDistance,maxRaw,maxOutput,driftPercent,status
+"replay",1,10,80,15.000000000000005,15.000000000000005,null,"INCOMPLETE REFERENCE"

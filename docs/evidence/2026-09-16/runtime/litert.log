@@ -1,0 +1,81 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1789525380.260136      19 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Skipping import of cpp extensions due to incompatible torch version. Please upgrade to torch >= 2.11.0 (found 2.10.0+cpu).
+/home/rimuru/Downloads/Antigravity/SIH_Pototype/.local-tools/ml-venv/lib/python3.12/site-packages/torchao/quantization/quant_api.py:1745: SyntaxWarning: invalid escape sequence '\.'
+  * regex for parameter names, must start with `re:`, e.g. `re:language\.layers\..+\.q_proj.weight`.
+(00:00) [START] LiteRT-Torch Convert
+(00:00) [START] LiteRT-Torch Convert > Torch Export: serving_default
+(00:01) [START] LiteRT-Torch Convert > Torch Export: serving_default > 
+ExportedProgram Run Decompositions
+/home/rimuru/Downloads/Antigravity/SIH_Pototype/.local-tools/python/cpython-3.12.11-linux-x86_64-gnu/lib/python3.12/copyreg.py:99: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+(00:01) [ DONE] LiteRT-Torch Convert > Torch Export: serving_default > 
+ExportedProgram Run Decompositions (+00:00)
+(00:01) [ DONE] LiteRT-Torch Convert > Torch Export: serving_default (+00:01)
+(00:01) [START] LiteRT-Torch Convert > Run FX Passes
+(00:01) [START] LiteRT-Torch Convert > Run FX Passes > ExportedProgram Run 
+Decompositions
+/home/rimuru/Downloads/Antigravity/SIH_Pototype/.local-tools/python/cpython-3.12.11-linux-x86_64-gnu/lib/python3.12/copyreg.py:99: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+(00:01) [ DONE] LiteRT-Torch Convert > Run FX Passes > ExportedProgram Run 
+Decompositions (+00:00)
+(00:01) [ DONE] LiteRT-Torch Convert > Run FX Passes (+00:00)
+(00:01) [START] LiteRT-Torch Convert > Lower to MLIR: serving_default
+(00:01) [START] LiteRT-Torch Convert > Lower to MLIR: serving_default > 
+ExportedProgram Run Decompositions
+/home/rimuru/Downloads/Antigravity/SIH_Pototype/.local-tools/python/cpython-3.12.11-linux-x86_64-gnu/lib/python3.12/copyreg.py:99: FutureWarning: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+  return cls.__new__(cls, *args)
+(00:02) [ DONE] LiteRT-Torch Convert > Lower to MLIR: serving_default > 
+ExportedProgram Run Decompositions (+00:00)
+(00:02) [START] LiteRT-Torch Convert > Lower to MLIR: serving_default > 
+ExportedProgram Run Decompositions
+(00:02) [ DONE] LiteRT-Torch Convert > Lower to MLIR: serving_default > 
+ExportedProgram Run Decompositions (+00:00)
+(00:02) [START] LiteRT-Torch Convert > Lower to MLIR: serving_default > Create 
+MLIR Module
+(00:02) [ DONE] LiteRT-Torch Convert > Lower to MLIR: serving_default > Create 
+MLIR Module (+00:00)
+(00:02) [ DONE] LiteRT-Torch Convert > Lower to MLIR: serving_default (+00:00)
+(00:02) [START] LiteRT-Torch Convert > Merge MLIR Modules
+(00:02) [ DONE] LiteRT-Torch Convert > Merge MLIR Modules (+00:00)
+(00:02) [START] LiteRT-Torch Convert > Run LiteRT Converter Passes
+(00:02) [ DONE] LiteRT-Torch Convert > Run LiteRT Converter Passes (+00:00)
+(00:02) [ DONE] LiteRT-Torch Convert (+00:02)
+(00:00) [START] Write Model to .local-tools/runtime-comparison/tcn-random.tflite
+I0000 00:00:1789525386.593213      19 flatbuffer_export.cc:4342] Estimated count of arithmetic ops: 27.661 M  ops, equivalently 13.831 M  MACs
+(00:00) [ DONE] Write Model to .local-tools/runtime-comparison/tcn-random.tflite
+(+00:00)
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+{
+  "runtime": "litert",
+  "weights": "fresh random, untrained",
+  "parameters": 49665,
+  "inputShape": [
+    1,
+    6,
+    231
+  ],
+  "outputShape": [
+    1,
+    1
+  ],
+  "jsParityMaxAbsDifference": 2.8559741793721116e-09,
+  "numericTolerance": 1e-05,
+  "onAndroidDevice": "UNTESTED",
+  "runtimeDecision": "reserved for user/team",
+  "operators": [
+    "ADD",
+    "CONV_2D",
+    "DELEGATE",
+    "PAD",
+    "RESHAPE",
+    "SLICE",
+    "TANH",
+    "TRANSPOSE"
+  ],
+  "runtimeVersion": "2.2.0",
+  "status": "converted_and_desktop_cpu_executed",
+  "maxAbsDifference": 9.313225746154785e-09,
+  "artifact": ".local-tools/runtime-comparison/tcn-random.tflite",
+  "torchVersion": "2.10.0+cpu"
+}

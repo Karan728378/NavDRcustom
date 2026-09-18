@@ -1,0 +1,13 @@
+{
+  "status": "BLOCKED_MISSING_CSV_PAYLOADS",
+  "totalFiles": 731,
+  "csvFiles": 564,
+  "csvPointers": 564,
+  "csvPayloadFiles": 0,
+  "allLfsPointerFiles": 727,
+  "uniqueMissingLfsObjects": 420,
+  "uniqueDeclaredPayloadBytes": 1492137276,
+  "filenameCandidateGroups": 144,
+  "approvedPairings": 0,
+  "rawInventory": "docs/evidence/io-vnbd-inventory/inventory.json"
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "navdr.ml-config.v1",
+  "seed": 26168,
+  "window": 231,
+  "microbatch": 16,
+  "accumulation": 8,
+  "steps": 3,
+  "learning_rate": 0.001,
+  "target_scale_mps": 60.0
+}

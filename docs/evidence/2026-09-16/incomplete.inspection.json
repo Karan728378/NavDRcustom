@@ -1,0 +1,77 @@
+{
+  "schema": "navdr.inspection.v1",
+  "source": "docs/evidence/2026-09-16/fixtures/incomplete.partial",
+  "sha256": "4ad02ae4568dd63f3af57e1b07d8a186077ed32afc01d1a3205ebb5fd4b1c520",
+  "status": "incomplete",
+  "completion": {
+    "footerPresent": false,
+    "declaredComplete": null,
+    "eventCountMatches": null
+  },
+  "eventCounts": {
+    "session": 1,
+    "sensor": 6,
+    "frame": 3,
+    "navigation": 3
+  },
+  "countedBodyEvents": 12,
+  "sensorIntervalsMs": {
+    "1": {
+      "count": 2,
+      "min": 10.0,
+      "max": 10.0,
+      "mean": 10.0
+    },
+    "4": {
+      "count": 2,
+      "min": 10.0,
+      "max": 10.0,
+      "mean": 10.0
+    }
+  },
+  "deliveryDelayMs": {
+    "1": {
+      "count": 3,
+      "min": 1.0,
+      "max": 1.0,
+      "mean": 1.0
+    },
+    "4": {
+      "count": 3,
+      "min": 1.0,
+      "max": 1.0,
+      "mean": 1.0
+    }
+  },
+  "rawSensorGapCounts": {},
+  "frameIntervalsMs": {
+    "count": 2,
+    "min": 10,
+    "max": 10,
+    "mean": 10.0
+  },
+  "frameGapsOver100Ms": 0,
+  "gnssAgeAtFrameMs": {
+    "count": 1,
+    "min": 1,
+    "max": 1,
+    "mean": 1.0
+  },
+  "pairing": {
+    "rawAccelerometerEvents": 3,
+    "pairedFrames": 3,
+    "rawAccelerometersWithoutFrame": 0,
+    "staleAccelerometerDeliveries": 0,
+    "synchronizerRejectedCounter": 0,
+    "counterTimestampNs": 30000000,
+    "counterIsFinal": false,
+    "framesWithoutMatchingRecentRawAccel": 0,
+    "note": "Counter is the last published snapshot, not a final loss count. Unpaired samples may be queued at stop or discarded before synchronization; never equate them with hardware loss."
+  },
+  "hardwareLoss": {
+    "confirmedCount": null,
+    "status": "not_identifiable_from_callback_log",
+    "note": "Raw timestamp gaps are observed upstream of frame pairing; they do not establish hardware loss versus OS scheduling, batching, or requested/actual rate differences. Synchronizer rejection is a separate recorded counter."
+  },
+  "errors": []
+}

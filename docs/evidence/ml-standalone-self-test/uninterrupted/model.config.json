@@ -1,0 +1,15 @@
+{
+  "schema": "navdr.training.v2",
+  "model": "existing-tcn-49665",
+  "seed": 26168,
+  "window": 231,
+  "period_seconds": 0.1,
+  "microbatch": 2,
+  "accumulation": 2,
+  "learning_rate": 0.001,
+  "epochs": 2,
+  "target_scale_mps": 60.0,
+  "checkpoint_every_updates": 3,
+  "reserved_gib": 4.0,
+  "headroom_gib": 1.0
+}

@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: parameter count includes actual participating weights and reset is deterministic
+ok 1 - parameter count includes actual participating weights and reset is deterministic
+  ---
+  duration_ms: 19.53116
+  type: 'test'
+  ...
+# Subtest: streaming outputs are causal and isolated between sessions
+ok 2 - streaming outputs are causal and isolated between sessions
+  ---
+  duration_ms: 69.733939
+  type: 'test'
+  ...
+# Subtest: 100 Hz samples produce 20 Hz inference, bounded residual and explicit untrained status
+ok 3 - 100 Hz samples produce 20 Hz inference, bounded residual and explicit untrained status
+  ---
+  duration_ms: 118.329286
+  type: 'test'
+  ...
+# Subtest: missing data, unknown speed, low actual sample rate and malformed samples are explicit
+ok 4 - missing data, unknown speed, low actual sample rate and malformed samples are explicit
+  ---
+  duration_ms: 29.287049
+  type: 'test'
+  ...
+# Subtest: reference never enters model; rejected GNSS cannot update velocity anchor
+ok 5 - reference never enters model; rejected GNSS cannot update velocity anchor
+  ---
+  duration_ms: 99.422707
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 345.231205

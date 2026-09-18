@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "startMs": 0,
+    "endMs": 10000,
+    "outageSeconds": 10,
+    "outageDistance": 100,
+    "maxRaw": 15.000000000000005,
+    "maxOutput": 15.000000000000005,
+    "referenceComplete": true,
+    "outputComplete": true,
+    "samples": 10,
+    "outputSamples": 10,
+    "closed": true,
+    "driftPercent": 15.000000000000005,
+    "rawDriftPercent": 15.000000000000005,
+    "status": "SCORED"
+  },
+  {
+    "id": 2,
+    "startMs": 12000,
+    "endMs": 22000,
+    "outageSeconds": 10,
+    "outageDistance": 100,
+    "maxRaw": 14.999999999999995,
+    "maxOutput": 14.999999999999995,
+    "referenceComplete": true,
+    "outputComplete": true,
+    "samples": 10,
+    "outputSamples": 10,
+    "closed": true,
+    "driftPercent": 14.999999999999995,
+    "rawDriftPercent": 14.999999999999995,
+    "status": "SCORED"
+  }
+]

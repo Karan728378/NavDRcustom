@@ -1,0 +1,21 @@
+EXACT TWO-OUTAGE ACCEPTANCE:
+[
+  {
+    "id": 1,
+    "distanceM": 100,
+    "peakErrorM": 15.000000000000005,
+    "driftPercent": 15.000000000000005
+  },
+  {
+    "id": 2,
+    "distanceM": 100,
+    "peakErrorM": 14.999999999999995,
+    "driftPercent": 14.999999999999995
+  }
+]
+INCOMPLETE REFERENCE EXPORT:
+source,id,outageSeconds,outageDistance,maxRaw,maxOutput,driftPercent,status
+"replay",1,10,80,15.000000000000005,15.000000000000005,null,"INCOMPLETE REFERENCE"
+
+PASS: current device result clears prior replay metrics; no stale history export.
+PASS: unavailable/mount-uncalibrated output remains counted and unscored.

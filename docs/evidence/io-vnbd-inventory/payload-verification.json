@@ -1,0 +1,158 @@
+{
+  "status": "PASS_POINTER_REPLACEMENT_AND_HASH_VERIFICATION",
+  "csvPathsChecked": 564,
+  "allPayloadHashesMatchPointers": true,
+  "uniqueCsvPayloads": 329,
+  "probeStatuses": {
+    "csv_prefix_inspected": 564
+  },
+  "prefixCadenceHzCounts": {
+    "10.0": 548,
+    "83.333": 3,
+    "2.0": 8,
+    "1000.0": 2,
+    "10.101": 1,
+    "10.204": 1
+  },
+  "filesWithHeaderByteEscapes": 241,
+  "nonIncreasingTimestampColumns": [
+    {
+      "path": "Synchronised V abd S datasets/Categorised IOVNB Dataset/M (Driver B)/V-M.csv",
+      "column": "Time Since Start of Day (seconds)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Synchronised V abd S datasets/Categorised IOVNB Dataset/S (Driver A)/S2/S-S2.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Synchronised V abd S datasets/Categorised IOVNB Dataset/S (Driver A)/S3b/S-S3b.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Synchronised V abd S datasets/Categorised IOVNB Dataset/Vtb (Driver E)/Vtb01/S-Vtb1.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 2710
+    },
+    {
+      "path": "Synchronised V abd S datasets/Categorised IOVNB Dataset/Vtb (Driver E)/Vtb02/V-vtb2.csv",
+      "column": "Time Since Start of Day (seconds)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Synchronised V abd S datasets/Categorised IOVNB Dataset/Y (Driver D)/Y1/S-Y1.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 3
+    },
+    {
+      "path": "Synchronised V abd S datasets/Uncategorised IOVNB Dataset/S-Dataset/S-S2.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Synchronised V abd S datasets/Uncategorised IOVNB Dataset/S-Dataset/S-S3b.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Synchronised V abd S datasets/Uncategorised IOVNB Dataset/S-Dataset/S-Vtb1.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 2710
+    },
+    {
+      "path": "Synchronised V abd S datasets/Uncategorised IOVNB Dataset/S-Dataset/S-Y1.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 3
+    },
+    {
+      "path": "Synchronised V abd S datasets/Uncategorised IOVNB Dataset/V-Dataset/V-M.csv",
+      "column": "Time Since Start of Day (seconds)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Synchronised V abd S datasets/Uncategorised IOVNB Dataset/V-Dataset/V-vtb2.csv",
+      "column": "Time Since Start of Day (seconds)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Categorised IOVNB (V) Dataset/V Dataset/M (Driver B)/V-M.csv",
+      "column": "Time Since Start of Day (seconds)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Categorised IOVNB (V) Dataset/V Dataset/St (Driver C)/St4/V-St4.csv",
+      "column": "Time Since Start of Day (seconds)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Categorised IOVNB (V) Dataset/V Dataset/Vtb (Driver E)/Vtb02/V-Vtb2.csv",
+      "column": "Time Since Start of Day (seconds)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/S-Dataset/S-I.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 2095
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/S-Dataset/S-S2.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/S-Dataset/S-S3b.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/S-Dataset/S-T1.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 1699
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/S-Dataset/S-T4.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 1065
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/S-Dataset/S-T5.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 1246
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/S-Dataset/S-T6.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 1591
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/S-Dataset/S-Vtb1.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 2710
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/S-Dataset/S-Y1.csv",
+      "column": "TIME SINCE START (ms)",
+      "nonIncreasingDeltas": 3
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/V-Dataset/V-M.csv",
+      "column": "Time Since Start of Day (seconds)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/V-Dataset/V-St4.csv",
+      "column": "Time Since Start of Day (seconds)",
+      "nonIncreasingDeltas": 1
+    },
+    {
+      "path": "Unsynchronised V and S Dataset/Uncategorised IOVNB (V and S) Dataset/V-Dataset/V-Vtb2.csv",
+      "column": "Time Since Start of Day (seconds)",
+      "nonIncreasingDeltas": 1
+    }
+  ],
+  "pairingsApproved": 0,
+  "splitCreated": false,
+  "trainingRun": false
+}

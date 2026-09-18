@@ -1,0 +1,64 @@
+{
+  "withSyntheticReference": {
+    "schema": "navdr.offline-evaluation.v1",
+    "samples": 24,
+    "matchedReferenceSamples": 24,
+    "referenceProvided": true,
+    "outages": [
+      {
+        "id": 1,
+        "distanceM": 100.0,
+        "peakErrorM": 15.000000000000009,
+        "referenceComplete": true,
+        "outputComplete": true,
+        "samples": 10,
+        "outputSamples": 10,
+        "driftPercent": 15.000000000000009,
+        "status": "scored_no_official_pass_rule"
+      },
+      {
+        "id": 2,
+        "distanceM": 100.0,
+        "peakErrorM": 14.999999999999995,
+        "referenceComplete": true,
+        "outputComplete": true,
+        "samples": 10,
+        "outputSamples": 10,
+        "driftPercent": 14.999999999999995,
+        "status": "scored_no_official_pass_rule"
+      }
+    ],
+    "note": "Exact timestamp matching. Caller must qualify reference uncertainty/rights; no authenticated PS pass rule assumed."
+  },
+  "withoutReference": {
+    "schema": "navdr.offline-evaluation.v1",
+    "samples": 24,
+    "matchedReferenceSamples": 0,
+    "referenceProvided": false,
+    "outages": [
+      {
+        "id": 1,
+        "distanceM": 0.0,
+        "peakErrorM": null,
+        "referenceComplete": false,
+        "outputComplete": true,
+        "samples": 10,
+        "outputSamples": 10,
+        "driftPercent": null,
+        "status": "incomplete_or_zero_distance"
+      },
+      {
+        "id": 2,
+        "distanceM": 0.0,
+        "peakErrorM": null,
+        "referenceComplete": false,
+        "outputComplete": true,
+        "samples": 10,
+        "outputSamples": 10,
+        "driftPercent": null,
+        "status": "incomplete_or_zero_distance"
+      }
+    ],
+    "note": "Exact timestamp matching. Caller must qualify reference uncertainty/rights; no authenticated PS pass rule assumed."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "cpu_threads_available": 12,
+  "ram_available_gib": 7.961585998535156,
+  "disk_free_gib": 20.542160034179688,
+  "python": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/.local-tools/ml-cuda/bin/python",
+  "torch": {
+    "exit_code": 0,
+    "stdout": "{\"torch\": \"2.10.0+cu128\", \"cuda\": \"12.8\", \"available\": true, \"devices\": 1}\n",
+    "stderr": ""
+  },
+  "nvidia_smi": {
+    "exit_code": 0,
+    "stdout": "name, uuid, driver_version, memory.total [MiB], memory.free [MiB], temperature.gpu\nNVIDIA GeForce RTX 4050 Laptop GPU, GPU-f08bbb86-e698-e4f4-36a9-929d9d2d74cd, 595.84, 6141 MiB, 5514 MiB, 62\n",
+    "stderr": ""
+  }
+}

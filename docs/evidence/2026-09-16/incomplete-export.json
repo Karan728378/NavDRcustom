@@ -1,0 +1,44 @@
+{
+  "schema": "navdr.evaluation.v2",
+  "source": "replay",
+  "elapsedSeconds": 12,
+  "metrics": {
+    "id": 1,
+    "startMs": 0,
+    "endMs": 10000,
+    "outageSeconds": 10,
+    "outageDistance": 80,
+    "maxRaw": 15.000000000000005,
+    "maxOutput": 15.000000000000005,
+    "referenceComplete": false,
+    "outputComplete": true,
+    "samples": 10,
+    "outputSamples": 10,
+    "closed": true,
+    "driftPercent": null,
+    "rawDriftPercent": null,
+    "status": "INCOMPLETE REFERENCE",
+    "rawError": null,
+    "outputError": null,
+    "improvementPercent": null
+  },
+  "outages": [
+    {
+      "id": 1,
+      "startMs": 0,
+      "endMs": 10000,
+      "outageSeconds": 10,
+      "outageDistance": 80,
+      "maxRaw": 15.000000000000005,
+      "maxOutput": 15.000000000000005,
+      "referenceComplete": false,
+      "outputComplete": true,
+      "samples": 10,
+      "outputSamples": 10,
+      "closed": true,
+      "driftPercent": null,
+      "rawDriftPercent": null,
+      "status": "INCOMPLETE REFERENCE"
+    }
+  ]
+}

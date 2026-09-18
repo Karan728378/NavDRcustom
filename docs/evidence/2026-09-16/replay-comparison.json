@@ -1,0 +1,12 @@
+{
+  "provenance": "synthetic native-format recording; not a physical phone run",
+  "rows": 601,
+  "byteIdentical": true,
+  "numericTolerance": 0,
+  "maximumAbsoluteDifference": 0,
+  "injectedReferenceRejectedBeforeEstimator": true,
+  "observedModes": [
+    "DEAD_RECKONING",
+    "GNSS_AIDED"
+  ]
+}

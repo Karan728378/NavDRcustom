@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "checks": [
+    "pause freezes demo",
+    "17 second outage",
+    "manual GNSS override",
+    "four scenario suite",
+    "independent OSM HMM",
+    "four ablations"
+  ],
+  "roadNodes": 2692,
+  "roadEdges": 4411,
+  "processingMsFor25Seconds": 1171,
+  "results": [
+    {
+      "configuration": "Raw integration",
+      "driftPercent": 0.3740412586230055,
+      "status": "SCORED"
+    },
+    {
+      "configuration": "Simulated TCN + anchor constraints",
+      "driftPercent": 0.4100511209427825,
+      "status": "SCORED"
+    },
+    {
+      "configuration": "Planar EKF",
+      "driftPercent": 0.6715628632464268,
+      "status": "SCORED"
+    },
+    {
+      "configuration": "Planar EKF + road HMM",
+      "driftPercent": 2.8586630196402427,
+      "status": "SCORED"
+    }
+  ]
+}
+Replay pause/resume and selected-output round trip: PASS
+Default 4x playback advances four unchanged 50 ms steps: PASS
+100 Hz input retained at 4x playback: PASS

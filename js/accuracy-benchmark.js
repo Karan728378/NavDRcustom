@@ -18,22 +18,22 @@ NavDR.AccuracyBenchmark = {
   gnssOutageDuration: 0,
   outageDistanceMeters: 0,
 
-  rawErrorMeters: 0,
-  correctedErrorMeters: 0,
-  rawDriftPercent: 0,
-  correctedDriftPercent: 0,
-  improvementPercent: 0,
+  rawErrorMeters: null,
+  correctedErrorMeters: null,
+  rawDriftPercent: null,
+  correctedDriftPercent: null,
+  improvementPercent: null,
 
-  maxRawError: 0,
-  maxCorrectedError: 0,
+  maxRawError: null,
+  maxCorrectedError: null,
   sumRawError: 0,
   sumCorrectedError: 0,
   sampleCount: 0,
-  avgRawError: 0,
-  avgCorrectedError: 0,
+  avgRawError: null,
+  avgCorrectedError: null,
 
   currentNavMode: "GNSS",
-  benchmarkStatus: "INSUFFICIENT DATA", // 'PASS' | 'ABOVE TARGET' | 'INSUFFICIENT DATA'
+  benchmarkStatus: "INSUFFICIENT DATA", // Evaluation status only; no authenticated PS pass rule
   pipelinePhase: "GNSS AVAILABLE", // 'GNSS AVAILABLE' | 'GNSS OUTAGE DETECTED' | 'DEAD RECKONING ACTIVE' | 'MAP MATCHING ACTIVE' | 'AI CORRECTION ACTIVE' | 'GNSS RECOVERY'
 
   // In-Session History Table Array
@@ -73,19 +73,19 @@ NavDR.AccuracyBenchmark = {
     this.gnssOutageDuration = 0;
     this.outageDistanceMeters = 0;
 
-    this.rawErrorMeters = 0;
-    this.correctedErrorMeters = 0;
-    this.rawDriftPercent = 0;
-    this.correctedDriftPercent = 0;
-    this.improvementPercent = 0;
+    this.rawErrorMeters = null;
+    this.correctedErrorMeters = null;
+    this.rawDriftPercent = null;
+    this.correctedDriftPercent = null;
+    this.improvementPercent = null;
 
-    this.maxRawError = 0;
-    this.maxCorrectedError = 0;
+    this.maxRawError = null;
+    this.maxCorrectedError = null;
     this.sumRawError = 0;
     this.sumCorrectedError = 0;
     this.sampleCount = 0;
-    this.avgRawError = 0;
-    this.avgCorrectedError = 0;
+    this.avgRawError = null;
+    this.avgCorrectedError = null;
 
     this.currentNavMode = "GNSS";
     this.benchmarkStatus = "INSUFFICIENT DATA";
@@ -147,24 +147,7 @@ NavDR.AccuracyBenchmark = {
   },
   advance(dt) {
     const s = this._schedule;
-    const o = NavDR.Workbench.lastOutput,
-      m = o?.metrics;
-    if (m) {
-      Object.assign(this, {
-        elapsedTestTime: o.elapsed,
-        gnssOutageDuration: m.outageSeconds,
-        outageDistanceMeters: m.outageDistance,
-        rawErrorMeters: m.rawError,
-        correctedErrorMeters: m.outputError,
-        maxRawError: m.maxRaw,
-        maxCorrectedError: m.maxOutput,
-        improvementPercent: m.improvementPercent || 0,
-        correctedDriftPercent: m.driftPercent || 0,
-        benchmarkStatus: m.status,
-        rawDriftPercent:
-          m.outageDistance > 5 ? (100 * m.maxRaw) / m.outageDistance : 0,
-      });
-    }
+    this.syncCurrent();
     if (!s) return;
     s.timeMs += dt * 1000;
     s.time = s.timeMs / 1000;
@@ -192,21 +175,16 @@ NavDR.AccuracyBenchmark = {
    * Record completed run into history table
    */
   _recordHistoryRun(scenarioName) {
+    this.syncCurrent();
+    const round = v => Number.isFinite(v) ? Number(v.toFixed(1)) : null;
     const run = {
-      id: this.history.length + 1,
-      timestamp: new Date().toLocaleTimeString(),
+      id: this.history.length + 1, timestamp: new Date().toLocaleTimeString(),
       scenario: scenarioName || this.currentScenario,
-      outageDuration: parseFloat(this.gnssOutageDuration.toFixed(1)),
-      distance: parseFloat(this.outageDistanceMeters.toFixed(1)),
-      rawError: parseFloat(this.maxRawError.toFixed(1)),
-      correctedError: parseFloat(this.maxCorrectedError.toFixed(1)),
-      improvement:
-        this.maxRawError > 0
-          ? (100 * (this.maxRawError - this.maxCorrectedError)) /
-            this.maxRawError
-          : 0,
-      correctedDriftPct: parseFloat(this.correctedDriftPercent.toFixed(1)),
-      status: this.benchmarkStatus,
+      outageDuration: round(this.gnssOutageDuration), distance: round(this.outageDistanceMeters),
+      rawError: round(this.maxRawError), correctedError: round(this.maxCorrectedError),
+      improvement: this.maxRawError > 0 && this.maxCorrectedError !== null
+        ? 100 * (this.maxRawError - this.maxCorrectedError) / this.maxRawError : null,
+      correctedDriftPct: round(this.correctedDriftPercent), status: this.benchmarkStatus,
     };
 
     this.history.unshift(run); // Add latest run to top
@@ -226,7 +204,7 @@ NavDR.AccuracyBenchmark = {
         r.outageDuration + " s",
         r.distance + " m",
         r.correctedError + " m",
-        r.correctedDriftPct + "%",
+        r.correctedDriftPct == null ? "—" : r.correctedDriftPct + "%",
         r.status,
       ]) {
         const td = document.createElement("td");
@@ -241,25 +219,7 @@ NavDR.AccuracyBenchmark = {
    * Export collected benchmark dataset as CSV file
    */
   exportCSV() {
-    if (!this.history || this.history.length === 0) {
-      // Include current run if history table empty
-      if (!NavDR.Workbench.lastOutput?.metrics) {
-        NavDR.Notifications.show(
-          "No independent reference data to export",
-          "warning",
-        );
-        return;
-      }
-      this._recordHistoryRun("Live Evaluation");
-    }
-
-    let csvContent = "data:text/csv;charset=utf-8,";
-    csvContent +=
-      "Run ID,Timestamp,Scenario,Outage Duration (s),Distance (m),Raw DR Peak Error (m),Selected Output Peak Error (m),Improvement %,Corrected Drift %,Scenario Status\n";
-
-    this.history.forEach((row) => {
-      csvContent += `${row.id},"${row.timestamp}","${row.scenario}",${row.outageDuration},${row.distance},${row.rawError},${row.correctedError},${row.improvement},${row.correctedDriftPct},"${row.status}"\n`;
-    });
+    const csvContent = "data:text/csv;charset=utf-8," + this.currentCSV();
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
@@ -278,10 +238,39 @@ NavDR.AccuracyBenchmark = {
     }
   },
 
+  // Called for every input source and again when exporting; history is never the live result.
+  syncCurrent() {
+    const o = NavDR.Workbench?.lastOutput, m = o?.metrics;
+    Object.assign(this, {
+      elapsedTestTime: o?.elapsed ?? 0, gnssOutageDuration: m?.outageSeconds ?? null,
+      outageDistanceMeters: m?.outageDistance ?? null, rawErrorMeters: m?.rawError ?? null,
+      correctedErrorMeters: m?.outputError ?? null, maxRawError: m?.maxRaw ?? null,
+      maxCorrectedError: m?.maxOutput ?? null, improvementPercent: m?.improvementPercent ?? null,
+      correctedDriftPercent: m?.driftPercent ?? null, rawDriftPercent: m?.rawDriftPercent ?? null,
+      benchmarkStatus: m?.status ?? 'NO REFERENCE',
+    });
+  },
+  currentResult() {
+    this.syncCurrent();
+    const o = NavDR.Workbench?.lastOutput;
+    // Copy to detach exports from mutable UI/session state. Null stays null.
+    return JSON.parse(JSON.stringify({schema: 'navdr.evaluation.v2',
+      source: NavDR.Workbench?.source ?? 'unknown', elapsedSeconds: o?.elapsed ?? null,
+      metrics: o?.metrics ?? null, outages: o?.outages ?? []}));
+  },
+  currentCSV() {
+    const r = this.currentResult();
+    const rows = r.outages.length ? r.outages : [{status: 'NO SCORED OUTAGE'}];
+    const keys = ['id','outageSeconds','outageDistance','maxRaw','maxOutput','driftPercent','status'];
+    const cell = value => value == null ? 'null' : JSON.stringify(value);
+    return ['source,' + keys.join(','), ...rows.map(row => [r.source,...keys.map(k=>row[k])].map(cell).join(','))].join('\n') + '\n';
+  },
+
   /**
    * Get Module State Object
    */
   getState() {
+    this.syncCurrent();
     return {
       enabled: this.enabled,
       currentScenario: this.currentScenario,

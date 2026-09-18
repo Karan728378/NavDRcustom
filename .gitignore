@@ -3,3 +3,12 @@ __pycache__/
 native/android/.gradle/
 native/android/**/build/
 native/android/local.properties
+.local-tools/
+native/android/.kotlin/
+
+# Local dataset payloads; provenance and inventory reports are tracked instead.
+/IO-VNBD-master/
+
+# User-operated experiments can contain checkpoints, caches and sensitive trajectories.
+/runs/
+/ml/requirements.cuda.local.lock

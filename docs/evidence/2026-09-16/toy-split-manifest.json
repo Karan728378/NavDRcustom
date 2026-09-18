@@ -1,0 +1,71 @@
+{
+  "schema": "navdr.split.v1",
+  "status": "DRAFT_REQUIRES_USER_REVIEW",
+  "synthetic": true,
+  "sourceSha256": "452223bac21fcb15979fc82f38a347bbf6718e1e523729b26c0ce1f7a55384de",
+  "seed": 26168,
+  "grouping": "connected components sharing any known vehicle OR phone OR route",
+  "warnings": [],
+  "trips": [
+    {
+      "id": "toy-1-0",
+      "path": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/2026-09-16/fixtures/ml-toy/toy-1-0.csv",
+      "vehicle": "v1",
+      "phone": "p1-0",
+      "route": "r1-0",
+      "sha256": "068d0e9935d47dae6d66c4caa4eaced0f100917b127880bd3d854afe7fd4f24c",
+      "split": "test",
+      "group": "toy-1-0|toy-1-1"
+    },
+    {
+      "id": "toy-1-1",
+      "path": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/2026-09-16/fixtures/ml-toy/toy-1-1.csv",
+      "vehicle": "v1",
+      "phone": "p1-1",
+      "route": "r1-1",
+      "sha256": "9fda863d12fab951bdbfe6ad4e9e4d8d127178ce870779c300bec80f1a76b043",
+      "split": "test",
+      "group": "toy-1-0|toy-1-1"
+    },
+    {
+      "id": "toy-0-0",
+      "path": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/2026-09-16/fixtures/ml-toy/toy-0-0.csv",
+      "vehicle": "v0",
+      "phone": "p0-0",
+      "route": "r0-0",
+      "sha256": "cb76d17a5227e0bf40722384f885fac6157649ba10338f52924ebb9d529c7915",
+      "split": "dev",
+      "group": "toy-0-0|toy-0-1"
+    },
+    {
+      "id": "toy-0-1",
+      "path": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/2026-09-16/fixtures/ml-toy/toy-0-1.csv",
+      "vehicle": "v0",
+      "phone": "p0-1",
+      "route": "r0-1",
+      "sha256": "01a8b0b56dcefaab1c17bb7b260a866273afda7d156afc6fbb898d0b5ed92c80",
+      "split": "dev",
+      "group": "toy-0-0|toy-0-1"
+    },
+    {
+      "id": "toy-2-0",
+      "path": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/2026-09-16/fixtures/ml-toy/toy-2-0.csv",
+      "vehicle": "v2",
+      "phone": "p2-0",
+      "route": "r2-0",
+      "sha256": "89d75873a252f3e25156a1044fdde4d20f8a0eeff7c8752cb2f0df59997f6e68",
+      "split": "train",
+      "group": "toy-2-0|toy-2-1"
+    },
+    {
+      "id": "toy-2-1",
+      "path": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/2026-09-16/fixtures/ml-toy/toy-2-1.csv",
+      "vehicle": "v2",
+      "phone": "p2-1",
+      "route": "r2-1",
+      "sha256": "2fb0269299f052887a29aa68d00cbf10175410d42e433d9581cb305da053a945",
+      "split": "train",
+      "group": "toy-2-0|toy-2-1"
+    }
+  ]
+}

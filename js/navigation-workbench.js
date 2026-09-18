@@ -152,6 +152,7 @@
       }
       const o = this.session.step(f);
       this.lastOutput = o;
+      N.AccuracyBenchmark?.syncCurrent();
       const now = f.timestampMs;
       if (now - this.lastDraw < 200) return;
       this.lastDraw = now;

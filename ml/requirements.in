@@ -1,0 +1,6 @@
+torch==2.10.0+cpu
+numpy==2.2.6
+onnx==1.19.1
+onnxruntime==1.23.2
+litert-torch==0.9.4
+torchao==0.17.0

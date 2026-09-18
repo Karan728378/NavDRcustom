@@ -1,0 +1,5 @@
+{
+  "exit_code": 0,
+  "stdout": "{\"status\": \"passed\", \"synthetic\": true, \"configSha256\": \"9ecc99870c1874ad0ad33112e83e471301047de5760494f7ac0447d1a2277e34\", \"peakReservedBytes\": 2097152, \"peakAllocatedBytes\": 1518592, \"minimumObservedOrConservativeHeadroomBytes\": 5664079872, \"limitReservedBytes\": 4294967296.0, \"requiredHeadroomBytes\": 1073741824.0, \"microbatch\": 1, \"accumulation\": 128, \"cpuThreads\": 4, \"measuredUpdates\": 5, \"medianUpdateSeconds\": 0.4073424899997917, \"samplesPerSecond\": 314.23188874812803, \"gpuName\": \"NVIDIA GeForce RTX 4050 Laptop GPU\", \"totalBytes\": 6053232640, \"torchVersion\": \"2.10.0+cu128\", \"cudaVersion\": \"12.8\", \"precision\": \"FP32\", \"budgetVerified\": true}\n",
+  "stderr": ""
+}

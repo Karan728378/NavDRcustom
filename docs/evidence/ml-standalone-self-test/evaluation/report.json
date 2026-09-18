@@ -1,0 +1,223 @@
+{
+  "schema": "navdr.evaluation.v2",
+  "synthetic": true,
+  "split": "test",
+  "checkpoint_sha256": "71a5d222379f7affbcb3de8fb45889aeb4bab7d0821fc491503c5ba538bd1eb6",
+  "manifest_sha256": "02b962b3a3e9506ecb9860e1682e45ed1104c6cbb10d3b83f65b82ae9c95dc0d",
+  "model_source_sha256": "6fcb953996b18e1e108e9e59983524ca576bdd1c7f87d8457280ec80b6380413",
+  "evaluator_source_sha256": "03bf46c9e0d1dae3070552b93a10ba27826a9cdf2730613e513fbe73a80d94fd",
+  "parser_source_sha256": "b9ee18b25b441e78b2e65df4d67e7729e7d3bf07b35d65fb632a367878055382",
+  "kotlin_runner": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/native/android/navigation/build/install/navigation/bin/navigation",
+  "kotlin_artifact_sha256": {
+    "annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+    "kotlin-stdlib-2.1.20.jar": "1bcc74e8ce84e2c25eaafde10f1248349cce3062b6e36978cbeec610db1e930a",
+    "navigation.jar": "18eed8d72733beec1b5aa7ff880ae6ebbb9c92b3b581a137fd2438e7b87bcd51"
+  },
+  "methods": {
+    "learned_speed_gyro": {
+      "velocity_common": {
+        "samples": 171,
+        "mae_mps": 0.5546604621410374,
+        "rmse_mps": 0.5633781100905286
+      },
+      "velocity_available": {
+        "samples": 171,
+        "mae_mps": 0.5546604621410374,
+        "rmse_mps": 0.5633781100905286
+      }
+    },
+    "raw_integration": {
+      "velocity_common": {
+        "samples": 171,
+        "mae_mps": 0.004795321637428725,
+        "rmse_mps": 0.008045920836381254
+      },
+      "velocity_available": {
+        "samples": 171,
+        "mae_mps": 0.004795321637428725,
+        "rmse_mps": 0.008045920836381254
+      }
+    },
+    "last_speed_gyro": {
+      "velocity_common": {
+        "samples": 171,
+        "mae_mps": 0.0191812865497077,
+        "rmse_mps": 0.03218368334551249
+      },
+      "velocity_available": {
+        "samples": 171,
+        "mae_mps": 0.0191812865497077,
+        "rmse_mps": 0.03218368334551249
+      }
+    },
+    "classical_ekf": {
+      "velocity_common": {
+        "samples": 171,
+        "mae_mps": 0.0024975507687134773,
+        "rmse_mps": 0.003335327437026877
+      },
+      "velocity_available": {
+        "samples": 171,
+        "mae_mps": 0.0024975507687134773,
+        "rmse_mps": 0.003335327437026877
+      }
+    }
+  },
+  "trips": [
+    {
+      "id": "synthetic-test",
+      "rows": 401,
+      "common_velocity_samples": 171,
+      "methods": {
+        "learned_speed_gyro": {
+          "velocity_common": {
+            "samples": 171,
+            "mae_mps": 0.5546604621410374,
+            "rmse_mps": 0.5633781100905286
+          },
+          "velocity_available": {
+            "samples": 171,
+            "mae_mps": 0.5546604621410374,
+            "rmse_mps": 0.5633781100905286
+          },
+          "outages": [
+            {
+              "id": 1,
+              "start_seconds": 25.0,
+              "end_seconds": 29.0,
+              "duration_seconds": 4.0,
+              "reference_distance_m": 23.36399999996639,
+              "peak_position_error_m": 1.8625180575468605,
+              "drift_percent": 7.9717430985684805,
+              "status": "SCORED"
+            },
+            {
+              "id": 2,
+              "start_seconds": 32.00000000000001,
+              "end_seconds": 36.00000000000001,
+              "duration_seconds": 4.0,
+              "reference_distance_m": 23.92400000001227,
+              "peak_position_error_m": 2.4224806778257006,
+              "drift_percent": 10.125734316270098,
+              "status": "SCORED"
+            }
+          ]
+        },
+        "raw_integration": {
+          "velocity_common": {
+            "samples": 171,
+            "mae_mps": 0.004795321637428725,
+            "rmse_mps": 0.008045920836381254
+          },
+          "velocity_available": {
+            "samples": 171,
+            "mae_mps": 0.004795321637428725,
+            "rmse_mps": 0.008045920836381254
+          },
+          "outages": [
+            {
+              "id": 1,
+              "start_seconds": 25.0,
+              "end_seconds": 29.0,
+              "duration_seconds": 4.0,
+              "reference_distance_m": 23.36399999996639,
+              "peak_position_error_m": 0.040998134552879595,
+              "drift_percent": 0.17547566578042534,
+              "status": "SCORED"
+            },
+            {
+              "id": 2,
+              "start_seconds": 32.00000000000001,
+              "end_seconds": 36.00000000000001,
+              "duration_seconds": 4.0,
+              "reference_distance_m": 23.92400000001227,
+              "peak_position_error_m": 0.040998134506936144,
+              "drift_percent": 0.17136822649605046,
+              "status": "SCORED"
+            }
+          ]
+        },
+        "last_speed_gyro": {
+          "velocity_common": {
+            "samples": 171,
+            "mae_mps": 0.0191812865497077,
+            "rmse_mps": 0.03218368334551249
+          },
+          "velocity_available": {
+            "samples": 171,
+            "mae_mps": 0.0191812865497077,
+            "rmse_mps": 0.03218368334551249
+          },
+          "outages": [
+            {
+              "id": 1,
+              "start_seconds": 25.0,
+              "end_seconds": 29.0,
+              "duration_seconds": 4.0,
+              "reference_distance_m": 23.36399999996639,
+              "peak_position_error_m": 0.16399253811672712,
+              "drift_percent": 0.7019026627159862,
+              "status": "SCORED"
+            },
+            {
+              "id": 2,
+              "start_seconds": 32.00000000000001,
+              "end_seconds": 36.00000000000001,
+              "duration_seconds": 4.0,
+              "reference_distance_m": 23.92400000001227,
+              "peak_position_error_m": 0.1639925381627289,
+              "drift_percent": 0.6854729065484233,
+              "status": "SCORED"
+            }
+          ]
+        },
+        "classical_ekf": {
+          "velocity_common": {
+            "samples": 171,
+            "mae_mps": 0.0024975507687134773,
+            "rmse_mps": 0.003335327437026877
+          },
+          "velocity_available": {
+            "samples": 171,
+            "mae_mps": 0.0024975507687134773,
+            "rmse_mps": 0.003335327437026877
+          },
+          "outages": [
+            {
+              "id": 1,
+              "start_seconds": 25.0,
+              "end_seconds": 29.0,
+              "duration_seconds": 4.0,
+              "reference_distance_m": 23.36399999996639,
+              "peak_position_error_m": 0.028350806739494954,
+              "drift_percent": 0.1213439767999304,
+              "status": "SCORED"
+            },
+            {
+              "id": 2,
+              "start_seconds": 32.00000000000001,
+              "end_seconds": 36.00000000000001,
+              "duration_seconds": 4.0,
+              "reference_distance_m": 23.92400000001227,
+              "peak_position_error_m": 0.02805914300631661,
+              "drift_percent": 0.11728449676601829,
+              "status": "SCORED"
+            }
+          ]
+        }
+      },
+      "gnss_time_rationale": "SYNTHETIC: fixture deliberately emits a fresh fix per row."
+    }
+  ],
+  "warnings": [
+    "SYNTHETIC CORRECTNESS ONLY; no real accuracy conclusion.",
+    "Scalar TCN speed plus phone-gyro heading; not a learned position/heading model or a deployed fusion policy.",
+    "Phone GNSS row timestamps are a reviewer-approved assumption, not verified fix ages.",
+    "All methods receive the same phone inputs and outage mask; vehicle reference is evaluation/label only.",
+    "Velocity common metrics use the intersection of available windows across all methods; per-method coverage is also shown.",
+    "Per-outage drift is not pooled. Missing truth/output yields null, never zero.",
+    "Browser scoring formula/eligibility matched; this adapter uses local tangent-plane distances.",
+    "Kotlin engine retains its >100 ms gap and 30 s outage limits; unavailable output is explicitly unscored.",
+    "No automatic clock alignment, gap repair, axis inference, or duplicate selection was performed."
+  ]
+}

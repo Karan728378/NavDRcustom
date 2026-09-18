@@ -1,0 +1,83 @@
+{
+  "schema": "navdr.inspection.v1",
+  "source": "docs/evidence/2026-09-16/fixtures/malformed.jsonl",
+  "sha256": "22e6245858e66099a25e914d352cee2a6c3543228612072185d8cba5cd34660b",
+  "status": "malformed",
+  "completion": {
+    "footerPresent": true,
+    "declaredComplete": true,
+    "eventCountMatches": true
+  },
+  "eventCounts": {
+    "session": 1,
+    "sensor": 4,
+    "frame": 2,
+    "navigation": 2,
+    "end": 1
+  },
+  "countedBodyEvents": 8,
+  "sensorIntervalsMs": {
+    "1": {
+      "count": 1,
+      "min": 10.0,
+      "max": 10.0,
+      "mean": 10.0
+    },
+    "4": {
+      "count": 1,
+      "min": 10.0,
+      "max": 10.0,
+      "mean": 10.0
+    }
+  },
+  "deliveryDelayMs": {
+    "1": {
+      "count": 2,
+      "min": 1.0,
+      "max": 1.0,
+      "mean": 1.0
+    },
+    "4": {
+      "count": 2,
+      "min": 1.0,
+      "max": 1.0,
+      "mean": 1.0
+    }
+  },
+  "rawSensorGapCounts": {},
+  "frameIntervalsMs": {
+    "count": 0,
+    "min": null,
+    "max": null,
+    "mean": null
+  },
+  "frameGapsOver100Ms": 0,
+  "gnssAgeAtFrameMs": {
+    "count": 0,
+    "min": null,
+    "max": null,
+    "mean": null
+  },
+  "pairing": {
+    "rawAccelerometerEvents": 2,
+    "pairedFrames": 1,
+    "rawAccelerometersWithoutFrame": 1,
+    "staleAccelerometerDeliveries": 0,
+    "synchronizerRejectedCounter": 0,
+    "counterTimestampNs": 20000000,
+    "counterIsFinal": false,
+    "framesWithoutMatchingRecentRawAccel": 0,
+    "note": "Counter is the last published snapshot, not a final loss count. Unpaired samples may be queued at stop or discarded before synchronization; never equate them with hardware loss."
+  },
+  "hardwareLoss": {
+    "confirmedCount": null,
+    "status": "not_identifiable_from_callback_log",
+    "note": "Raw timestamp gaps are observed upstream of frame pairing; they do not establish hardware loss versus OS scheduling, batching, or requested/actual rate differences. Synchronizer rejection is a separate recorded counter."
+  },
+  "errors": [
+    {
+      "line": 4,
+      "message": "invalid frame vectors"
+    }
+  ]
+}

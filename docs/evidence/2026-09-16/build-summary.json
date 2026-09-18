@@ -1,0 +1,11 @@
+{
+  "kotlin": {
+    "tests": 25,
+    "failures": 0,
+    "errors": 0
+  },
+  "apkSha256": "0e4905592904851d6189657880de07ff0d58b61f8173c65bb8753a8ef8c82861",
+  "lintErrors": 0,
+  "lintWarnings": 23,
+  "physicalDeviceTests": "UNTESTED"
+}

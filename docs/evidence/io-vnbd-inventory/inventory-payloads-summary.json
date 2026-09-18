@@ -1,0 +1,14 @@
+{
+  "status": "REQUIRES_HUMAN_DATA_REVIEW",
+  "totalFiles": 731,
+  "csvFiles": 564,
+  "csvPointers": 0,
+  "csvPayloadFiles": 564,
+  "allLfsPointerFiles": 163,
+  "uniqueMissingLfsObjects": 91,
+  "uniqueDeclaredPayloadBytes": 428618869,
+  "filenameCandidateGroups": 144,
+  "approvedPairings": 0,
+  "uniqueCsvPayloads": 329,
+  "duplicateCsvPayloadGroups": 230
+}

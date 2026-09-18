@@ -215,6 +215,41 @@
       };
     }
   }
+  // Evaluation-only component. Receives selected outputs AFTER estimation.
+  // Each unavailable-GNSS sample owns (previous timestamp, current timestamp].
+  class OutageScorer {
+    constructor() { this.intervals = []; this.active = null; this.previous = null; }
+    step(frame, position, raw) {
+      const dt = this.previous ? (frame.timestampMs - this.previous.timestampMs) / 1000 : 0;
+      if (frame.gnssAvailable === false) {
+        if (!this.active) {
+          this.active = { id: this.intervals.length + 1,
+            startMs: this.previous?.timestampMs ?? frame.timestampMs, endMs: frame.timestampMs,
+            outageSeconds: 0, outageDistance: 0, maxRaw: null, maxOutput: null,
+            referenceComplete: true, outputComplete: true, samples: 0, outputSamples: 0, closed: false };
+          this.intervals.push(this.active);
+        }
+        const a = this.active;
+        a.endMs = frame.timestampMs; a.outageSeconds += dt; a.samples++;
+        if (frame.reference && this.previous?.reference)
+          a.outageDistance += distance(frame.reference, this.previous.reference);
+        else a.referenceComplete = false;
+        if (position) a.outputSamples++; else a.outputComplete = false;
+        if (frame.reference && position) a.maxOutput = Math.max(a.maxOutput ?? 0, distance(position, frame.reference));
+        if (frame.reference && raw) a.maxRaw = Math.max(a.maxRaw ?? 0, distance(raw, frame.reference));
+      } else if (this.active) { this.active.closed = true; this.active = null; }
+      this.previous = {timestampMs: frame.timestampMs, reference: frame.reference || null};
+      return this.results();
+    }
+    results() {
+      return this.intervals.map(a => {
+        const eligible = a.referenceComplete && a.outputComplete && a.outageSeconds >= 3 && a.outageDistance > 5;
+        return {...a, driftPercent: eligible && a.maxOutput !== null ? 100 * a.maxOutput / a.outageDistance : null,
+          rawDriftPercent: eligible && a.maxRaw !== null ? 100 * a.maxRaw / a.outageDistance : null,
+          status: !a.referenceComplete ? 'INCOMPLETE REFERENCE' : !a.outputComplete ? 'INCOMPLETE OUTPUT' : eligible ? 'SCORED' : 'INSUFFICIENT DATA'};
+      });
+    }
+  }
   class NavigationSession {
     constructor(config = {}) {
       this.config = {
@@ -247,6 +282,7 @@
       this.lastReference = null;
       this.referenceComplete = true;
       this.samples = [];
+      this.scorer = new OutageScorer();
     }
     step(frame) {
       validateFrame(frame);
@@ -262,12 +298,13 @@
       this.elapsed += dt;
       const imu = this.alignment.process(frame.accel, frame.gyro),
         g = frame.gnss;
-      if (!imu)
-        return {
-          status: "MOUNT CALIBRATION REQUIRED",
-          position: null,
-          metrics: null,
+      if (!imu) {
+        this.output = {
+          status: "MOUNT CALIBRATION REQUIRED", position: null, metrics: null,
+          outages: this.scorer.step(frame, null, null), elapsed: this.elapsed,
         };
+        return this.output;
+      }
       if (g && !this.raw && Number.isFinite(g.heading) && g.speedMps > 2) {
         this.raw = { lat: g.lat, lon: g.lon };
         this.estimated = { ...this.raw };
@@ -328,45 +365,17 @@
         );
         if (match?.matched) position = match.position;
       }
-      // Reference only enters evaluation after navigation has completed.
-      let metrics = null;
-      if (frame.gnssAvailable === false && position) {
-        this.outage += dt;
-        if (frame.reference && this.lastReference)
-          this.outageDistance += distance(frame.reference, this.lastReference);
-        else this.referenceComplete = false;
-      }
-      if (frame.reference && position) {
-        const rawError = distance(this.raw, frame.reference),
-          outputError = distance(position, frame.reference);
-        if (frame.gnssAvailable === false) {
-          this.maxRaw = Math.max(this.maxRaw, rawError);
-          this.maxOutput = Math.max(this.maxOutput, outputError);
-        }
-        const drift =
-          this.referenceComplete && this.outageDistance > 5
-            ? (100 * this.maxOutput) / this.outageDistance
-            : null;
-        metrics = {
-          rawError,
-          outputError,
-          outageSeconds: this.outage,
-          outageDistance: this.outageDistance,
-          maxRaw: this.maxRaw,
-          maxOutput: this.maxOutput,
-          driftPercent: drift,
-          improvementPercent:
-            rawError > 0.1 ? (100 * (rawError - outputError)) / rawError : null,
-          status: !this.referenceComplete
-            ? "INCOMPLETE REFERENCE"
-            : this.outage >= 3 && drift !== null
-              ? drift < 10
-                ? "BELOW 10% TARGET"
-                : "ABOVE TARGET"
-              : "INSUFFICIENT DATA",
-        };
-      }
-      this.lastReference = frame.reference || null;
+      // Reference is passed only to this evaluation component, never the filter/model.
+      const outages = this.scorer.step(frame, position, this.raw);
+      const latest = outages.at(-1);
+      const rawError = frame.reference && this.raw ? distance(this.raw, frame.reference) : null;
+      const outputError = frame.reference && position ? distance(position, frame.reference) : null;
+      const metrics = frame.reference || latest?.maxOutput != null ? {
+        ...(latest || {outageSeconds: 0, outageDistance: 0, maxRaw: null, maxOutput: null,
+          driftPercent: null, rawDriftPercent: null, status: 'INSUFFICIENT DATA'}),
+        rawError, outputError,
+        improvementPercent: rawError > 0.1 && outputError !== null ? 100 * (rawError - outputError) / rawError : null,
+      } : null;
       this.output = {
         position,
         raw: this.raw && { ...this.raw },
@@ -376,6 +385,7 @@
         quality,
         model: this.model.getState(),
         metrics,
+        outages,
         status: position
           ? frame.gnssAvailable
             ? fs?.status || "GNSS AVAILABLE"
@@ -439,6 +449,7 @@
     FrameAlignment,
     PlanarEKF,
     NavigationSession,
+    OutageScorer,
     validateFrame,
     local,
     geo,

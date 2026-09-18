@@ -1,0 +1,30 @@
+[
+  {
+    "arguments": [],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "ValueError: --run-dir is required\n"
+  },
+  {
+    "arguments": [
+      "--resume-microbatch",
+      "8",
+      "--run-dir",
+      "/tmp/navdr-invalid-rebatch"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "ValueError: --resume-microbatch requires --resume\n"
+  },
+  {
+    "arguments": [
+      "--split-manifest",
+      "/tmp/does-not-exist-navdr.json",
+      "--run-dir",
+      "/tmp/navdr-missing-approved"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "ValueError: Manifest refused: Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/home/rimuru/Downloads/Antigravity/SIH_Pototype/ml/raw_data.py\", line 34, in read_manifest\n    with path.open() as f: m = json.load(f)\n         ^^^^^^^^^^^\n  File \"/home/rimuru/Downloads/Antigravity/SIH_Pototype/.local-tools/python/cpython-3.12.11-linux-x86_64-gnu/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/does-not-exist-navdr.json'\n\n"
+  }
+]

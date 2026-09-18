@@ -1,0 +1,434 @@
+[
+  {
+    "frame": {
+      "timestampMs": 0,
+      "gnssAvailable": true,
+      "reference": {
+        "lat": 0,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 1000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.00008993216059187306,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.00022483040147968264,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.00022483040147968264,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 2000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.00017986432118374611,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0003147625620715557,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0003147625620715557,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 3000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.00026979648177561917,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.00040469472266342876,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.00040469472266342876,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 4000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.00035972864236749223,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0004946268832553018,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0004946268832553018,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 5000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0004496608029593653,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0005845590438471749,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0005845590438471749,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 6000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0005395929635512383,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0006744912044390479,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0006744912044390479,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 7000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0006295251241431114,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.000764423365030921,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.000764423365030921,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 8000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0007194572847349845,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.000854355525622794,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.000854355525622794,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 9000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0008093894453268575,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0009442876862146672,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0009442876862146672,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 10000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0008993216059187306,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.00103421984680654,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.00103421984680654,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 11000,
+      "gnssAvailable": true,
+      "reference": {
+        "lat": 0.0008993216059187306,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0008993216059187306,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0008993216059187306,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 12000,
+      "gnssAvailable": true,
+      "reference": {
+        "lat": 0.0008993216059187306,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0008993216059187306,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0008993216059187306,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 13000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0009892537665106035,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.001124152007398413,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.001124152007398413,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 14000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0010791859271024767,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0012140841679902862,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0012140841679902862,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 15000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0011691180876943496,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0013040163285821592,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0013040163285821592,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 16000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0012590502482862228,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0013939484891740323,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0013939484891740323,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 17000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.001348982408878096,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0014838806497659055,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0014838806497659055,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 18000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.001438914569469969,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0015738128103577784,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0015738128103577784,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 19000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0015288467300618419,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0016637449709496514,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0016637449709496514,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 20000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.001618778890653715,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0017536771315415246,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0017536771315415246,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 21000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0017087110512455882,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0018436092921333977,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0018436092921333977,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 22000,
+      "gnssAvailable": false,
+      "reference": {
+        "lat": 0.0017986432118374611,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0019335414527252707,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0019335414527252707,
+      "lon": 0
+    }
+  },
+  {
+    "frame": {
+      "timestampMs": 23000,
+      "gnssAvailable": true,
+      "reference": {
+        "lat": 0.0017986432118374611,
+        "lon": 0
+      }
+    },
+    "position": {
+      "lat": 0.0017986432118374611,
+      "lon": 0
+    },
+    "raw": {
+      "lat": 0.0017986432118374611,
+      "lon": 0
+    }
+  }
+]

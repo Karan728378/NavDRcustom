@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/rimuru/Downloads/Antigravity/SIH_Pototype/tests/replay-acceptance.py", line 25, in <module>
+    subprocess.run([sys.executable,str(ROOT/'tools/replay_native.py'),str(mutated),str(tmp/'reference-mutated.csv')],capture_output=True,text=True,check=True,env=env)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/rimuru/Downloads/Antigravity/SIH_Pototype/tools/replay_native.py', '/tmp/navdr-cli-acceptance-p533i_1p/mutated.jsonl', '/tmp/navdr-cli-acceptance-p533i_1p/reference-mutated.csv']' returned non-zero exit status 1.

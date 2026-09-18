@@ -1,0 +1,4 @@
+{'name': 'org.navdr.core.SessionCatalogTest', 'tests': '1', 'skipped': '0', 'failures': '0', 'errors': '0', 'timestamp': '2026-09-16T02:20:32', 'hostname': 'ciel', 'time': '0.034'}
+BEFORE latest-only selection: interrupted.partial
+AFTER explicit historical export: old.jsonl -> OLDER CONTENT
+UI label supplied by catalog: interrupted.partial · INCOMPLETE · 15 bytes

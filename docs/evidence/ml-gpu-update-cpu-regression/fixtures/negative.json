@@ -1,0 +1,355 @@
+{
+  "schema": "navdr.io-vnbd-inventory.v1",
+  "synthetic": true,
+  "status": "SYNTHETIC_SELF_TEST",
+  "trips": [
+    {
+      "id": "synthetic-train",
+      "split": "train",
+      "recording_group": "fake-recording-train",
+      "vehicle_id": "fake-v-train",
+      "phone_id": "fake-p-train",
+      "route_id": "fake-r-train",
+      "phone": {
+        "path": "train-phone.csv",
+        "sha256": "9e89f35bc307268b067f1a52e136a0b3a425ef33f4c50b27a6cd7d3ed462df44",
+        "encoding": "utf-8",
+        "columns": {
+          "ax": {
+            "column": "ACCELEROMETER X (m/s\u00b2)",
+            "scale": 1.0
+          },
+          "ay": {
+            "column": "ACCELEROMETER Y (m/s\u00b2)",
+            "scale": 1.0
+          },
+          "az": {
+            "column": "ACCELEROMETER Z (m/s\u00b2)",
+            "scale": 1.0
+          },
+          "gx": {
+            "column": "GYROSCOPE Yaw (rad/s)",
+            "scale": 1.0
+          },
+          "gy": {
+            "column": "GYROSCOPE Pitch (rad/s)",
+            "scale": 1.0
+          },
+          "gz": {
+            "column": "GYROSCOPE Roll (rad/s)",
+            "scale": 1.0
+          },
+          "lat": {
+            "column": "GPS LATITUDE (degrees)",
+            "scale": 1.0
+          },
+          "lon": {
+            "column": "GPS LONGITUDE (degrees)",
+            "scale": 1.0
+          },
+          "speed": {
+            "column": "GPS SPEED (Kmh)",
+            "scale": 0.2777777777777778
+          },
+          "bearing": {
+            "column": "GPS ORIENTATION (\u00b0)",
+            "scale": 1.0
+          },
+          "accuracy": {
+            "column": "GPS ACCURACY (m)",
+            "scale": 1.0
+          }
+        }
+      },
+      "vehicle": {
+        "path": "train-vehicle.csv",
+        "sha256": "ea49d2bedd65166e0e4992a265f214c15ef942fd2da446b082e7245ee7f1dc12",
+        "encoding": "utf-8",
+        "columns": {
+          "speed": {
+            "column": "Velocity (km/hr)",
+            "scale": 0.2777777777777778
+          },
+          "lat": {
+            "column": "Latitude (degrees)",
+            "scale": 1.0
+          },
+          "lon": {
+            "column": "Longitude (degrees)",
+            "scale": 1.0
+          }
+        }
+      },
+      "clock": {
+        "phone_elapsed_column": "TIME SINCE START (ms)",
+        "phone_calendar_column": "DATE (YYYY-MO-DD HH-MI-SS_SSS)",
+        "phone_calendar_format": "%Y-%m-%d %H:%M:%S:%f",
+        "phone_utc_offset_seconds": 3600,
+        "vehicle_seconds_column": "Time Since Start of Day (seconds)",
+        "vehicle_date": "2019-09-08",
+        "vehicle_utc_offset_seconds": 0,
+        "vehicle_alignment_offset_seconds": 0,
+        "calendar_tolerance_seconds": 0.001,
+        "max_reference_gap_seconds": 0.2,
+        "vehicle_midnight_policy": "reject"
+      },
+      "phone_gnss_time_policy": "row_time_reviewed_assumption",
+      "gnss_time_rationale": "SYNTHETIC: fixture deliberately emits a fresh fix per row.",
+      "mount": {
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "forward": [
+          0,
+          1,
+          0
+        ],
+        "acceleration_includes_gravity": true
+      },
+      "outages": [
+        [
+          25.0,
+          29.0
+        ],
+        [
+          32.0,
+          36.0
+        ]
+      ]
+    },
+    {
+      "id": "synthetic-dev",
+      "split": "dev",
+      "recording_group": "fake-recording-dev",
+      "vehicle_id": "fake-v-dev",
+      "phone_id": "fake-p-dev",
+      "route_id": "fake-r-dev",
+      "phone": {
+        "path": "dev-phone.csv",
+        "sha256": "c0deca62e9465449c1e12091c43dd38ce569345110b8ae03ea42efab96aa1c74",
+        "encoding": "utf-8",
+        "columns": {
+          "ax": {
+            "column": "ACCELEROMETER X (m/s\u00b2)",
+            "scale": 1.0
+          },
+          "ay": {
+            "column": "ACCELEROMETER Y (m/s\u00b2)",
+            "scale": 1.0
+          },
+          "az": {
+            "column": "ACCELEROMETER Z (m/s\u00b2)",
+            "scale": 1.0
+          },
+          "gx": {
+            "column": "GYROSCOPE Yaw (rad/s)",
+            "scale": 1.0
+          },
+          "gy": {
+            "column": "GYROSCOPE Pitch (rad/s)",
+            "scale": 1.0
+          },
+          "gz": {
+            "column": "GYROSCOPE Roll (rad/s)",
+            "scale": 1.0
+          },
+          "lat": {
+            "column": "GPS LATITUDE (degrees)",
+            "scale": 1.0
+          },
+          "lon": {
+            "column": "GPS LONGITUDE (degrees)",
+            "scale": 1.0
+          },
+          "speed": {
+            "column": "GPS SPEED (Kmh)",
+            "scale": 0.2777777777777778
+          },
+          "bearing": {
+            "column": "GPS ORIENTATION (\u00b0)",
+            "scale": 1.0
+          },
+          "accuracy": {
+            "column": "GPS ACCURACY (m)",
+            "scale": 1.0
+          }
+        }
+      },
+      "vehicle": {
+        "path": "dev-vehicle.csv",
+        "sha256": "09574d19be08f4973c2029e5ca3e2708771ef40c31f279391076cc83ddb271da",
+        "encoding": "utf-8",
+        "columns": {
+          "speed": {
+            "column": "Velocity (km/hr)",
+            "scale": 0.2777777777777778
+          },
+          "lat": {
+            "column": "Latitude (degrees)",
+            "scale": 1.0
+          },
+          "lon": {
+            "column": "Longitude (degrees)",
+            "scale": 1.0
+          }
+        }
+      },
+      "clock": {
+        "phone_elapsed_column": "TIME SINCE START (ms)",
+        "phone_calendar_column": "DATE (YYYY-MO-DD HH-MI-SS_SSS)",
+        "phone_calendar_format": "%Y-%m-%d %H:%M:%S:%f",
+        "phone_utc_offset_seconds": 3600,
+        "vehicle_seconds_column": "Time Since Start of Day (seconds)",
+        "vehicle_date": "2019-09-08",
+        "vehicle_utc_offset_seconds": 0,
+        "vehicle_alignment_offset_seconds": 0,
+        "calendar_tolerance_seconds": 0.001,
+        "max_reference_gap_seconds": 0.2,
+        "vehicle_midnight_policy": "reject"
+      },
+      "phone_gnss_time_policy": "row_time_reviewed_assumption",
+      "gnss_time_rationale": "SYNTHETIC: fixture deliberately emits a fresh fix per row.",
+      "mount": {
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "forward": [
+          0,
+          1,
+          0
+        ],
+        "acceleration_includes_gravity": true
+      },
+      "outages": [
+        [
+          25.0,
+          29.0
+        ],
+        [
+          32.0,
+          36.0
+        ]
+      ]
+    },
+    {
+      "id": "synthetic-test",
+      "split": "test",
+      "recording_group": "fake-recording-test",
+      "vehicle_id": "fake-v-test",
+      "phone_id": "fake-p-test",
+      "route_id": "fake-r-test",
+      "phone": {
+        "path": "test-phone.csv",
+        "sha256": "b9acf5b03d8fbfa1ee274826c9cb17411f51e790ba9bc6e1471a23bfb267a02e",
+        "encoding": "utf-8",
+        "columns": {
+          "ax": {
+            "column": "ACCELEROMETER X (m/s\u00b2)",
+            "scale": 1.0
+          },
+          "ay": {
+            "column": "ACCELEROMETER Y (m/s\u00b2)",
+            "scale": 1.0
+          },
+          "az": {
+            "column": "ACCELEROMETER Z (m/s\u00b2)",
+            "scale": 1.0
+          },
+          "gx": {
+            "column": "GYROSCOPE Yaw (rad/s)",
+            "scale": 1.0
+          },
+          "gy": {
+            "column": "GYROSCOPE Pitch (rad/s)",
+            "scale": 1.0
+          },
+          "gz": {
+            "column": "GYROSCOPE Roll (rad/s)",
+            "scale": 1.0
+          },
+          "lat": {
+            "column": "GPS LATITUDE (degrees)",
+            "scale": 1.0
+          },
+          "lon": {
+            "column": "GPS LONGITUDE (degrees)",
+            "scale": 1.0
+          },
+          "speed": {
+            "column": "GPS SPEED (Kmh)",
+            "scale": 0.2777777777777778
+          },
+          "bearing": {
+            "column": "GPS ORIENTATION (\u00b0)",
+            "scale": 1.0
+          },
+          "accuracy": {
+            "column": "GPS ACCURACY (m)",
+            "scale": 1.0
+          }
+        }
+      },
+      "vehicle": {
+        "path": "test-vehicle.csv",
+        "sha256": "60c75afe383c3636dad0480fbdf72ba94ce55cc6d59d9c0baec40d7b7e5c80ce",
+        "encoding": "utf-8",
+        "columns": {
+          "speed": {
+            "column": "Velocity (km/hr)",
+            "scale": 0.2777777777777778
+          },
+          "lat": {
+            "column": "Latitude (degrees)",
+            "scale": 1.0
+          },
+          "lon": {
+            "column": "Longitude (degrees)",
+            "scale": 1.0
+          }
+        }
+      },
+      "clock": {
+        "phone_elapsed_column": "TIME SINCE START (ms)",
+        "phone_calendar_column": "DATE (YYYY-MO-DD HH-MI-SS_SSS)",
+        "phone_calendar_format": "%Y-%m-%d %H:%M:%S:%f",
+        "phone_utc_offset_seconds": 3600,
+        "vehicle_seconds_column": "Time Since Start of Day (seconds)",
+        "vehicle_date": "2019-09-08",
+        "vehicle_utc_offset_seconds": 0,
+        "vehicle_alignment_offset_seconds": 0,
+        "calendar_tolerance_seconds": 0.001,
+        "max_reference_gap_seconds": 0.2,
+        "vehicle_midnight_policy": "reject"
+      },
+      "phone_gnss_time_policy": "row_time_reviewed_assumption",
+      "gnss_time_rationale": "SYNTHETIC: fixture deliberately emits a fresh fix per row.",
+      "mount": {
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "forward": [
+          0,
+          1,
+          0
+        ],
+        "acceleration_includes_gravity": true
+      },
+      "outages": [
+        [
+          25.0,
+          29.0
+        ],
+        [
+          32.0,
+          36.0
+        ]
+      ]
+    }
+  ]
+}

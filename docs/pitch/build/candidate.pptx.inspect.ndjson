@@ -1,0 +1,127 @@
+{"kind":"deck","id":"pr/un693q","name":"Deck"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"","type":"master","placeholders":[{"name":"title","type":"title"},{"name":"body","type":"body"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"TITLE","type":"title","placeholders":[{"name":"title","type":"title"},{"name":"subtitle","type":"subtitle"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout2.xml","name":"OBJECT","type":"obj","placeholders":[{"name":"title","type":"title"},{"name":"body","type":"body"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout3.xml","name":"SECTION_HEADER","type":"secHead","placeholders":[{"name":"title","type":"title"},{"name":"body","type":"body"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout4.xml","name":"TWO_OBJECTS","type":"twoObj","placeholders":[{"name":"title","type":"title"},{"name":"body","type":"body"},{"name":"body","type":"body"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout5.xml","name":"TWO_OBJECTS_WITH_TEXT","type":"twoTxTwoObj","placeholders":[{"name":"title","type":"title"},{"name":"body","type":"body"},{"name":"body","type":"body"},{"name":"body","type":"body"},{"name":"body","type":"body"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout6.xml","name":"TITLE_ONLY","type":"titleOnly","placeholders":[{"name":"title","type":"title"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout7.xml","name":"BLANK","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout8.xml","name":"OBJECT_WITH_CAPTION_TEXT","type":"objTx","placeholders":[{"name":"title","type":"title"},{"name":"body","type":"body"},{"name":"body","type":"body"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout9.xml","name":"PICTURE_WITH_CAPTION_TEXT","type":"picTx","placeholders":[{"name":"title","type":"title"},{"name":"picture","type":"picture"},{"name":"body","type":"body"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout10.xml","name":"VERTICAL_TEXT","type":"vertTx","placeholders":[{"name":"title","type":"title"},{"name":"body","type":"body"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout11.xml","name":"VERTICAL_TITLE_AND_VERTICAL_TEXT","type":"vertTitleAndTx","placeholders":[{"name":"title","type":"title"},{"name":"body","type":"body"},{"name":"dateTime","type":"dateTime"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"TEKATHON-5.0 · 2026","textShapes":6}
+{"kind":"textbox","id":"sh/7edgbalw","slide":1,"text":"TEKATHON-5.0 · 2026","textPreview":"TEKATHON-5.0 · 2026","textChars":19,"textLines":1,"bbox":[280,35,790,70]}
+{"kind":"textbox","id":"sh/9kby1g3i","slide":1,"text":"NavDR","textPreview":"NavDR","textChars":5,"textLines":1,"bbox":[65,170,600,95]}
+{"kind":"textbox","id":"sh/yhkza1wv","slide":1,"text":"Smartphone navigation\nthrough GNSS outages","textPreview":"Smartphone navigation | through GNSS outages","textChars":42,"textLines":2,"bbox":[68,275,585,100]}
+{"kind":"textbox","id":"sh/jitg36dg","slide":1,"text":"AI-ML based Intelligent Dead Reckoning\nsystem for seamless navigation","textPreview":"AI-ML based Intelligent Dead Reckoning | system for seamless navigation","textChars":69,"textLines":2,"bbox":[68,405,600,85]}
+{"kind":"textbox","id":"sh/kj2hcbel","slide":1,"text":"Problem Statement 26168\nISRO   •   Software   •   Miscellaneous","textPreview":"Problem Statement 26168 | ISRO   •   Software   •   Miscellaneous","textChars":63,"textLines":2,"bbox":[68,520,610,75]}
+{"kind":"textbox","id":"sh/l4by5wv6","slide":1,"text":"Concept illustration","textPreview":"Concept illustration","textChars":20,"textLines":1,"bbox":[990,628,240,22]}
+{"kind":"image","id":"im/mxobmp8f","slide":1,"name":"Google Shape;92;p13","bbox":[48.79,31.35,214.22,91.37]}
+{"kind":"image","id":"im/9kzahk7q","slide":1,"name":"Google Shape;93;p13","bbox":[1089.5,31.35,122.6,107.64]}
+{"kind":"image","id":"im/ru1crep4","slide":1,"name":"","alt":"Concept illustration: hero","bbox":[680,145,535,500]}
+{"kind":"notes","id":"nt/y90nupkv","slide":1,"text":"Working title and event artwork retained from supplied template. Confirm current SIH branding, portal theme and registered team details before submission. Product name is NavDR; no team identity was invented. Illustration is conceptual."}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"IDEA TITLE","textShapes":12}
+{"kind":"shape","id":"sh/hkr618b2","slide":2,"name":"Google Shape;99;p14","bbox":[0,667.17,1280,52.83]}
+{"kind":"textbox","id":"sh/5k32lo7a","slide":2,"text":"IDEA TITLE","textPreview":"IDEA TITLE","textChars":10,"textLines":1,"bbox":[280,35,790,70]}
+{"kind":"textbox","id":"sh/ihc3at8z","slide":2,"text":"NavDR  /  PS 26168","textPreview":"NavDR  /  PS 26168","textChars":18,"textLines":1,"bbox":[490,680,350,28]}
+{"kind":"textbox","id":"sh/3ilkjepk","slide":2,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[1190,680,35,28]}
+{"kind":"textbox","id":"sh/kna10zql","slide":2,"text":"Motion continuity when GNSS becomes unreliable","textPreview":"Motion continuity when GNSS becomes unreliable","textChars":46,"textLines":1,"bbox":[65,135,1150,55]}
+{"kind":"textbox","id":"sh/nu9wvmd0","slide":2,"text":"THE PROBLEM","textPreview":"THE PROBLEM","textChars":11,"textLines":1,"bbox":[820,220,385,30]}
+{"kind":"textbox","id":"sh/mt0f2hwf","slide":2,"text":"GNSS loses coverage.\nIMU bias builds position error.","textPreview":"GNSS loses coverage. | IMU bias builds position error.","textChars":52,"textLines":2,"bbox":[820,260,385,105]}
+{"kind":"textbox","id":"sh/9grexwv6","slide":2,"text":"THE RESPONSE","textPreview":"THE RESPONSE","textChars":12,"textLines":1,"bbox":[820,385,385,30]}
+{"kind":"textbox","id":"sh/ovix4rel","slide":2,"text":"Combine phone motion sensors,\nvelocity estimates and road\nconstraints to bridge outages.","textPreview":"Combine phone motion sensors, | velocity estimates and road | constraints to bridge outages.","textChars":88,"textLines":3,"bbox":[820,425,390,125]}
+{"kind":"textbox","id":"sh/zq9wrmd4","slide":2,"text":"GNSS available","textPreview":"GNSS available","textChars":14,"textLines":1,"bbox":[85,595,210,30]}
+{"kind":"textbox","id":"sh/epgfyhwj","slide":2,"text":"Dead reckoning","textPreview":"Dead reckoning","textChars":14,"textLines":1,"bbox":[350,595,220,30]}
+{"kind":"textbox","id":"sh/1sretwvu","slide":2,"text":"Recovery","textPreview":"Recovery","textChars":8,"textLines":1,"bbox":[635,595,140,30]}
+{"kind":"textbox","id":"sh/0rix0re9","slide":2,"text":"Validation target: peak outage error below 10% of outage distance","textPreview":"Validation target: peak outage error below 10% of outage distance","textChars":65,"textLines":1,"bbox":[80,635,1120,30]}
+{"kind":"image","id":"im/mlgju187","slide":2,"name":"Google Shape;104;p14","bbox":[48.79,31.35,214.22,91.37]}
+{"kind":"image","id":"im/lk721w7m","slide":2,"name":"Google Shape;105;p14","bbox":[1089.5,31.35,122.6,107.64]}
+{"kind":"image","id":"im/cfy1orq5","slide":2,"name":"","alt":"Concept illustration: road","bbox":[35,215,745,375]}
+{"kind":"notes","id":"nt/hwbqtkby","slide":2,"text":"Target is an internal validation objective, not a general field result or verified ISRO mandate. Paths in the illustration are conceptual. Proactive NavIC-aware handoff remains planned."}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"TECHNICAL APPROACH","textShapes":20}
+{"kind":"shape","id":"sh/9wbitsze","slide":3,"name":"Google Shape;111;p15","bbox":[0,667.17,1280,52.83]}
+{"kind":"shape","id":"sh/uxkj2xgz","slide":3,"name":"Google Shape;116;p15","bbox":[0,667.17,1280,52.82]}
+{"kind":"textbox","id":"sh/rat43mdk","slide":3,"text":"TECHNICAL APPROACH","textPreview":"TECHNICAL APPROACH","textChars":18,"textLines":1,"bbox":[280,35,790,70]}
+{"kind":"textbox","id":"sh/q9knu1wz","slide":3,"text":"NavDR  /  PS 26168","textPreview":"NavDR  /  PS 26168","textChars":18,"textLines":1,"bbox":[490,680,350,28]}
+{"kind":"textbox","id":"sh/dcbm5wvq","slide":3,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[1190,680,35,28]}
+{"kind":"textbox","id":"sh/fet476dw","slide":3,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[580,155,60,40]}
+{"kind":"textbox","id":"sh/edkny1cb","slide":3,"text":"Phone IMU","textPreview":"Phone IMU","textChars":9,"textLines":1,"bbox":[660,152,535,40]}
+{"kind":"textbox","id":"sh/1gbmtgvm","slide":3,"text":"Acceleration and rotation","textPreview":"Acceleration and rotation","textChars":25,"textLines":1,"bbox":[660,190,535,37]}
+{"kind":"textbox","id":"sh/0f250buh","slide":3,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[580,243,60,40]}
+{"kind":"textbox","id":"sh/n2d4v6ds","slide":3,"text":"Frame alignment","textPreview":"Frame alignment","textChars":15,"textLines":1,"bbox":[660,240,535,40]}
+{"kind":"textbox","id":"sh/214n2lc7","slide":3,"text":"Fixed mounting configuration","textPreview":"Fixed mounting configuration","textChars":28,"textLines":1,"bbox":[660,278,535,37]}
+{"kind":"textbox","id":"sh/k7mlsval","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[580,331,60,40]}
+{"kind":"textbox","id":"sh/l8fmlgb6","slide":3,"text":"TCN velocity","textPreview":"TCN velocity","textChars":12,"textLines":1,"bbox":[660,328,535,40]}
+{"kind":"textbox","id":"sh/y543qlsf","slide":3,"text":"49,665 parameters; untrained demo","textPreview":"49,665 parameters; untrained demo","textChars":33,"textLines":1,"bbox":[660,366,535,37]}
+{"kind":"textbox","id":"sh/z6d4jqt0","slide":3,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[580,419,60,40]}
+{"kind":"textbox","id":"sh/c3mloba9","slide":3,"text":"Planar EKF","textPreview":"Planar EKF","textChars":10,"textLines":1,"bbox":[660,416,535,40]}
+{"kind":"textbox","id":"sh/x4vmhgbu","slide":3,"text":"State estimation and GNSS gating","textPreview":"State estimation and GNSS gating","textChars":32,"textLines":1,"bbox":[660,454,535,37]}
+{"kind":"textbox","id":"sh/ah43m1sj","slide":3,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[580,507,60,40]}
+{"kind":"textbox","id":"sh/b2d4f6t4","slide":3,"text":"Road HMM","textPreview":"Road HMM","textChars":8,"textLines":1,"bbox":[660,504,535,40]}
+{"kind":"textbox","id":"sh/of2lkrad","slide":3,"text":"Road-constrained position output","textPreview":"Road-constrained position output","textChars":32,"textLines":1,"bbox":[660,542,535,37]}
+{"kind":"textbox","id":"sh/pgv2dwby","slide":3,"text":"Current: 100 Hz simulated IMU and replay","textPreview":"Current: 100 Hz simulated IMU and replay","textChars":40,"textLines":1,"bbox":[70,620,590,35]}
+{"kind":"textbox","id":"sh/pwn2hs3m","slide":3,"text":"Next: trained weights and device validation","textPreview":"Next: trained weights and device validation","textChars":43,"textLines":1,"bbox":[680,620,550,35]}
+{"kind":"image","id":"im/7ils72ho","slide":3,"name":"Google Shape;118;p15","bbox":[48.79,31.35,214.22,91.37]}
+{"kind":"image","id":"im/mhcbexg3","slide":3,"name":"Google Shape;119;p15","bbox":[1089.5,31.35,122.6,107.64]}
+{"kind":"image","id":"im/lo7apc7a","slide":3,"name":"","alt":"Concept illustration: stack","bbox":[60,145,490,475]}
+{"kind":"notes","id":"nt/ofy9wn61","slide":3,"text":"Conceptual processing layers, not additional phone hardware. Actual current system: untrained causal TCN, six-state planar EKF, imported OSM road matcher. TCN output uses explicit GNSS-anchor constraints, not learned drift suppression. Sources: https://arxiv.org/abs/1803.01271 ; https://valhalla.github.io/valhalla/meili/algorithms/ ; local implementation js/navigation-core.js and js/ai-motion-estimator.js."}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"FEASIBILITY AND VIABILITY","textShapes":7}
+{"kind":"shape","id":"sh/xs76p4zm","slide":4,"name":"Google Shape;125;p16","bbox":[0,667.17,1280,52.83]}
+{"kind":"shape","id":"sh/ri58ba1c","slide":4,"name":"Google Shape;130;p16","bbox":[0,667.17,1280,52.82]}
+{"kind":"textbox","id":"sh/qpc3ylwr","slide":4,"text":"FEASIBILITY AND VIABILITY","textPreview":"FEASIBILITY AND VIABILITY","textChars":25,"textLines":1,"bbox":[280,35,790,70]}
+{"kind":"textbox","id":"sh/1wnmx0fe","slide":4,"text":"NavDR  /  PS 26168","textPreview":"NavDR  /  PS 26168","textChars":18,"textLines":1,"bbox":[490,680,350,28]}
+{"kind":"textbox","id":"sh/0vel4vet","slide":4,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[1190,680,35,28]}
+{"kind":"textbox","id":"sh/etc32lw3","slide":4,"text":"Prototype to field validation","textPreview":"Prototype to field validation","textChars":29,"textLines":1,"bbox":[65,140,1100,50]}
+{"kind":"textbox","id":"sh/gzalsrep","slide":4,"text":"Upper stages planned","textPreview":"Upper stages planned","textChars":20,"textLines":1,"bbox":[100,600,330,30]}
+{"kind":"textbox","id":"sh/8jel8rml","slide":4,"text":"Working now","textPreview":"Working now","textChars":11,"textLines":1,"bbox":[465,555,300,35]}
+{"kind":"textbox","id":"sh/94nm1wn6","slide":4,"text":"Console, sensor simulation, EKF, road matching and replay","textPreview":"Console, sensor simulation, EKF, road matching and replay","textChars":57,"textLines":1,"bbox":[465,595,745,60]}
+{"kind":"table","id":"tb/ova10nml","slide":4,"name":"","rows":5,"cols":2,"preview":"Risk | Response","bbox":[465,230,745,300]}
+{"kind":"image","id":"im/xkripg3y","slide":4,"name":"Google Shape;132;p16","bbox":[48.79,31.35,214.22,91.37]}
+{"kind":"image","id":"im/ah0ze147","slide":4,"name":"Google Shape;133;p16","bbox":[1089.5,31.35,122.6,107.64]}
+{"kind":"image","id":"im/i50jil4j","slide":4,"name":"","alt":"Concept illustration: pyramid","bbox":[45,190,370,415]}
+{"kind":"notes","id":"nt/jyx0ra1s","slide":4,"text":"Pyramid represents project maturity, not the neural architecture. Native Android code and model training require device and dataset validation. No field reliability claim is made."}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"IMPACT AND BENEFITS","textShapes":11}
+{"kind":"shape","id":"sh/i5s361cz","slide":5,"name":"Google Shape;139;p17","bbox":[0,667.17,1280,52.83]}
+{"kind":"shape","id":"sh/ip87qls7","slide":5,"name":"Google Shape;144;p17","bbox":[0,667.17,1280,52.82]}
+{"kind":"textbox","id":"sh/r2hkj65o","slide":5,"text":"IMPACT AND BENEFITS","textPreview":"IMPACT AND BENEFITS","textChars":19,"textLines":1,"bbox":[280,35,790,70]}
+{"kind":"textbox","id":"sh/4z6l8rmd","slide":5,"text":"NavDR  /  PS 26168","textPreview":"NavDR  /  PS 26168","textChars":18,"textLines":1,"bbox":[490,680,350,28]}
+{"kind":"textbox","id":"sh/50f2hwny","slide":5,"text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[1190,680,35,28]}
+{"kind":"textbox","id":"sh/ixo36h47","slide":5,"text":"Navigation continuity using an existing phone","textPreview":"Navigation continuity using an existing phone","textChars":45,"textLines":1,"bbox":[65,140,1150,55]}
+{"kind":"textbox","id":"sh/gv6l4rm1","slide":5,"text":"Drivers","textPreview":"Drivers","textChars":7,"textLines":1,"bbox":[65,225,410,35]}
+{"kind":"textbox","id":"sh/hwf2dcnm","slide":5,"text":"Position awareness through\nshort GNSS outages","textPreview":"Position awareness through | short GNSS outages","textChars":45,"textLines":2,"bbox":[65,267,420,75]}
+{"kind":"textbox","id":"sh/jqd4n2po","slide":5,"text":"Fleets","textPreview":"Fleets","textChars":6,"textLines":1,"bbox":[65,350,410,35]}
+{"kind":"textbox","id":"sh/yp43uh83","slide":5,"text":"Route continuity through\ntunnels and dense streets","textPreview":"Route continuity through | tunnels and dense streets","textChars":50,"textLines":2,"bbox":[65,392,420,75]}
+{"kind":"textbox","id":"sh/lsvmpc7e","slide":5,"text":"Deployment goal","textPreview":"Deployment goal","textChars":15,"textLines":1,"bbox":[65,475,410,35]}
+{"kind":"textbox","id":"sh/krmlw7qt","slide":5,"text":"No dedicated vehicle\nsensor hardware","textPreview":"No dedicated vehicle | sensor hardware","textChars":36,"textLines":2,"bbox":[65,517,420,75]}
+{"kind":"textbox","id":"sh/7ud4rmpk","slide":5,"text":"Measure error, recovery time, latency and phone energy use","textPreview":"Measure error, recovery time, latency and phone energy use","textChars":58,"textLines":1,"bbox":[65,620,1130,35]}
+{"kind":"image","id":"im/gz2x8z6p","slide":5,"name":"Google Shape;146;p17","bbox":[48.79,31.35,214.22,91.37]}
+{"kind":"image","id":"im/fetgzup4","slide":5,"name":"Google Shape;147;p17","bbox":[1089.5,31.35,122.6,107.64]}
+{"kind":"image","id":"im/21kfapov","slide":5,"name":"","alt":"Concept illustration: city","bbox":[500,210,735,405]}
+{"kind":"notes","id":"nt/i107q5of","slide":5,"text":"Potential users and benefits, not deployed customers or measured safety outcomes. Field impact and budget-phone performance remain to be validated. No zero-cost or energy-saving claim."}
+{"kind":"slide","id":"sl/x8f69ofe","slide":6,"title":"RESEARCH AND REFERENCES","textShapes":18}
+{"kind":"shape","id":"sh/xkfi1o76","slide":6,"name":"Google Shape;153;p18","bbox":[0,667.17,1280,52.83]}
+{"kind":"shape","id":"sh/6p8jeton","slide":6,"name":"Google Shape;158;p18","bbox":[0,667.17,1280,52.82]}
+{"kind":"textbox","id":"sh/snipgbi5","slide":6,"text":"RESEARCH AND REFERENCES","textPreview":"RESEARCH AND REFERENCES","textChars":23,"textLines":1,"bbox":[280,35,790,70]}
+{"kind":"textbox","id":"sh/fq9orq1g","slide":6,"text":"NavDR  /  PS 26168","textPreview":"NavDR  /  PS 26168","textChars":18,"textLines":1,"bbox":[490,680,350,28]}
+{"kind":"textbox","id":"sh/ep07il0v","slide":6,"text":"6","textPreview":"6","textChars":1,"textLines":1,"bbox":[1190,680,35,28]}
+{"kind":"textbox","id":"sh/xgb610fu","slide":6,"text":"IO-VNBD","textPreview":"IO-VNBD","textChars":7,"textLines":1,"bbox":[65,152,760,32]}
+{"kind":"textbox","id":"sh/atkn6lg3","slide":6,"text":"Vehicle and smartphone motion data","textPreview":"Vehicle and smartphone motion data","textChars":34,"textLines":1,"bbox":[65,183,750,31]}
+{"kind":"textbox","id":"sh/but4zqho","slide":6,"text":"AI-IMU Dead-Reckoning","textPreview":"AI-IMU Dead-Reckoning","textChars":21,"textLines":1,"bbox":[65,221,760,32]}
+{"kind":"textbox","id":"sh/or254byx","slide":6,"text":"Learning-assisted inertial estimation","textPreview":"Learning-assisted inertial estimation","textChars":37,"textLines":1,"bbox":[65,252,750,31]}
+{"kind":"textbox","id":"sh/psbmxgzi","slide":6,"text":"Temporal Convolutional Networks","textPreview":"Temporal Convolutional Networks","textChars":31,"textLines":1,"bbox":[65,290,760,32]}
+{"kind":"textbox","id":"sh/2p0n2lg7","slide":6,"text":"Causal sequence modelling","textPreview":"Causal sequence modelling","textChars":25,"textLines":1,"bbox":[65,321,750,31]}
+{"kind":"textbox","id":"sh/nqt4v6hs","slide":6,"text":"Valhalla Meili","textPreview":"Valhalla Meili","textChars":14,"textLines":1,"bbox":[65,359,760,32]}
+{"kind":"textbox","id":"sh/0ni50by1","slide":6,"text":"HMM map matching","textPreview":"HMM map matching","textChars":16,"textLines":1,"bbox":[65,390,750,31]}
+{"kind":"textbox","id":"sh/1ormtgzm","slide":6,"text":"Android GnssStatus","textPreview":"Android GnssStatus","textChars":18,"textLines":1,"bbox":[65,428,760,32]}
+{"kind":"textbox","id":"sh/twfmts36","slide":6,"text":"Satellite signal observations","textPreview":"Satellite signal observations","textChars":29,"textLines":1,"bbox":[65,459,750,31]}
+{"kind":"textbox","id":"sh/sb6l0nm1","slide":6,"text":"Synthetic prototype. TCN untrained. Field validation pending.","textPreview":"Synthetic prototype. TCN untrained. Field validation pending.","textChars":61,"textLines":1,"bbox":[65,525,1140,45]}
+{"kind":"textbox","id":"sh/7ax4rilg","slide":6,"text":"YouTube Demo","textPreview":"YouTube Demo","textChars":12,"textLines":1,"bbox":[65,590,440,40]}
+{"kind":"textbox","id":"sh/6943yd4v","slide":6,"text":"GitHub Repository","textPreview":"GitHub Repository","textChars":17,"textLines":1,"bbox":[665,590,480,40]}
+{"kind":"textbox","id":"sh/h0fmxc3i","slide":6,"text":"youtu.be/GoU52CqyaNI","textPreview":"youtu.be/GoU52CqyaNI","textChars":20,"textLines":1,"bbox":[65,633,500,25]}
+{"kind":"textbox","id":"sh/gz6l47mx","slide":6,"text":"github.com/Sudhanshu-01-ui/gps","textPreview":"github.com/Sudhanshu-01-ui/gps","textChars":30,"textLines":1,"bbox":[665,633,520,25]}
+{"kind":"image","id":"im/vep0n6ts","slide":6,"name":"Google Shape;160;p18","bbox":[48.79,31.35,214.22,91.37]}
+{"kind":"image","id":"im/wfy1wbax","slide":6,"name":"Google Shape;161;p18","bbox":[1089.5,31.35,122.6,107.64]}
+{"kind":"image","id":"im/tovud4z2","slide":6,"name":"","alt":"Concept illustration: evidence","bbox":[865,160,345,325]}
+{"kind":"notes","id":"nt/x8f69ofe","slide":6,"text":"Research sources are linked in the slide. They do not establish equivalent NavDR performance. Project URLs supplied by the user: https://youtu.be/GoU52CqyaNI?si=BRUkPWE7Z4fjoDyq and https://github.com/Sudhanshu-01-ui/gps. Contents not independently verified in this session. Image generation prompts: docs/pitch/NavDR_Pitch_Blueprint.md."}

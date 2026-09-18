@@ -1,0 +1,20 @@
+{
+  "schema": "navdr.offline-evaluation.v1",
+  "samples": 601,
+  "matchedReferenceSamples": 0,
+  "referenceProvided": false,
+  "outages": [
+    {
+      "id": 1,
+      "distanceM": 0.0,
+      "peakErrorM": null,
+      "referenceComplete": false,
+      "outputComplete": true,
+      "samples": 499,
+      "outputSamples": 499,
+      "driftPercent": null,
+      "status": "incomplete_or_zero_distance"
+    }
+  ],
+  "note": "Exact timestamp matching. Caller must qualify reference uncertainty/rights; no authenticated PS pass rule assumed."
+}

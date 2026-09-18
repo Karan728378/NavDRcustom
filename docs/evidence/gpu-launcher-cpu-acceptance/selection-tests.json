@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "synthetic_policy_test": true,
+  "checks": [
+    "unsafe faster candidate rejected",
+    "candidate within 5 percent selected with lower memory",
+    "insufficient additional headroom rejected"
+  ]
+}

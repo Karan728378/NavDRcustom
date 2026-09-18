@@ -1,0 +1,1 @@
+{"status": "blocked_or_failed", "synthetic": true, "budgetVerified": false, "error": "nvidia-smi failed: NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.", "limitReservedBytes": 4294967296, "requiredHeadroomBytes": 1073741824}

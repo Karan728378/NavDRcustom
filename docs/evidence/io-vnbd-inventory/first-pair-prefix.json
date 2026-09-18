@@ -1,0 +1,297 @@
+{
+  "S-S1.csv": {
+    "status": "csv_prefix_inspected",
+    "rowsInspected": 4096,
+    "prefixLimit": 4096,
+    "truncated": true,
+    "headers": [
+      "GPS LATITUDE (degrees)",
+      "GPS LONGITUDE (degrees)",
+      "GPS ALTITUDE (m)",
+      "GPS SPEED (Kmh)",
+      "GPS ACCURACY (m)",
+      "GPS ORIENTATION (\u00b0)",
+      "GPS SATELLITES IN RANGE",
+      "TIME SINCE START (ms)",
+      "DATE (YYYY-MO-DD HH-MI-SS_SSS)",
+      "ACCELEROMETER X (m/s\\xb2) ",
+      "ACCELEROMETER Y (m/s\\xb2)",
+      "ACCELEROMETER Z (m/s\\xb2)",
+      "GRAVITY X (m/s\\xb2)",
+      "GRAVITY Y (m/s\\xb2)",
+      "GRAVITY Z (m/s\\xb2)",
+      "GYROSCOPE Yaw (rad/s)",
+      "GYROSCOPE Pitch (rad/s)",
+      "GYROSCOPE Roll (rad/s)",
+      "MAGNETIC FIELD X (\u03bcT)",
+      "MAGNETIC FIELD Y (\u03bcT)",
+      "MAGNETIC FIELD Z (\u03bcT)",
+      "ORIENTATION (Yaw) (\u00b0)",
+      "ORIENTATION (Pitch) (\u00b0)",
+      "ORIENTATION (Roll ) (\u00b0)"
+    ],
+    "decodePolicy": "utf-8-sig with undecodable bytes preserved as \\xNN escapes",
+    "headersWithByteEscapes": [
+      "ACCELEROMETER X (m/s\\xb2) ",
+      "ACCELEROMETER Y (m/s\\xb2)",
+      "ACCELEROMETER Z (m/s\\xb2)",
+      "GRAVITY X (m/s\\xb2)",
+      "GRAVITY Y (m/s\\xb2)",
+      "GRAVITY Z (m/s\\xb2)"
+    ],
+    "headerUnitAnnotations": {
+      "GPS LATITUDE (degrees)": [
+        "degrees"
+      ],
+      "GPS LONGITUDE (degrees)": [
+        "degrees"
+      ],
+      "GPS ALTITUDE (m)": [
+        "m"
+      ],
+      "GPS SPEED (Kmh)": [
+        "Kmh"
+      ],
+      "GPS ACCURACY (m)": [
+        "m"
+      ],
+      "GPS ORIENTATION (\u00b0)": [
+        "\u00b0"
+      ],
+      "TIME SINCE START (ms)": [
+        "ms"
+      ],
+      "DATE (YYYY-MO-DD HH-MI-SS_SSS)": [
+        "YYYY-MO-DD HH-MI-SS_SSS"
+      ],
+      "ACCELEROMETER X (m/s\\xb2) ": [
+        "m/s\\xb2"
+      ],
+      "ACCELEROMETER Y (m/s\\xb2)": [
+        "m/s\\xb2"
+      ],
+      "ACCELEROMETER Z (m/s\\xb2)": [
+        "m/s\\xb2"
+      ],
+      "GRAVITY X (m/s\\xb2)": [
+        "m/s\\xb2"
+      ],
+      "GRAVITY Y (m/s\\xb2)": [
+        "m/s\\xb2"
+      ],
+      "GRAVITY Z (m/s\\xb2)": [
+        "m/s\\xb2"
+      ],
+      "GYROSCOPE Yaw (rad/s)": [
+        "rad/s"
+      ],
+      "GYROSCOPE Pitch (rad/s)": [
+        "rad/s"
+      ],
+      "GYROSCOPE Roll (rad/s)": [
+        "rad/s"
+      ],
+      "MAGNETIC FIELD X (\u03bcT)": [
+        "\u03bcT"
+      ],
+      "MAGNETIC FIELD Y (\u03bcT)": [
+        "\u03bcT"
+      ],
+      "MAGNETIC FIELD Z (\u03bcT)": [
+        "\u03bcT"
+      ],
+      "ORIENTATION (Yaw) (\u00b0)": [
+        "Yaw",
+        "\u00b0"
+      ],
+      "ORIENTATION (Pitch) (\u00b0)": [
+        "Pitch",
+        "\u00b0"
+      ],
+      "ORIENTATION (Roll ) (\u00b0)": [
+        "Roll ",
+        "\u00b0"
+      ]
+    },
+    "firstRowClockLabels": {
+      "TIME SINCE START (ms)": "2922",
+      "DATE (YYYY-MO-DD HH-MI-SS_SSS)": "2019-09-08 10:07:49:546"
+    },
+    "axisLabeledHeaders": [
+      "ACCELEROMETER X (m/s\\xb2) ",
+      "ACCELEROMETER Y (m/s\\xb2)",
+      "ACCELEROMETER Z (m/s\\xb2)",
+      "GRAVITY X (m/s\\xb2)",
+      "GRAVITY Y (m/s\\xb2)",
+      "GRAVITY Z (m/s\\xb2)",
+      "GYROSCOPE Yaw (rad/s)",
+      "GYROSCOPE Pitch (rad/s)",
+      "GYROSCOPE Roll (rad/s)",
+      "MAGNETIC FIELD X (\u03bcT)",
+      "MAGNETIC FIELD Y (\u03bcT)",
+      "MAGNETIC FIELD Z (\u03bcT)",
+      "ORIENTATION (Yaw) (\u00b0)",
+      "ORIENTATION (Pitch) (\u00b0)",
+      "ORIENTATION (Roll ) (\u00b0)"
+    ],
+    "deviceToVehicleAxisMapping": null,
+    "timestampStatistics": {
+      "TIME SINCE START (ms)": {
+        "firstRaw": 2922.0,
+        "lastRaw": 412421.0,
+        "medianPositiveDeltaRaw": 100.0,
+        "headerDeclaredUnit": "ms",
+        "cadenceHz": 10.0,
+        "nonIncreasingDeltas": 0,
+        "nonNumericRows": 0,
+        "clockOrigin": "unverified; a first timestamp is not a phone/vehicle clock offset"
+      }
+    },
+    "approvedForTraining": false
+  },
+  "V-S1.csv": {
+    "status": "csv_prefix_inspected",
+    "rowsInspected": 4096,
+    "prefixLimit": 4096,
+    "truncated": true,
+    "headers": [
+      "No of GPS Satellites Available",
+      "Time Since Start of Day (seconds)",
+      "Latitude (degrees)",
+      "Longitude (degrees)",
+      "Velocity (km/hr)",
+      "Heading (degrees)",
+      "Height (km)",
+      "Vertical velocity (km/hr)",
+      "Sample period (seconds)",
+      "Steering Angle (degrees)",
+      "Wheel Speed Front Left (rad/sec)",
+      "Wheel Speed Front Right (rad/sec)",
+      "Wheel Speed Rear Left (rad/sec)",
+      "Wheel Speed Rear Right (rad/sec)",
+      "Yaw Rate (deg/sec)",
+      "Indicated Vehicle Speed (km/hr)",
+      "Indicated Longitudinal Acceleration (g)",
+      "Indicated Lateral Acceleration (g)",
+      "Handbrake (0 or 1)",
+      "Gear Requested (Number fof gear employed 1-5)",
+      "Gear (Number fof gear employed 1-5)",
+      "Engine Speed (rev/min)",
+      "Coolant Temperature (degrees)",
+      "Clutch Position (0 or 1)",
+      "Brake Pressure (psi)",
+      "Brake Position (0 or 1)",
+      "Battery Voltage (volts)",
+      "Air Temperature (degrees)",
+      "Accelerator Pedal Position (0 or 1)"
+    ],
+    "decodePolicy": "utf-8-sig with undecodable bytes preserved as \\xNN escapes",
+    "headersWithByteEscapes": [],
+    "headerUnitAnnotations": {
+      "Time Since Start of Day (seconds)": [
+        "seconds"
+      ],
+      "Latitude (degrees)": [
+        "degrees"
+      ],
+      "Longitude (degrees)": [
+        "degrees"
+      ],
+      "Velocity (km/hr)": [
+        "km/hr"
+      ],
+      "Heading (degrees)": [
+        "degrees"
+      ],
+      "Height (km)": [
+        "km"
+      ],
+      "Vertical velocity (km/hr)": [
+        "km/hr"
+      ],
+      "Sample period (seconds)": [
+        "seconds"
+      ],
+      "Steering Angle (degrees)": [
+        "degrees"
+      ],
+      "Wheel Speed Front Left (rad/sec)": [
+        "rad/sec"
+      ],
+      "Wheel Speed Front Right (rad/sec)": [
+        "rad/sec"
+      ],
+      "Wheel Speed Rear Left (rad/sec)": [
+        "rad/sec"
+      ],
+      "Wheel Speed Rear Right (rad/sec)": [
+        "rad/sec"
+      ],
+      "Yaw Rate (deg/sec)": [
+        "deg/sec"
+      ],
+      "Indicated Vehicle Speed (km/hr)": [
+        "km/hr"
+      ],
+      "Indicated Longitudinal Acceleration (g)": [
+        "g"
+      ],
+      "Indicated Lateral Acceleration (g)": [
+        "g"
+      ],
+      "Handbrake (0 or 1)": [
+        "0 or 1"
+      ],
+      "Gear Requested (Number fof gear employed 1-5)": [
+        "Number fof gear employed 1-5"
+      ],
+      "Gear (Number fof gear employed 1-5)": [
+        "Number fof gear employed 1-5"
+      ],
+      "Engine Speed (rev/min)": [
+        "rev/min"
+      ],
+      "Coolant Temperature (degrees)": [
+        "degrees"
+      ],
+      "Clutch Position (0 or 1)": [
+        "0 or 1"
+      ],
+      "Brake Pressure (psi)": [
+        "psi"
+      ],
+      "Brake Position (0 or 1)": [
+        "0 or 1"
+      ],
+      "Battery Voltage (volts)": [
+        "volts"
+      ],
+      "Air Temperature (degrees)": [
+        "degrees"
+      ],
+      "Accelerator Pedal Position (0 or 1)": [
+        "0 or 1"
+      ]
+    },
+    "firstRowClockLabels": {
+      "Time Since Start of Day (seconds)": "32869.0"
+    },
+    "axisLabeledHeaders": [
+      "Yaw Rate (deg/sec)"
+    ],
+    "deviceToVehicleAxisMapping": null,
+    "timestampStatistics": {
+      "Time Since Start of Day (seconds)": {
+        "firstRaw": 32869.0,
+        "lastRaw": 33278.5,
+        "medianPositiveDeltaRaw": 0.09999999999854481,
+        "headerDeclaredUnit": "seconds",
+        "cadenceHz": 10.00000000014552,
+        "nonIncreasingDeltas": 0,
+        "nonNumericRows": 0,
+        "clockOrigin": "unverified; a first timestamp is not a phone/vehicle clock offset"
+      }
+    },
+    "approvedForTraining": false
+  }
+}

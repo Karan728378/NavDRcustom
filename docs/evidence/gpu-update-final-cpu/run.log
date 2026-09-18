@@ -1,0 +1,97 @@
+{"event": "start", "seed": 26168, "config": {"schema": "navdr.training.v2", "model": "existing-tcn-49665", "seed": 26168, "window": 231, "period_seconds": 0.1, "microbatch": 2, "accumulation": 2, "learning_rate": 0.001, "epochs": 2, "target_scale_mps": 60.0, "checkpoint_every_updates": 3, "reserved_gib": 4.0, "headroom_gib": 1.0, "cpu_threads": 2, "ram_headroom_gib": 0.0}, "config_sha256": "36932a116a96b9ab46fa108d4b4438bf2cc9ece8f0b3598a12114e1783bf1b95", "manifest_sha256": "02b962b3a3e9506ecb9860e1682e45ed1104c6cbb10d3b83f65b82ae9c95dc0d", "synthetic": true, "device": "cpu", "model_source_sha256": "6fcb953996b18e1e108e9e59983524ca576bdd1c7f87d8457280ec80b6380413", "pipeline_sha256": "93a6db4a3339ded7a691cd93b7cd09132e943f6b247bddbe1bd8802a167f8616", "torch": "2.10.0+cpu", "numpy": "2.2.6", "python": "3.12.11", "argv": ["ml/train.py", "--self-test", "--output-dir", "docs/evidence/gpu-update-final-cpu"], "allow_rebatch": false, "utc": "2026-09-17T01:06:57Z"}
+{"event": "parsed_trip", "trip": "synthetic-train", "split": "train", "rows": 401, "aligned_labels": 401, "utc": "2026-09-17T01:06:57Z"}
+{"event": "parsed_trip", "trip": "synthetic-dev", "split": "dev", "rows": 401, "aligned_labels": 401, "utc": "2026-09-17T01:06:57Z"}
+{"event": "epoch_complete", "epoch": 1, "train_normalized_mse": 0.0009933308487319271, "dev_normalized_mse": 7.18204534002607e-05, "train_windows": 171, "dev_windows": 171, "updates": 43, "utc": "2026-09-17T01:06:58Z"}
+{"event": "epoch_complete", "epoch": 2, "train_normalized_mse": 4.381818914165544e-06, "dev_normalized_mse": 6.653184774270477e-05, "train_windows": 171, "dev_windows": 171, "updates": 86, "utc": "2026-09-17T01:06:58Z"}
+{"event": "completed", "epochs": 2, "updates": 86, "checkpoint": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/gpu-update-final-cpu/uninterrupted/model.pt", "synthetic": true, "utc": "2026-09-17T01:06:58Z"}
+{"event": "start", "seed": 26168, "config": {"schema": "navdr.training.v2", "model": "existing-tcn-49665", "seed": 26168, "window": 231, "period_seconds": 0.1, "microbatch": 2, "accumulation": 2, "learning_rate": 0.001, "epochs": 2, "target_scale_mps": 60.0, "checkpoint_every_updates": 3, "reserved_gib": 4.0, "headroom_gib": 1.0, "cpu_threads": 2, "ram_headroom_gib": 0.0}, "config_sha256": "36932a116a96b9ab46fa108d4b4438bf2cc9ece8f0b3598a12114e1783bf1b95", "manifest_sha256": "02b962b3a3e9506ecb9860e1682e45ed1104c6cbb10d3b83f65b82ae9c95dc0d", "synthetic": true, "device": "cpu", "model_source_sha256": "6fcb953996b18e1e108e9e59983524ca576bdd1c7f87d8457280ec80b6380413", "pipeline_sha256": "93a6db4a3339ded7a691cd93b7cd09132e943f6b247bddbe1bd8802a167f8616", "torch": "2.10.0+cpu", "numpy": "2.2.6", "python": "3.12.11", "argv": ["ml/train.py", "--self-test", "--output-dir", "docs/evidence/gpu-update-final-cpu"], "allow_rebatch": false, "utc": "2026-09-17T01:06:58Z"}
+{"event": "parsed_trip", "trip": "synthetic-train", "split": "train", "rows": 401, "aligned_labels": 401, "utc": "2026-09-17T01:06:58Z"}
+{"event": "parsed_trip", "trip": "synthetic-dev", "split": "dev", "rows": 401, "aligned_labels": 401, "utc": "2026-09-17T01:06:58Z"}
+{"event": "paused", "epoch": 0, "cursor": 12, "updates": 3, "checkpoint": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/gpu-update-final-cpu/resumed/model.pt", "utc": "2026-09-17T01:06:58Z"}
+{"event": "resume", "seed": 26168, "config": {"schema": "navdr.training.v2", "model": "existing-tcn-49665", "seed": 26168, "window": 231, "period_seconds": 0.1, "microbatch": 2, "accumulation": 2, "learning_rate": 0.001, "epochs": 2, "target_scale_mps": 60.0, "checkpoint_every_updates": 3, "reserved_gib": 4.0, "headroom_gib": 1.0, "cpu_threads": 2, "ram_headroom_gib": 0.0}, "config_sha256": "36932a116a96b9ab46fa108d4b4438bf2cc9ece8f0b3598a12114e1783bf1b95", "manifest_sha256": "02b962b3a3e9506ecb9860e1682e45ed1104c6cbb10d3b83f65b82ae9c95dc0d", "synthetic": true, "device": "cpu", "model_source_sha256": "6fcb953996b18e1e108e9e59983524ca576bdd1c7f87d8457280ec80b6380413", "pipeline_sha256": "93a6db4a3339ded7a691cd93b7cd09132e943f6b247bddbe1bd8802a167f8616", "torch": "2.10.0+cpu", "numpy": "2.2.6", "python": "3.12.11", "argv": ["ml/train.py", "--self-test", "--output-dir", "docs/evidence/gpu-update-final-cpu"], "allow_rebatch": false, "utc": "2026-09-17T01:06:58Z"}
+{"event": "parsed_trip", "trip": "synthetic-train", "split": "train", "rows": 401, "aligned_labels": 401, "utc": "2026-09-17T01:06:58Z"}
+{"event": "parsed_trip", "trip": "synthetic-dev", "split": "dev", "rows": 401, "aligned_labels": 401, "utc": "2026-09-17T01:06:58Z"}
+{"event": "epoch_complete", "epoch": 1, "train_normalized_mse": 0.0009933308487319271, "dev_normalized_mse": 7.18204534002607e-05, "train_windows": 171, "dev_windows": 171, "updates": 43, "utc": "2026-09-17T01:06:59Z"}
+{"event": "epoch_complete", "epoch": 2, "train_normalized_mse": 4.381818914165544e-06, "dev_normalized_mse": 6.653184774270477e-05, "train_windows": 171, "dev_windows": 171, "updates": 86, "utc": "2026-09-17T01:06:59Z"}
+{"event": "completed", "epochs": 2, "updates": 86, "checkpoint": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/gpu-update-final-cpu/resumed/model.pt", "synthetic": true, "utc": "2026-09-17T01:06:59Z"}
+{"event": "evaluation_completed", "synthetic": true, "report": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/gpu-update-final-cpu/evaluation/report.md", "methods": {"learned_speed_gyro": {"velocity_common": {"samples": 171, "mae_mps": 0.5546604621410374, "rmse_mps": 0.5633781100905286}, "velocity_available": {"samples": 171, "mae_mps": 0.5546604621410374, "rmse_mps": 0.5633781100905286}}, "raw_integration": {"velocity_common": {"samples": 171, "mae_mps": 0.004795321637428725, "rmse_mps": 0.008045920836381254}, "velocity_available": {"samples": 171, "mae_mps": 0.004795321637428725, "rmse_mps": 0.008045920836381254}}, "last_speed_gyro": {"velocity_common": {"samples": 171, "mae_mps": 0.0191812865497077, "rmse_mps": 0.03218368334551249}, "velocity_available": {"samples": 171, "mae_mps": 0.0191812865497077, "rmse_mps": 0.03218368334551249}}, "classical_ekf": {"velocity_common": {"samples": 171, "mae_mps": 0.0024975507687134773, "rmse_mps": 0.003335327437026877}, "velocity_available": {"samples": 171, "mae_mps": 0.0024975507687134773, "rmse_mps": 0.003335327437026877}}}}
+{
+  "status": "PASS",
+  "synthetic_only": true,
+  "real_data_open_attempts": 0,
+  "real_pairing_or_split_manifest_created": false,
+  "synthetic_fixture_manifest": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/gpu-update-final-cpu/fixtures/synthetic-manifest.json",
+  "gradient_max_difference": 1.862645149230957e-09,
+  "adam_weight_max_difference": 7.413327693939209e-07,
+  "resume_weights_bitwise_equal": true,
+  "outage_acceptance": [
+    {
+      "id": 1,
+      "start_seconds": 0.0,
+      "end_seconds": 10.0,
+      "duration_seconds": 10.0,
+      "reference_distance_m": 100.0,
+      "peak_position_error_m": 15.0,
+      "drift_percent": 15.0,
+      "status": "SCORED"
+    },
+    {
+      "id": 2,
+      "start_seconds": 12.0,
+      "end_seconds": 22.0,
+      "duration_seconds": 10.0,
+      "reference_distance_m": 100.0,
+      "peak_position_error_m": 15.0,
+      "drift_percent": 15.0,
+      "status": "SCORED"
+    }
+  ],
+  "missing_reference_acceptance": [
+    {
+      "id": 1,
+      "start_seconds": 0.0,
+      "end_seconds": 10.0,
+      "duration_seconds": 10.0,
+      "reference_distance_m": null,
+      "peak_position_error_m": null,
+      "drift_percent": null,
+      "status": "INCOMPLETE REFERENCE"
+    },
+    {
+      "id": 2,
+      "start_seconds": 12.0,
+      "end_seconds": 22.0,
+      "duration_seconds": 10.0,
+      "reference_distance_m": 100.0,
+      "peak_position_error_m": 15.0,
+      "drift_percent": 15.0,
+      "status": "SCORED"
+    }
+  ],
+  "checks": [
+    "missing manifest refused",
+    "synthetic manifest refused by real CLI path",
+    "group leakage refused",
+    "duplicate payload across splits refused",
+    "missing file refused",
+    "unsupported row selectors refused",
+    "unapproved status refused",
+    "raw inventory schema refused",
+    "malformed JSON refused",
+    "changed payload refused",
+    "elapsed-ms/calendar and seconds-since-midnight align through explicit UTC offsets",
+    "incorrect elapsed-clock mapping refused",
+    "wrong cadence refused",
+    "uneven gradient accumulation agrees with full batch: gradient <1e-6, Adam weights <1e-5",
+    "training opened only train/dev CSVs, never test CSVs",
+    "mid-epoch resume equals uninterrupted weights and epoch losses exactly on CPU",
+    "resume with changed hyperparameters refused",
+    "normalization fit on train rows only",
+    "held-out evaluation executes all four methods including actual Kotlin EKF on the same test timestamps",
+    "Python and existing browser outage acceptance: two 100m / 15m intervals each report 15%; missing truth/output stays null"
+  ],
+  "gpu_budget_verified": false,
+  "mixed_precision": "disabled; untested",
+  "checkpoint": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/gpu-update-final-cpu/uninterrupted/model.pt",
+  "report": "/home/rimuru/Downloads/Antigravity/SIH_Pototype/docs/evidence/gpu-update-final-cpu/evaluation/report.md"
+}

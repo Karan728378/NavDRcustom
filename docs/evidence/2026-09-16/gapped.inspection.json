@@ -1,0 +1,81 @@
+{
+  "schema": "navdr.inspection.v1",
+  "source": "docs/evidence/2026-09-16/fixtures/gapped.jsonl",
+  "sha256": "607e93a639e1fe875b15d7265e6f53f83f6aec9081de084547a87027f4e4f0d2",
+  "status": "complete",
+  "completion": {
+    "footerPresent": true,
+    "declaredComplete": true,
+    "eventCountMatches": true
+  },
+  "eventCounts": {
+    "session": 1,
+    "sensor": 6,
+    "frame": 2,
+    "navigation": 3,
+    "end": 1
+  },
+  "countedBodyEvents": 11,
+  "sensorIntervalsMs": {
+    "1": {
+      "count": 2,
+      "min": 10.0,
+      "max": 130.0,
+      "mean": 70.0
+    },
+    "4": {
+      "count": 2,
+      "min": 10.0,
+      "max": 130.0,
+      "mean": 70.0
+    }
+  },
+  "deliveryDelayMs": {
+    "1": {
+      "count": 3,
+      "min": 1.0,
+      "max": 1.0,
+      "mean": 1.0
+    },
+    "4": {
+      "count": 3,
+      "min": 1.0,
+      "max": 1.0,
+      "mean": 1.0
+    }
+  },
+  "rawSensorGapCounts": {
+    "1": 1,
+    "4": 1
+  },
+  "frameIntervalsMs": {
+    "count": 1,
+    "min": 140,
+    "max": 140,
+    "mean": 140.0
+  },
+  "frameGapsOver100Ms": 1,
+  "gnssAgeAtFrameMs": {
+    "count": 1,
+    "min": 1,
+    "max": 1,
+    "mean": 1.0
+  },
+  "pairing": {
+    "rawAccelerometerEvents": 3,
+    "pairedFrames": 2,
+    "rawAccelerometersWithoutFrame": 1,
+    "staleAccelerometerDeliveries": 0,
+    "synchronizerRejectedCounter": 1,
+    "counterTimestampNs": 150000000,
+    "counterIsFinal": false,
+    "framesWithoutMatchingRecentRawAccel": 0,
+    "note": "Counter is the last published snapshot, not a final loss count. Unpaired samples may be queued at stop or discarded before synchronization; never equate them with hardware loss."
+  },
+  "hardwareLoss": {
+    "confirmedCount": null,
+    "status": "not_identifiable_from_callback_log",
+    "note": "Raw timestamp gaps are observed upstream of frame pairing; they do not establish hardware loss versus OS scheduling, batching, or requested/actual rate differences. Synchronizer rejection is a separate recorded counter."
+  },
+  "errors": []
+}

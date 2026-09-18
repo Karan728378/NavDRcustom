@@ -1,0 +1,10 @@
+{"type": "session", "schema": "navdr.events.v1", "sessionId": "synthetic-fixture", "reference": "none", "requestedImuPeriodUs": 10000, "mount": {"up": [0, 0, 1], "forward": [0, 1, 0]}}
+{"type": "sensor", "sensorType": 1, "timestampNs": 10000000, "arrivalTimestampNs": 11000000, "values": [0, 0, 9.80665]}
+{"type": "sensor", "sensorType": 4, "timestampNs": 10000000, "arrivalTimestampNs": 11000000, "values": [0, 0, 0]}
+{"type": "frame", "timestampMs": 10, "gyroTimestampNs": 10000000, "accel": [0, "broken", 0], "gyro": [0, 0, 0], "gnssAvailable": true, "gnss": {"timestampMs": 9, "lat": 28, "lon": 77, "accuracy": 2, "speedMps": 10, "heading": 0, "isMock": false}}
+{"type": "navigation", "timestampNs": 10000000, "droppedPairs": 0}
+{"type": "sensor", "sensorType": 1, "timestampNs": 20000000, "arrivalTimestampNs": 21000000, "values": [0, 0, 9.80665]}
+{"type": "sensor", "sensorType": 4, "timestampNs": 20000000, "arrivalTimestampNs": 21000000, "values": [0, 0, 0]}
+{"type": "frame", "timestampMs": 20, "gyroTimestampNs": 20000000, "accel": [0, 0, 9.80665], "gyro": [0, 0, 0], "gnssAvailable": true}
+{"type": "navigation", "timestampNs": 20000000, "droppedPairs": 0}
+{"type": "end", "complete": true, "eventCount": 8}

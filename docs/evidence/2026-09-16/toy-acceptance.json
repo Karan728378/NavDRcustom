@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "syntheticOnly": true,
+  "realDataTraining": false,
+  "splitStatus": "DRAFT_REQUIRES_USER_REVIEW",
+  "tripCount": 6,
+  "checks": [
+    "whole trips grouped before windows",
+    "shared vehicle never crosses splits",
+    "transitive shared phone/route links preserved",
+    "deliberate group leakage rejected",
+    "normalization matches train rows only",
+    "two CPU optimizer steps",
+    "held-out dev entry point executes",
+    "checkpoint reload identical",
+    "49665 parameters"
+  ],
+  "devWindowsExecuted": 8
+}
