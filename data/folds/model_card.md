@@ -4,7 +4,9 @@
 
 Three-fold cross-validation, each fold training on Driver E (62 trips across
 four vehicles) plus two of three minority drivers, testing on the remaining
-minority driver.
+minority driver. Splits are partitioned strictly by `recording_group` (driver /
+vehicle recording session) so that no trip or recording session leaks across
+partitions.
 
 | Fold | Train drivers | Dev | Test driver | Test trips |
 |------|--------------|-----|-------------|------------|
@@ -16,9 +18,9 @@ minority driver.
 
 | Fold | SHA-256 |
 |------|---------|
-| fold-1 | `f8e5c89e2cf12e73c75af41e75366ed6f36a3e5a8db30d178dfa6873ae4e9bdf` |
-| fold-2 | `49cecfbb3d8e25fe10566721205aaed93d1a58ad6a1925e73c011883b37aeaa2` |
-| fold-3 | `baf7c8a9ea08c713a308946a283d7f16243ed9ffd8aaa788bbe2ffda6dac4540` |
+| fold-1 | `fd8086e7864fb45037f7a059cc35cc9da95031ef65699842914a1d64c675f276` |
+| fold-2 | `14394e799956ef53c7fbdedc36fb8f1c5e6be7276eb246cbfc52bedb66533ef3` |
+| fold-3 | `46f361433e24d4ccae7454d6d8d059b65d4360ff8476a367e9bc79a424b70ae4` |
 
 ## What This Evaluation Measures
 
@@ -46,6 +48,14 @@ produce a misleading aggregate.
    smartphone model in the same metropolitan area. Performance on a
    different phone, vehicle type, or geography is unknown.
 
+4. **Ground-Truth / Reference Uncertainty (~3–5 m).** The IO-VNBD reference trajectory
+   and speed labels are derived from vehicle onboard logger / consumer GNSS measurements,
+   with typical positioning uncertainty of ~3–5 m. This dataset provides an empirical
+   reference trajectory rather than centimeter-level ground truth. Consequently,
+   dead-reckoning positioning evaluations near or below a 5 m threshold approach the
+   noise floor of the reference itself and must be interpreted as comparisons against
+   a reference trajectory, not absolute ground truth.
+
 ## Required Next Steps Before Treating This as Final
 
 > **The team must prioritise collecting additional real trips from more
@@ -67,4 +77,4 @@ Specifically:
 - 69 approved trips, 2 excluded (Vw01/Vw15: stationary), 1 skipped
   (S3b: bad clock overlap)
 - Canonical format: `timestampNs, ax, ay, az, gx, gy, gz, speedMps`
-- Ground-truth speed: vehicle VBOX GPS (10 Hz)
+- Reference trajectory: vehicle onboard logger / GNSS (approx. 3–5 m reference uncertainty; reference trajectory, not centimeter-level ground truth)

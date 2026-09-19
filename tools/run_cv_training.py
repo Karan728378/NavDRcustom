@@ -30,7 +30,14 @@ SEED = 26168
 CHANNELS = ['ax', 'ay', 'az', 'gx', 'gy', 'gz']
 
 def load_canonical_csv(path):
-    with open(path) as f:
+    p = Path(path)
+    if not p.is_file():
+        root_p = Path(__file__).resolve().parents[1] / path
+        if root_p.is_file():
+            p = root_p
+        else:
+            raise FileNotFoundError(f"Canonical CSV not found: {path}")
+    with open(p) as f:
         rows = list(csv.DictReader(f))
     a = np.array([[float(r[k]) for k in ['timestampNs', *CHANNELS, 'speedMps']]
                    for r in rows], dtype=np.float64)
@@ -72,9 +79,18 @@ def train_fold(fold_path, config, device):
     print(f"  {fold_name}: Test driver = {test_driver}")
     print(f"{'='*60}")
 
+    # Audit leakage before loading
+    train_rg = {t.get('recording_group', t.get('group')) for t in fold['trips'] if t['split'] == 'train'}
+    dev_rg   = {t.get('recording_group', t.get('group')) for t in fold['trips'] if t['split'] == 'dev'}
+    test_rg  = {t.get('recording_group', t.get('group')) for t in fold['trips'] if t['split'] == 'test'}
+    assert not (train_rg & test_rg), f"Train/test group leakage in {fold_name}: {train_rg & test_rg}"
+    assert not (train_rg & dev_rg),  f"Train/dev group leakage in {fold_name}: {train_rg & dev_rg}"
+    assert not (dev_rg & test_rg),   f"Dev/test group leakage in {fold_name}: {dev_rg & test_rg}"
+
     # Load and split trips
     train_arrays, dev_arrays, test_arrays = [], [], []
     train_ids, test_ids = [], []
+
     for t in fold['trips']:
         a = load_canonical_csv(t['path'])
         if t['split'] == 'train':

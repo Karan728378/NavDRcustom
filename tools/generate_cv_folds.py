@@ -49,20 +49,27 @@ def main():
     out_dir = Path("data/folds")
     out_dir.mkdir(parents=True, exist_ok=True)
     summary = []
+    repo_root = Path(__file__).resolve().parents[1]
 
     for fold in folds:
         trips_out = []
         counts = {"train": 0, "dev": 0, "test": 0}
 
         for t in approved:
-            p = Path(t["path"]).resolve()
-            sha = digest(p)
+            # Portable relative path from repository root
+            rel_path = Path(t["path"]).as_posix()
+            file_on_disk = repo_root / rel_path if not Path(rel_path).is_file() else Path(rel_path)
+            if not file_on_disk.is_file():
+                raise FileNotFoundError(f"Canonical trip CSV not found: {file_on_disk}")
+            sha = digest(file_on_disk)
             entry = {
-                "id":      t["id"],
-                "path":    str(p),
-                "sha256":  sha,
-                "vehicle": t["driver"],
-                "route":   t["route"],
+                "id":              t["id"],
+                "path":            rel_path,
+                "sha256":          sha,
+                "recording_group": t["driver"],
+                "group":           t["driver"],
+                "vehicle":         t["driver"],
+                "route":           t["route"],
             }
 
             if t["_driver"] == fold["test_driver"]:
@@ -73,22 +80,34 @@ def main():
                 # Driver E (non-dev) + the two non-test minority drivers
                 entry["split"] = "train"
 
-            entry["group"] = entry["id"]
             counts[entry["split"]] += 1
             trips_out.append(entry)
+
+        # Leakage audit: verify disjoint recording groups across train, dev, and test
+        train_groups = {t["recording_group"] for t in trips_out if t["split"] == "train"}
+        dev_groups   = {t["recording_group"] for t in trips_out if t["split"] == "dev"}
+        test_groups  = {t["recording_group"] for t in trips_out if t["split"] == "test"}
+
+        if train_groups & test_groups:
+            raise ValueError(f"Train/test leakage in {fold['name']}: {train_groups & test_groups}")
+        if train_groups & dev_groups:
+            raise ValueError(f"Train/dev leakage in {fold['name']}: {train_groups & dev_groups}")
+        if dev_groups & test_groups:
+            raise ValueError(f"Dev/test leakage in {fold['name']}: {dev_groups & test_groups}")
 
         manifest = {
             "schema":    "navdr.split.v1",
             "status":    "DRAFT_REQUIRES_USER_REVIEW",
             "synthetic": False,
             "seed":      26168,
-            "grouping":  "leave-one-driver-out cross-validation",
+            "grouping":  "leave-one-driver-out cross-validation by recording_group",
             "fold":      fold["name"],
             "testDriver": fold["test_driver"],
             "trainMinorityDrivers": sorted(fold["train_drivers"]),
             "warnings":  [
                 "Driver E (90% of data) is present in every fold's training set.",
                 "Phone field omitted; all trips share the same device.",
+                "Reference trajectory is consumer-grade GNSS/logger with ~3–5 m uncertainty; not centimeter-level ground truth. Errors around 5 m approach reference uncertainty.",
             ],
             "trips": trips_out,
         }
@@ -109,7 +128,8 @@ def main():
 
         print(f"{fold['name']}: test=Driver {fold['test_driver']} "
               f"({counts['test']} trips)  train={counts['train']}  "
-              f"dev={counts['dev']}  SHA256={fold_sha[:16]}...")
+              f"dev={counts['dev']}  SHA256={fold_sha[:16]}... "
+              f"[leakage check: PASS]")
 
     # ── Model card ──────────────────────────────────────────────────
     card = f"""# NavDR TCN Model Card — Leave-One-Driver-Out Cross-Validation
@@ -118,7 +138,9 @@ def main():
 
 Three-fold cross-validation, each fold training on Driver E (62 trips across
 four vehicles) plus two of three minority drivers, testing on the remaining
-minority driver.
+minority driver. Splits are partitioned strictly by `recording_group` (driver /
+vehicle recording session) so that no trip or recording session leaks across
+partitions.
 
 | Fold | Train drivers | Dev | Test driver | Test trips |
 |------|--------------|-----|-------------|------------|
@@ -160,6 +182,14 @@ produce a misleading aggregate.
    smartphone model in the same metropolitan area. Performance on a
    different phone, vehicle type, or geography is unknown.
 
+4. **Ground-Truth / Reference Uncertainty (~3–5 m).** The IO-VNBD reference trajectory
+   and speed labels are derived from vehicle onboard logger / consumer GNSS measurements,
+   with typical positioning uncertainty of ~3–5 m. This dataset provides an empirical
+   reference trajectory rather than centimeter-level ground truth. Consequently,
+   dead-reckoning positioning evaluations near or below a 5 m threshold approach the
+   noise floor of the reference itself and must be interpreted as comparisons against
+   a reference trajectory, not absolute ground truth.
+
 ## Required Next Steps Before Treating This as Final
 
 > **The team must prioritise collecting additional real trips from more
@@ -181,13 +211,14 @@ Specifically:
 - 69 approved trips, 2 excluded (Vw01/Vw15: stationary), 1 skipped
   (S3b: bad clock overlap)
 - Canonical format: `timestampNs, ax, ay, az, gx, gy, gz, speedMps`
-- Ground-truth speed: vehicle VBOX GPS (10 Hz)
+- Reference trajectory: vehicle onboard logger / GNSS (approx. 3–5 m reference uncertainty; reference trajectory, not centimeter-level ground truth)
 """
 
     card_path = out_dir / "model_card.md"
-    card_path.write_text(card)
+    card_path.write_text(card, encoding="utf-8")
     print(f"\nModel card: {card_path}")
     print("Fold manifests ready for user review.")
 
 if __name__ == "__main__":
     main()
+

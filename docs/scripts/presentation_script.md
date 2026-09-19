@@ -16,15 +16,15 @@
 
 "Thank you. Traditional physics-based smartphone dead reckoning fails due to cheap sensors. We fix this using a **Temporal Convolutional Network (TCN)**. Our lightweight, 50,000-parameter neural network listens to the phone’s accelerometer and gyroscope at 100 Hertz. It learns the complex patterns of human driving to accurately predict the vehicle's forward velocity, entirely eliminating the rapid drift associated with traditional IMU integration."
 
-### **Speaker 3: Sensor Fusion Specialist (ESKF & Dead Reckoning)**
+### **Speaker 3: Sensor Fusion Specialist (Planar EKF &amp; Dead Reckoning)**
 *(Screen Action: Scroll down to the **GNSS + INS Sensor Fusion (Step 6)** section. Hover your mouse over the **Dynamic Sensor Weight Allocation** bar and the **Confidence Score**.)*
 
-"Knowing our speed is only half the battle; we also need our exact heading and orientation. I handle the **Sensor Fusion** layer. We pass the AI’s speed predictions and the raw IMU data into a 15-state Error-State Kalman Filter, or ESKF. The ESKF acts as the mathematical brain of the system, gracefully blending the data to determine our position while dynamically applying Non-Holonomic Constraints. It also generates a 'Confidence Ring'—giving the user real-time visual feedback on their position uncertainty."
+"Knowing our speed is only half the battle; we also need our exact heading and orientation. I handle the **Sensor Fusion** layer. We pass the AI's speed predictions and the raw IMU data into a six-state planar Extended Kalman Filter. The filter tracks north, east, speed, heading, and IMU biases. Its unicycle kinematic model structurally constrains lateral velocity to zero. It also generates a 'Confidence Ring'—giving the user real-time visual feedback on position uncertainty derived from filter covariance."
 
 ### **Speaker 4: Mapping Engineer (Map Matching & HMM)**
 *(Screen Action: Scroll up slightly to the **Offline Map Matching (Step 5)** section. Toggle the **"Map Matching: ENABLED"** button off and on to show the UI react, or point to the Lateral Deviation chart.)*
 
-"Even with AI and sensor fusion, minor drift is inevitable over long outages. We counter this using **Offline Map Matching** with a Hidden Markov Model and the Viterbi algorithm, snapping our position to OpenStreetMap road networks. By constraining our trajectory to legal road geometries, we actively correct lateral deviation. Importantly, even our classical proxy baseline alone brings drift down to 7.5%—and our full AI model trained on IO-VNBD will push this accuracy even further."
+"Even with AI and sensor fusion, minor drift is inevitable over long outages. We counter this using **Offline Map Matching** with a Hidden Markov Model and the Viterbi algorithm, snapping our position to OpenStreetMap road networks. By constraining our trajectory to legal road geometries, we actively correct lateral deviation. The workbench benchmarks each pipeline component independently—the drift readout you see reflects the selected configuration on this synthetic scenario."
 
 ### **Speaker 5: Systems Engineer (NavIC Integration & Integrity)**
 *(Screen Action: Scroll back up to the top Control Panel. Right as Speaker 5 says "trigger a proactive transition", click the red **"Simulate GNSS Loss"** button! Let the judges see the map banner turn red/orange and the system seamlessly switch to Dead Reckoning mode.)*

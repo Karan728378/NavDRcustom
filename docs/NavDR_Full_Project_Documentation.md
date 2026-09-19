@@ -16,17 +16,17 @@ NavDR is a pure software solution designed to bridge GNSS outages using the smar
 
 **The architecture consists of three core pillars:**
 1. **AI Motion Estimator (TCN):** We use a Temporal Convolutional Network (TCN) with 49,665 parameters. Instead of manually integrating noisy accelerometer data, the TCN looks at a sliding window of 6-axis IMU data (accelerometer + gyroscope) and uses causal dilations to "learn" the vibration patterns of human driving, directly predicting the vehicle's forward velocity in m/s.
-2. **Sensor Fusion (Planar EKF):** We utilize an Error-State Kalman Filter (ESKF). While GPS is available, the filter trusts it. The moment GPS drops, the EKF seamlessly switches to integrating the TCN's velocity predictions and the gyroscope's yaw rate, providing a smooth, continuous trajectory.
+2. **Sensor Fusion (Six-state planar EKF):** We utilize a six-state planar Extended Kalman Filter [north, east, forward speed, heading, acceleration bias, gyro bias]. While GNSS is available, the filter fuses GNSS position, speed, and course observations. During a GNSS outage, the filter propagates using IMU kinematics; the optional TCN speed observation is an additional measurement update. This is a conventional planar EKF, not a 15-state error-state ESKF.
 3. **Map Matching (Road HMM):** To prevent long-term drift, we use a Hidden Markov Model combined with the Viterbi algorithm. This algorithm snaps the dead-reckoned trajectory to the nearest logical road segments provided by OpenStreetMap (OSM) geometry.
 
 ---
 
 ### 3. Detailed Project Progress (Work Completed)
-The project has evolved from a conceptual visual prototype into a rigorous, scientifically validated engineering pipeline.
+The project has evolved from a conceptual visual prototype into a functional engineering workbench. The software pipeline is implemented and tested; field accuracy on real data and a trained model remain pending.
 
 #### A. The Evaluation Workbench (Web Dashboard)
 - **Ablation Testing:** Built a fully interactive browser dashboard that replays physical sensor recordings (`navigation-workbench.js`).
-- **Real-Time Visuals:** Integrated Leaflet.js to plot the dead-reckoned trajectory on a live map alongside the Ground Truth path.
+- **Real-Time Visuals:** Integrated Leaflet.js to plot the dead-reckoned trajectory on a live map alongside the reference trajectory (approx. 3–5 m consumer/vehicle GNSS uncertainty; an empirical reference trajectory, not centimeter-level ground truth).
 - **Metrics:** Implemented side-by-side performance metrics (Mean Absolute Error, drift distance) allowing the team to toggle the EKF, HMM, and TCN on and off dynamically to prove the mathematical value of each component independently.
 
 #### B. The Native Android Implementation
@@ -46,6 +46,6 @@ The project has evolved from a conceptual visual prototype into a rigorous, scie
 ---
 
 ### 4. Current State & Remaining Work
-The entire software infrastructure (Native App, ML Pipeline, Web Dashboard) is **100% complete and tested**. The final remaining task is the **Human Data Review**.
+The software infrastructure (Native App, ML Pipeline, Web Dashboard) is **implemented and passing unit/integration tests**. Critical pending work includes: human review and approval of IO-VNBD pairings and clock alignment, a trained TCN checkpoint, device field validation of the Android app, and real-data drift evidence. No real-data accuracy result exists yet. Furthermore, reference trajectories in IO-VNBD rely on vehicle/consumer GNSS with approximately 3–5 m uncertainty, meaning dead-reckoning evaluations approaching a 5 m threshold are bounded by this reference uncertainty floor rather than perfect ground truth.
 
-Because physical sensor data is messy, a human must manually open the `IO-VNBD` CSV files, define the clock offset between the phone and the vehicle, and write a small "adapter script" to apply gravity-based frame corrections (rotating the phone's axes to align with the vehicle's forward motion). Once that adapter script cleans the data, it will be fed into our completed `split.py` and `train.py` scripts to finalize the AI model.
+Because physical sensor data is messy, a human must manually open the `IO-VNBD` CSV files, verify clock offsets between phone and vehicle, and confirm the mounting orientation. The `FrameAlignment` class requires an explicit vehicle-forward direction vector; gravity alone establishes roll and pitch but cannot determine the yaw between phone and vehicle. Once pairings, clocks, and mounting axes are reviewed and documented in the approved manifest, the `split.py` and `train.py` scripts can run the first real training experiment.

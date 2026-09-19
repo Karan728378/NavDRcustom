@@ -212,6 +212,11 @@
         covariance: this.P.map((r) => r.slice()),
         status: this.status,
         rejected: this.rejected,
+        // Normalized innovation squared (NIS) for the most recent 2D GNSS position
+        // measurement: chi-squared statistic with 2 degrees of freedom.
+        // Values consistently above 9.21034 (the gating threshold) indicate filter
+        // overconfidence or systematic model error. Null between GNSS fixes.
+        positionNIS: this.innovation ?? null,
       };
     }
   }
@@ -349,6 +354,18 @@
       if(this.config.tcn && !frame.gnssAvailable && this.model.anchor!==null &&
          this.model.lastInference===frame.timestampMs && this.model.modelStatus==='SIMULATED_UNTRAINED' && this.filter.origin)
         this.filter.scalar(this.model.estimatedSpeedMps,[0,0,1,0,0,0],25,false,9);
+      // Zero-Velocity Update (ZUPT): when GNSS is unavailable and the vehicle is
+      // stationary, apply a tight zero-speed measurement to constrain forward-speed
+      // state drift. Stationary is declared when bias-corrected forward acceleration
+      // and yaw rate are both very small AND the EKF speed estimate is near zero.
+      // This fires only during a GNSS outage and cannot overwrite an accepted fix.
+      // R=0.001 (m/s)^2 is intentionally tight; it reflects that a truly stationary
+      // vehicle has essentially zero forward velocity.
+      if (!frame.gnssAvailable && this.filter.x && this.filter.origin) {
+        const ekfSpeed = this.filter.x[2];
+        if (Math.abs(imu.forward) < 0.1 && Math.abs(imu.yawRate) < 0.05 && ekfSpeed < 0.5)
+          this.filter.scalar(0, [0,0,1,0,0,0], 0.001);
+      }
       const fs = this.filter.state();
       // Only gated fixes anchor the demo model, including in the TCN-only ablation.
       if(g && (fs?.status==='GNSS ACCEPTED'||fs?.status==='GNSS INITIALIZED'))this.model.acceptGNSS(g);

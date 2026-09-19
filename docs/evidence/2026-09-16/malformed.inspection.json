@@ -1,7 +1,7 @@
 {
   "schema": "navdr.inspection.v1",
-  "source": "docs/evidence/2026-09-16/fixtures/malformed.jsonl",
-  "sha256": "22e6245858e66099a25e914d352cee2a6c3543228612072185d8cba5cd34660b",
+  "source": "docs\\evidence\\2026-09-16\\fixtures\\malformed.jsonl",
+  "sha256": "3ac6d69d27401a5fa58e463a4b3e641cbc94983c467a7faab052cc25d06d01f5",
   "status": "malformed",
   "completion": {
     "footerPresent": true,
